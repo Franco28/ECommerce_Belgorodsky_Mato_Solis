@@ -25,21 +25,21 @@ public class EnvioMenu {
 
         do {
             imprimirMenu();
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
 
     private void imprimirMenu() {
-        ConsolaUtils.imprimirTitulo("GESTIÓN DE ENVÍOS");
-        System.out.println("1. Crear envío manual");
-        System.out.println("2. Buscar envío por código de seguimiento");
-        System.out.println("3. Listar envíos");
-        System.out.println("4. Listar envíos por estado");
-        System.out.println("5. Actualizar estado de envío");
-        System.out.println("6. Consultar historial de envío");
+        ConsolaUtils.imprimirTitulo("GESTION DE ENVIOS");
+        System.out.println("1. Crear envio manual");
+        System.out.println("2. Buscar envio por codigo de seguimiento");
+        System.out.println("3. Listar envios");
+        System.out.println("4. Listar envios por estado");
+        System.out.println("5. Actualizar estado de envio");
+        System.out.println("6. Consultar historial de envio");
         System.out.println("7. Consultar fecha estimada de entrega");
-        System.out.println("8. Eliminar envío");
+        System.out.println("8. Eliminar envio");
         System.out.println("0. Volver");
     }
 
@@ -55,7 +55,7 @@ public class EnvioMenu {
                 case 7 -> consultarFechaEstimada();
                 case 8 -> eliminarEnvio();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -67,64 +67,64 @@ public class EnvioMenu {
     }
 
     private void crearEnvio() {
-        ConsolaUtils.imprimirTitulo("CREAR ENVÍO");
+        ConsolaUtils.imprimirTitulo("CREAR ENVIO");
         TipoEnvio tipoEnvio = tipoEnvioSelector.seleccionarTipoEnvio();
-        String direccion = entrada.leerTexto("Dirección: ");
+        String direccion = entrada.leerTexto("Direccion: ");
         String provincia = entrada.leerTexto("Provincia: ");
         String ciudad = entrada.leerTexto("Ciudad: ");
-        String codigoPostal = entrada.leerTexto("Código postal: ");
+        String codigoPostal = entrada.leerTexto("Codigo postal: ");
 
         Envio envio = envioService.crearEnvio(direccion, provincia, ciudad, codigoPostal, tipoEnvio);
-        System.out.println("Envío creado correctamente.");
+        System.out.println("Envio creado correctamente.");
         ConsolaUtils.imprimirEnvio(envio);
     }
 
     private void buscarEnvio() {
-        ConsolaUtils.imprimirTitulo("BUSCAR ENVÍO");
-        String codigo = entrada.leerTexto("Código de seguimiento: ");
+        ConsolaUtils.imprimirTitulo("BUSCAR ENVIO");
+        String codigo = entrada.leerTexto("Codigo de seguimiento: ");
         ConsolaUtils.imprimirEnvio(envioService.buscarPorCodigoSeguimiento(codigo));
     }
 
     private void listarEnvios() {
-        ConsolaUtils.imprimirTitulo("LISTADO DE ENVÍOS");
+        ConsolaUtils.imprimirTitulo("LISTADO DE ENVIOS");
         ConsolaUtils.imprimirEnvios(envioService.listarEnvios());
     }
 
     private void listarEnviosPorEstado() {
-        ConsolaUtils.imprimirTitulo("ENVÍOS POR ESTADO");
+        ConsolaUtils.imprimirTitulo("ENVIOS POR ESTADO");
         EstadoEnvio estado = estadoEnvioSelector.seleccionarEstadoEnvio();
         ConsolaUtils.imprimirEnvios(envioService.listarPorEstado(estado));
     }
 
     private void actualizarEstado() {
-        ConsolaUtils.imprimirTitulo("ACTUALIZAR ESTADO DE ENVÍO");
-        String codigo = entrada.leerTexto("Código de seguimiento: ");
+        ConsolaUtils.imprimirTitulo("ACTUALIZAR ESTADO DE ENVIO");
+        String codigo = entrada.leerTexto("Codigo de seguimiento: ");
         EstadoEnvio estado = estadoEnvioSelector.seleccionarEstadoEnvio();
         envioService.actualizarEstado(codigo, estado);
         System.out.println("Estado actualizado correctamente.");
     }
 
     private void consultarHistorial() {
-        ConsolaUtils.imprimirTitulo("HISTORIAL DE ENVÍO");
-        String codigo = entrada.leerTexto("Código de seguimiento: ");
+        ConsolaUtils.imprimirTitulo("HISTORIAL DE ENVIO");
+        String codigo = entrada.leerTexto("Codigo de seguimiento: ");
         ConsolaUtils.imprimirHistorialEnvio(envioService.consultarHistorial(codigo));
     }
 
     private void consultarFechaEstimada() {
         ConsolaUtils.imprimirTitulo("FECHA ESTIMADA DE ENTREGA");
-        String codigo = entrada.leerTexto("Código de seguimiento: ");
+        String codigo = entrada.leerTexto("Codigo de seguimiento: ");
         System.out.println("Fecha estimada: " + envioService.calcularFechaEstimada(codigo));
     }
 
     private void eliminarEnvio() {
-        ConsolaUtils.imprimirTitulo("ELIMINAR ENVÍO");
-        String codigo = entrada.leerTexto("Código de seguimiento: ");
+        ConsolaUtils.imprimirTitulo("ELIMINAR ENVIO");
+        String codigo = entrada.leerTexto("Codigo de seguimiento: ");
 
-        if (entrada.confirmar("El envío será eliminado.")) {
+        if (entrada.confirmar("El envio sera eliminado.")) {
             envioService.eliminarEnvio(codigo);
-            System.out.println("Envío eliminado correctamente.");
+            System.out.println("Envio eliminado correctamente.");
         } else {
-            System.out.println("Operación cancelada.");
+            System.out.println("Operacion cancelada.");
         }
     }
 }

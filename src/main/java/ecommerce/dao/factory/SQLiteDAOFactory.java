@@ -1,6 +1,7 @@
 package ecommerce.dao.factory;
 
 import ecommerce.dao.interfaces.CalificacionDAO;
+import ecommerce.dao.interfaces.CarritoDAO;
 import ecommerce.dao.interfaces.CategoriaDAO;
 import ecommerce.dao.interfaces.DevolucionDAO;
 import ecommerce.dao.interfaces.EnvioDAO;
@@ -11,6 +12,7 @@ import ecommerce.dao.interfaces.ProductoDAO;
 import ecommerce.dao.interfaces.ReclamoDAO;
 import ecommerce.dao.interfaces.UsuarioDAO;
 import ecommerce.dao.sqlite.SQLiteCalificacionDAO;
+import ecommerce.dao.sqlite.SQLiteCarritoDAO;
 import ecommerce.dao.sqlite.SQLiteCategoriaDAO;
 import ecommerce.dao.sqlite.SQLiteDevolucionDAO;
 import ecommerce.dao.sqlite.SQLiteEnvioDAO;
@@ -31,6 +33,11 @@ public class SQLiteDAOFactory extends DAOFactory {
     @Override
     public CategoriaDAO crearCategoriaDAO() {
         return new SQLiteCategoriaDAO();
+    }
+
+    @Override
+    public CarritoDAO crearCarritoDAO() {
+        return new SQLiteCarritoDAO();
     }
 
     @Override

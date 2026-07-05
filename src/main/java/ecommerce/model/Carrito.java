@@ -20,6 +20,10 @@ public class Carrito implements Calculable {
     private LocalDateTime fechaCreacion;
 
     public Carrito(int id, Usuario cliente) {
+        this(id, cliente, LocalDateTime.now());
+    }
+
+    public Carrito(int id, Usuario cliente, LocalDateTime fechaCreacion) {
         setId(id);
         this.cliente = ValidadorDominio.validarObjetoObligatorio(cliente,
                 "El cliente es obligatorio.");
@@ -28,7 +32,8 @@ public class Carrito implements Calculable {
                     "El carrito solo puede pertenecer a un usuario cliente.");
         }
         this.items = new ArrayList<>();
-        this.fechaCreacion = LocalDateTime.now();
+        this.fechaCreacion = ValidadorDominio.validarObjetoObligatorio(fechaCreacion,
+                "La fecha de creacion del carrito es obligatoria.");
     }
 
     public void agregarProducto(Producto producto, int cantidad) {
@@ -53,13 +58,13 @@ public class Carrito implements Calculable {
 
     public void eliminarProducto(String codigoProducto) {
         ValidadorDominio.validarTextoObligatorio(codigoProducto,
-                "El código del producto es obligatorio.");
+                "El codigo del producto es obligatorio.");
         items.removeIf(item -> item.getProducto().getCodigo().equalsIgnoreCase(codigoProducto.trim()));
     }
 
     public void modificarCantidad(String codigoProducto, int nuevaCantidad) {
         ValidadorDominio.validarTextoObligatorio(codigoProducto,
-                "El código del producto es obligatorio.");
+                "El codigo del producto es obligatorio.");
         ValidadorDominio.validarEnteroMayorACero(nuevaCantidad,
                 "La cantidad debe ser mayor a cero.");
 
@@ -77,6 +82,13 @@ public class Carrito implements Calculable {
         throw new ProductoNoDisponibleException("El producto indicado no existe en el carrito.");
     }
 
+    public void agregarItemPersistido(Producto producto, int cantidad, double precioUnitario) {
+        ValidadorDominio.validarObjetoObligatorio(producto, "El producto es obligatorio.");
+        ValidadorDominio.validarEnteroMayorACero(cantidad, "La cantidad debe ser mayor a cero.");
+        ValidadorDominio.validarDecimalMayorACero(precioUnitario, "El precio unitario debe ser mayor a cero.");
+        items.add(new ItemCarrito(producto, cantidad, precioUnitario));
+    }
+
     public void vaciar() {
         items.clear();
     }
@@ -87,7 +99,7 @@ public class Carrito implements Calculable {
 
     public void validarNoVacio() {
         if (estaVacio()) {
-            throw new CarritoVacioException("El carrito está vacío.");
+            throw new CarritoVacioException("El carrito esta vacio.");
         }
     }
 

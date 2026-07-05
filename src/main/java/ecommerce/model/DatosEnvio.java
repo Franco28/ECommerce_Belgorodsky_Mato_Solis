@@ -13,17 +13,17 @@ public class DatosEnvio {
 
     public DatosEnvio(String direccion, String provincia, String ciudad,
             String codigoPostal, TipoEnvio tipoEnvio) {
-        ValidadorDominio.validarTextoObligatorio(direccion, "La dirección es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(direccion, "La direccion es obligatoria.");
         ValidadorDominio.validarTextoObligatorio(provincia, "La provincia es obligatoria.");
         ValidadorDominio.validarTextoObligatorio(ciudad, "La ciudad es obligatoria.");
-        ValidadorDominio.validarTextoObligatorio(codigoPostal, "El código postal es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(codigoPostal, "El codigo postal es obligatorio.");
 
         this.direccion = direccion.trim();
         this.provincia = provincia.trim();
         this.ciudad = ciudad.trim();
         this.codigoPostal = codigoPostal.trim();
         this.tipoEnvio = ValidadorDominio.validarObjetoObligatorio(tipoEnvio,
-                "El tipo de envío es obligatorio.");
+                "El tipo de envio es obligatorio.");
     }
 
     public String getDireccion() {

@@ -12,7 +12,7 @@ public class MetodoPagoSelector {
 
     public MetodoPago seleccionarMetodoPago() {
         imprimirMetodos();
-        int opcion = entrada.leerOpcion("Seleccione método de pago: ", 1, MetodoPago.values().length);
+        int opcion = entrada.leerOpcion("Seleccione metodo de pago: ", 1, MetodoPago.values().length);
         return MetodoPago.values()[opcion - 1];
     }
 

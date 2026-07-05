@@ -107,7 +107,7 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setCodigo(String codigo) {
-        ValidadorDominio.validarTextoObligatorio(codigo, "El código del producto es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(codigo, "El codigo del producto es obligatorio.");
         this.codigo = codigo.trim().toUpperCase();
     }
 
@@ -126,7 +126,7 @@ public abstract class Producto implements Mostrable, Descontable {
 
     public void setDescripcion(String descripcion) {
         ValidadorDominio.validarTextoObligatorio(descripcion,
-                "La descripción del producto es obligatoria.");
+                "La descripcion del producto es obligatoria.");
         this.descripcion = descripcion.trim();
     }
 
@@ -145,7 +145,7 @@ public abstract class Producto implements Mostrable, Descontable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = ValidadorDominio.validarObjetoObligatorio(categoria,
-                "La categoría es obligatoria.");
+                "La categoria es obligatoria.");
     }
 
     public int getStock() {

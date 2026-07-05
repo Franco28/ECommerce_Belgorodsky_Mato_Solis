@@ -19,7 +19,7 @@ public class EntradaConsola {
                 return valor;
             }
 
-            System.out.println("El valor ingresado no puede estar vacío.");
+            System.out.println("El valor ingresado no puede estar vacio.");
         }
     }
 
@@ -37,7 +37,7 @@ public class EntradaConsola {
             try {
                 return Integer.parseInt(valor);
             } catch (NumberFormatException ex) {
-                System.out.println("Debe ingresar un número entero válido.");
+                System.out.println("Debe ingresar un numero entero valido.");
             }
         }
     }
@@ -54,7 +54,7 @@ public class EntradaConsola {
             try {
                 return Integer.parseInt(valor);
             } catch (NumberFormatException ex) {
-                System.out.println("Debe ingresar un número entero válido.");
+                System.out.println("Debe ingresar un numero entero valido.");
             }
         }
     }
@@ -67,7 +67,7 @@ public class EntradaConsola {
             try {
                 return Double.parseDouble(valor);
             } catch (NumberFormatException ex) {
-                System.out.println("Debe ingresar un número decimal válido.");
+                System.out.println("Debe ingresar un numero decimal valido.");
             }
         }
     }
@@ -84,7 +84,7 @@ public class EntradaConsola {
             try {
                 return Double.parseDouble(valor);
             } catch (NumberFormatException ex) {
-                System.out.println("Debe ingresar un número decimal válido.");
+                System.out.println("Debe ingresar un numero decimal valido.");
             }
         }
     }
@@ -97,7 +97,7 @@ public class EntradaConsola {
                 return opcion;
             }
 
-            System.out.println("La opción ingresada no existe.");
+            System.out.println("La opcion ingresada no existe.");
         }
     }
 

@@ -38,7 +38,7 @@ public class SQLiteEnvioDAO extends SQLiteBaseDAO implements EnvioDAO {
 
             statement.executeUpdate();
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo guardar el envío.", ex);
+            throw new DatabaseException("No se pudo guardar el envio.", ex);
         }
     }
 
@@ -53,9 +53,9 @@ public class SQLiteEnvioDAO extends SQLiteBaseDAO implements EnvioDAO {
             if (resultSet.next()) {
                 return mapearEnvio(resultSet);
             }
-            throw new EnvioNoEncontradoException("No se encontró un envío con código " + codigoSeguimiento + ".");
+            throw new EnvioNoEncontradoException("No se encontro un envio con codigo " + codigoSeguimiento + ".");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo buscar el envío.", ex);
+            throw new DatabaseException("No se pudo buscar el envio.", ex);
         }
     }
 
@@ -79,7 +79,7 @@ public class SQLiteEnvioDAO extends SQLiteBaseDAO implements EnvioDAO {
             }
             return envios;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudieron obtener los envíos por estado.", ex);
+            throw new DatabaseException("No se pudieron obtener los envios por estado.", ex);
         }
     }
 
@@ -104,10 +104,10 @@ public class SQLiteEnvioDAO extends SQLiteBaseDAO implements EnvioDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new EnvioNoEncontradoException("No se encontró el envío a actualizar.");
+                throw new EnvioNoEncontradoException("No se encontro el envio a actualizar.");
             }
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo actualizar el envío.", ex);
+            throw new DatabaseException("No se pudo actualizar el envio.", ex);
         }
     }
 
@@ -128,13 +128,13 @@ public class SQLiteEnvioDAO extends SQLiteBaseDAO implements EnvioDAO {
                 int filas = envioStatement.executeUpdate();
                 if (filas == 0) {
                     connection.rollback();
-                    throw new EnvioNoEncontradoException("No se encontró el envío a eliminar.");
+                    throw new EnvioNoEncontradoException("No se encontro el envio a eliminar.");
                 }
             }
 
             connection.commit();
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo eliminar el envío.", ex);
+            throw new DatabaseException("No se pudo eliminar el envio.", ex);
         }
     }
 
@@ -154,7 +154,7 @@ public class SQLiteEnvioDAO extends SQLiteBaseDAO implements EnvioDAO {
 
             statement.executeUpdate();
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo registrar el historial del envío.", ex);
+            throw new DatabaseException("No se pudo registrar el historial del envio.", ex);
         }
     }
 
@@ -179,7 +179,7 @@ public class SQLiteEnvioDAO extends SQLiteBaseDAO implements EnvioDAO {
             }
             return historial;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo obtener el historial del envío.", ex);
+            throw new DatabaseException("No se pudo obtener el historial del envio.", ex);
         }
     }
 
@@ -195,7 +195,7 @@ public class SQLiteEnvioDAO extends SQLiteBaseDAO implements EnvioDAO {
             }
             return envios;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudieron obtener los envíos.", ex);
+            throw new DatabaseException("No se pudieron obtener los envios.", ex);
         }
     }
 

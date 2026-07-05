@@ -20,7 +20,7 @@ public class ReporteMenu {
 
         do {
             imprimirMenu();
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -30,18 +30,18 @@ public class ReporteMenu {
         System.out.println("1. Cantidad total de usuarios");
         System.out.println("2. Cantidad de clientes");
         System.out.println("3. Cantidad de productos");
-        System.out.println("4. Productos por categoría");
+        System.out.println("4. Productos por categoria");
         System.out.println("5. Productos sin stock");
-        System.out.println("6. Productos más vendidos");
-        System.out.println("7. Órdenes generadas");
-        System.out.println("8. Órdenes por estado");
-        System.out.println("9. Recaudación total");
-        System.out.println("10. Recaudación por método de pago");
-        System.out.println("11. Clientes con más compras");
+        System.out.println("6. Productos mas vendidos");
+        System.out.println("7. Ordenes generadas");
+        System.out.println("8. Ordenes por estado");
+        System.out.println("9. Recaudacion total");
+        System.out.println("10. Recaudacion por metodo de pago");
+        System.out.println("11. Clientes con mas compras");
         System.out.println("12. Reclamos abiertos");
         System.out.println("13. Reclamos resueltos");
-        System.out.println("14. Envíos pendientes");
-        System.out.println("15. Envíos entregados");
+        System.out.println("14. Envios pendientes");
+        System.out.println("15. Envios entregados");
         System.out.println("16. Resumen general");
         System.out.println("0. Volver");
     }
@@ -64,8 +64,8 @@ public class ReporteMenu {
             case 14 -> imprimirEnviosPendientes();
             case 15 -> imprimirEnviosEntregados();
             case 16 -> imprimirResumenGeneral();
-            case 0 -> System.out.println("Volviendo al menú principal.");
-            default -> System.out.println("Opción incorrecta.");
+            case 0 -> System.out.println("Volviendo al menu principal.");
+            default -> System.out.println("Opcion incorrecta.");
         }
     }
 
@@ -88,8 +88,8 @@ public class ReporteMenu {
     }
 
     private void imprimirProductosPorCategoria() {
-        ConsolaUtils.imprimirTitulo("PRODUCTOS POR CATEGORÍA");
-        imprimirMapa("Categoría", "Cantidad", reporteService.productosPorCategoria());
+        ConsolaUtils.imprimirTitulo("PRODUCTOS POR CATEGORIA");
+        imprimirMapa("Categoria", "Cantidad", reporteService.productosPorCategoria());
         entrada.pausar();
     }
 
@@ -100,37 +100,37 @@ public class ReporteMenu {
     }
 
     private void imprimirProductosMasVendidos() {
-        ConsolaUtils.imprimirTitulo("PRODUCTOS MÁS VENDIDOS");
-        imprimirMapa("Código de producto", "Unidades vendidas", reporteService.productosMasVendidos());
+        ConsolaUtils.imprimirTitulo("PRODUCTOS MAS VENDIDOS");
+        imprimirMapa("Codigo de producto", "Unidades vendidas", reporteService.productosMasVendidos());
         entrada.pausar();
     }
 
     private void imprimirOrdenesGeneradas() {
-        ConsolaUtils.imprimirTitulo("ÓRDENES GENERADAS");
-        System.out.println("Total de órdenes: " + reporteService.ordenesGeneradas());
+        ConsolaUtils.imprimirTitulo("ORDENES GENERADAS");
+        System.out.println("Total de ordenes: " + reporteService.ordenesGeneradas());
         entrada.pausar();
     }
 
     private void imprimirOrdenesPorEstado() {
-        ConsolaUtils.imprimirTitulo("ÓRDENES POR ESTADO");
+        ConsolaUtils.imprimirTitulo("ORDENES POR ESTADO");
         imprimirMapa("Estado", "Cantidad", reporteService.ordenesPorEstado());
         entrada.pausar();
     }
 
     private void imprimirRecaudacionTotal() {
-        ConsolaUtils.imprimirTitulo("RECAUDACIÓN TOTAL");
+        ConsolaUtils.imprimirTitulo("RECAUDACION TOTAL");
         System.out.printf("Total recaudado: %.2f%n", reporteService.recaudacionTotal());
         entrada.pausar();
     }
 
     private void imprimirRecaudacionPorMetodoPago() {
-        ConsolaUtils.imprimirTitulo("RECAUDACIÓN POR MÉTODO DE PAGO");
-        imprimirMapaDecimal("Método de pago", "Recaudación", reporteService.recaudacionPorMetodoPago());
+        ConsolaUtils.imprimirTitulo("RECAUDACION POR METODO DE PAGO");
+        imprimirMapaDecimal("Metodo de pago", "Recaudacion", reporteService.recaudacionPorMetodoPago());
         entrada.pausar();
     }
 
     private void imprimirClientesConMasCompras() {
-        ConsolaUtils.imprimirTitulo("CLIENTES CON MÁS COMPRAS");
+        ConsolaUtils.imprimirTitulo("CLIENTES CON MAS COMPRAS");
         imprimirMapa("Cliente", "Compras", reporteService.clientesConMasCompras());
         entrada.pausar();
     }
@@ -148,13 +148,13 @@ public class ReporteMenu {
     }
 
     private void imprimirEnviosPendientes() {
-        ConsolaUtils.imprimirTitulo("ENVÍOS PENDIENTES");
+        ConsolaUtils.imprimirTitulo("ENVIOS PENDIENTES");
         ConsolaUtils.imprimirEnvios(reporteService.enviosPendientes());
         entrada.pausar();
     }
 
     private void imprimirEnviosEntregados() {
-        ConsolaUtils.imprimirTitulo("ENVÍOS ENTREGADOS");
+        ConsolaUtils.imprimirTitulo("ENVIOS ENTREGADOS");
         ConsolaUtils.imprimirEnvios(reporteService.enviosEntregados());
         entrada.pausar();
     }
@@ -164,12 +164,12 @@ public class ReporteMenu {
         System.out.println("Usuarios registrados: " + reporteService.cantidadTotalUsuarios());
         System.out.println("Clientes registrados: " + reporteService.cantidadClientes());
         System.out.println("Productos registrados: " + reporteService.cantidadProductos());
-        System.out.println("Órdenes generadas: " + reporteService.ordenesGeneradas());
-        System.out.printf("Recaudación total: %.2f%n", reporteService.recaudacionTotal());
+        System.out.println("Ordenes generadas: " + reporteService.ordenesGeneradas());
+        System.out.printf("Recaudacion total: %.2f%n", reporteService.recaudacionTotal());
         System.out.println("Reclamos abiertos: " + reporteService.reclamosAbiertos().size());
         System.out.println("Reclamos resueltos: " + reporteService.reclamosResueltos().size());
-        System.out.println("Envíos pendientes: " + reporteService.enviosPendientes().size());
-        System.out.println("Envíos entregados: " + reporteService.enviosEntregados().size());
+        System.out.println("Envios pendientes: " + reporteService.enviosPendientes().size());
+        System.out.println("Envios entregados: " + reporteService.enviosEntregados().size());
         imprimirResumenProductosSinStock();
         imprimirResumenProductosMasVendidos();
         entrada.pausar();
@@ -185,7 +185,7 @@ public class ReporteMenu {
 
     private void imprimirResumenProductosMasVendidos() {
         System.out.println();
-        System.out.println("Productos más vendidos:");
+        System.out.println("Productos mas vendidos:");
         Map<String, Integer> productosMasVendidos = reporteService.productosMasVendidos();
         if (productosMasVendidos.isEmpty()) {
             System.out.println("No hay ventas registradas.");

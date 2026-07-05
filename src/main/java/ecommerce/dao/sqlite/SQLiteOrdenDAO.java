@@ -95,9 +95,9 @@ public class SQLiteOrdenDAO extends SQLiteBaseDAO implements OrdenDAO {
             if (resultSet.next()) {
                 return mapearOrden(resultSet);
             }
-            throw new OrdenNoEncontradaException("No se encontró una orden con número " + numero + ".");
+            throw new OrdenNoEncontradaException("No se encontro una orden con numero " + numero + ".");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo buscar la orden por número.", ex);
+            throw new DatabaseException("No se pudo buscar la orden por numero.", ex);
         }
     }
 
@@ -120,7 +120,7 @@ public class SQLiteOrdenDAO extends SQLiteBaseDAO implements OrdenDAO {
             }
             return ordenes;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudieron obtener las órdenes por cliente.", ex);
+            throw new DatabaseException("No se pudieron obtener las ordenes por cliente.", ex);
         }
     }
 
@@ -138,7 +138,7 @@ public class SQLiteOrdenDAO extends SQLiteBaseDAO implements OrdenDAO {
             }
             return ordenes;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudieron obtener las órdenes por estado.", ex);
+            throw new DatabaseException("No se pudieron obtener las ordenes por estado.", ex);
         }
     }
 
@@ -151,7 +151,7 @@ public class SQLiteOrdenDAO extends SQLiteBaseDAO implements OrdenDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new OrdenNoEncontradaException("No se encontró la orden a actualizar.");
+                throw new OrdenNoEncontradaException("No se encontro la orden a actualizar.");
             }
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo actualizar el estado de la orden.", ex);
@@ -174,7 +174,7 @@ public class SQLiteOrdenDAO extends SQLiteBaseDAO implements OrdenDAO {
             try (PreparedStatement ordenStatement = preparar(connection, sqlOrden, numeroNormalizado)) {
                 int filas = ordenStatement.executeUpdate();
                 if (filas == 0) {
-                    throw new OrdenNoEncontradaException("No se encontró la orden a eliminar.");
+                    throw new OrdenNoEncontradaException("No se encontro la orden a eliminar.");
                 }
             }
 
@@ -196,7 +196,7 @@ public class SQLiteOrdenDAO extends SQLiteBaseDAO implements OrdenDAO {
             }
             return ordenes;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudieron obtener las órdenes.", ex);
+            throw new DatabaseException("No se pudieron obtener las ordenes.", ex);
         }
     }
 
@@ -226,7 +226,7 @@ public class SQLiteOrdenDAO extends SQLiteBaseDAO implements OrdenDAO {
                 Envio envio = envioDAO.buscarPorCodigoSeguimiento(envioCodigo);
                 orden.asociarEnvio(envio);
             } catch (EnvioNoEncontradoException ex) {
-                throw new DatabaseException("La orden referencia un envío inexistente.", ex);
+                throw new DatabaseException("La orden referencia un envio inexistente.", ex);
             }
         }
 

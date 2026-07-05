@@ -12,8 +12,8 @@ import ecommerce.util.ValidadorDominio;
 import java.util.List;
 
 /**
- * Servicio de productos. Verifica duplicados, categoría válida y reglas
- * mínimas antes de persistir.
+ * Servicio de productos. Verifica duplicados, categoria valida y reglas
+ * minimas antes de persistir.
  */
 public class ProductoService {
 
@@ -24,7 +24,7 @@ public class ProductoService {
         this.productoDAO = ValidadorDominio.validarObjetoObligatorio(productoDAO,
                 "El DAO de productos es obligatorio.");
         this.categoriaDAO = ValidadorDominio.validarObjetoObligatorio(categoriaDAO,
-                "El DAO de categorías es obligatorio.");
+                "El DAO de categorias es obligatorio.");
     }
 
     public Producto registrarProducto(Producto producto) {
@@ -50,7 +50,7 @@ public class ProductoService {
     }
 
     public Producto buscarPorCodigo(String codigo) {
-        ValidadorDominio.validarTextoObligatorio(codigo, "El código del producto es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(codigo, "El codigo del producto es obligatorio.");
         return productoDAO.buscarPorCodigo(codigo);
     }
 
@@ -60,7 +60,7 @@ public class ProductoService {
 
     public List<Producto> listarPorCategoria(int categoriaId) {
         ValidadorDominio.validarEnteroMayorACero(categoriaId,
-                "El ID de la categoría debe ser mayor a cero.");
+                "El ID de la categoria debe ser mayor a cero.");
         return productoDAO.obtenerPorCategoria(categoriaId);
     }
 
@@ -92,26 +92,26 @@ public class ProductoService {
     }
 
     private void validarCodigoDisponible(String codigo) {
-        ValidadorDominio.validarTextoObligatorio(codigo, "El código del producto es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(codigo, "El codigo del producto es obligatorio.");
         if (productoDAO.buscarOpcionalPorCodigo(codigo).isPresent()) {
-            throw new ProductoDuplicadoException("Ya existe un producto con el código indicado.");
+            throw new ProductoDuplicadoException("Ya existe un producto con el codigo indicado.");
         }
     }
 
     private void validarCodigoDisponibleParaOtroProducto(String codigo, int productoId) {
-        ValidadorDominio.validarTextoObligatorio(codigo, "El código del producto es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(codigo, "El codigo del producto es obligatorio.");
         productoDAO.buscarOpcionalPorCodigo(codigo)
                 .filter(productoExistente -> productoExistente.getId() != productoId)
                 .ifPresent(productoExistente -> {
-                    throw new ProductoDuplicadoException("Ya existe otro producto con el código indicado.");
+                    throw new ProductoDuplicadoException("Ya existe otro producto con el codigo indicado.");
                 });
     }
 
     private void validarCategoriaExistenteYActiva(Categoria categoria) {
-        ValidadorDominio.validarObjetoObligatorio(categoria, "La categoría es obligatoria.");
+        ValidadorDominio.validarObjetoObligatorio(categoria, "La categoria es obligatoria.");
         Categoria categoriaPersistida = categoriaDAO.buscarPorId(categoria.getId());
         if (!categoriaPersistida.estaActiva()) {
-            throw new DatosInvalidosException("No se pueden asociar productos a una categoría inactiva.");
+            throw new DatosInvalidosException("No se pueden asociar productos a una categoria inactiva.");
         }
     }
 
@@ -120,7 +120,7 @@ public class ProductoService {
             throw new DatosInvalidosException("Un producto activo debe tener stock disponible.");
         }
         if (producto.getEstado() == EstadoProducto.SIN_STOCK && producto.getStock() > 0) {
-            throw new DatosInvalidosException("Un producto con stock disponible no debería quedar marcado como SIN_STOCK.");
+            throw new DatosInvalidosException("Un producto con stock disponible no deberia quedar marcado como SIN_STOCK.");
         }
     }
 }

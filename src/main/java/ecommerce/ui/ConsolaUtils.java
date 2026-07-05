@@ -67,11 +67,11 @@ public final class ConsolaUtils {
 
     public static void imprimirCategorias(List<Categoria> categorias) {
         if (categorias.isEmpty()) {
-            System.out.println("No hay categorías registradas.");
+            System.out.println("No hay categorias registradas.");
             return;
         }
 
-        System.out.printf("%-5s %-24s %-45s %-12s%n", "ID", "Nombre", "Descripción", "Estado");
+        System.out.printf("%-5s %-24s %-45s %-12s%n", "ID", "Nombre", "Descripcion", "Estado");
         System.out.println("--------------------------------------------------------------------------------------------");
 
         for (Categoria categoria : categorias) {
@@ -82,7 +82,7 @@ public final class ConsolaUtils {
     public static void imprimirCategoria(Categoria categoria) {
         System.out.println("ID: " + categoria.getId());
         System.out.println("Nombre: " + categoria.getNombre());
-        System.out.println("Descripción: " + categoria.getDescripcion());
+        System.out.println("Descripcion: " + categoria.getDescripcion());
         System.out.println("Estado: " + categoria.getEstado());
     }
 
@@ -101,7 +101,7 @@ public final class ConsolaUtils {
         }
 
         System.out.printf("%-5s %-14s %-25s %-13s %-22s %-10s %-12s %-12s%n",
-                "ID", "Código", "Nombre", "Tipo", "Categoría", "Stock", "Precio", "Estado");
+                "ID", "Codigo", "Nombre", "Tipo", "Categoria", "Stock", "Precio", "Estado");
         System.out.println("----------------------------------------------------------------------------------------------------------------");
 
         for (Producto producto : productos) {
@@ -111,11 +111,11 @@ public final class ConsolaUtils {
 
     public static void imprimirProducto(Producto producto) {
         System.out.println("ID: " + producto.getId());
-        System.out.println("Código: " + producto.getCodigo());
+        System.out.println("Codigo: " + producto.getCodigo());
         System.out.println("Nombre: " + producto.getNombre());
-        System.out.println("Descripción: " + producto.getDescripcion());
+        System.out.println("Descripcion: " + producto.getDescripcion());
         System.out.println("Tipo: " + obtenerTipoProducto(producto));
-        System.out.println("Categoría: " + producto.getCategoria().getNombre() + " (ID " + producto.getCategoria().getId() + ")");
+        System.out.println("Categoria: " + producto.getCategoria().getNombre() + " (ID " + producto.getCategoria().getId() + ")");
         System.out.printf("Precio base: %.2f%n", producto.getPrecio());
         System.out.printf("Precio final: %.2f%n", producto.calcularPrecioFinal());
         System.out.println("Stock: " + producto.getStock());
@@ -125,7 +125,7 @@ public final class ConsolaUtils {
         if (producto instanceof ProductoDigital productoDigital) {
             System.out.println("URL de descarga: " + productoDigital.getUrlDescarga());
         } else if (producto instanceof ProductoImportado productoImportado) {
-            System.out.println("Impuesto de importación: " + productoImportado.getPorcentajeImpuestoImportacion() + "%");
+            System.out.println("Impuesto de importacion: " + productoImportado.getPorcentajeImpuestoImportacion() + "%");
         }
     }
 
@@ -145,15 +145,15 @@ public final class ConsolaUtils {
     public static void imprimirCarrito(Carrito carrito) {
         System.out.println("Cliente: " + carrito.getCliente().getNombre() + " "
                 + carrito.getCliente().getApellido() + " - " + carrito.getCliente().getEmail());
-        System.out.println("Fecha de creación: " + carrito.getFechaCreacion());
+        System.out.println("Fecha de creacion: " + carrito.getFechaCreacion());
 
         if (carrito.estaVacio()) {
-            System.out.println("El carrito está vacío.");
+            System.out.println("El carrito esta vacio.");
             return;
         }
 
         System.out.printf("%-14s %-28s %-10s %-15s %-15s%n",
-                "Código", "Producto", "Cantidad", "Precio unit.", "Subtotal");
+                "Codigo", "Producto", "Cantidad", "Precio unit.", "Subtotal");
         System.out.println("--------------------------------------------------------------------------------------");
 
         for (ItemCarrito item : carrito.getItems()) {
@@ -218,7 +218,7 @@ public final class ConsolaUtils {
         }
 
         System.out.printf("%-5s %-28s %-12s %-14s %-18s%n",
-                "ID", "Método", "Monto", "Estado", "Fecha");
+                "ID", "Metodo", "Monto", "Estado", "Fecha");
         System.out.println("--------------------------------------------------------------------------------");
 
         for (Pago pago : pagos) {
@@ -228,7 +228,7 @@ public final class ConsolaUtils {
 
     public static void imprimirPago(Pago pago) {
         System.out.println("ID: " + pago.getId());
-        System.out.println("Método de pago: " + pago.getMetodoPago());
+        System.out.println("Metodo de pago: " + pago.getMetodoPago());
         System.out.printf("Monto: %.2f%n", pago.getMonto());
         System.out.println("Estado: " + pago.getEstado());
         System.out.println("Fecha: " + pago.getFecha());
@@ -246,12 +246,12 @@ public final class ConsolaUtils {
 
     public static void imprimirOrdenes(List<OrdenCompra> ordenes) {
         if (ordenes.isEmpty()) {
-            System.out.println("No hay órdenes registradas.");
+            System.out.println("No hay ordenes registradas.");
             return;
         }
 
         System.out.printf("%-25s %-28s %-14s %-15s %-18s %-18s%n",
-                "Número", "Cliente", "Total", "Estado", "Pago", "Fecha");
+                "Numero", "Cliente", "Total", "Estado", "Pago", "Fecha");
         System.out.println("----------------------------------------------------------------------------------------------------------------");
 
         for (OrdenCompra orden : ordenes) {
@@ -260,7 +260,7 @@ public final class ConsolaUtils {
     }
 
     public static void imprimirOrden(OrdenCompra orden) {
-        System.out.println("Número: " + orden.getNumero());
+        System.out.println("Numero: " + orden.getNumero());
         System.out.println("Cliente: " + orden.getCliente().getNombre() + " "
                 + orden.getCliente().getApellido() + " - " + orden.getCliente().getEmail());
         System.out.println("Fecha: " + orden.getFecha());
@@ -275,7 +275,7 @@ public final class ConsolaUtils {
 
         if (orden.getEnvio() != null) {
             System.out.println();
-            System.out.println("Envío asociado:");
+            System.out.println("Envio asociado:");
             imprimirEnvio(orden.getEnvio());
         }
 
@@ -286,7 +286,7 @@ public final class ConsolaUtils {
 
         System.out.println();
         System.out.printf("%-14s %-28s %-10s %-15s %-15s%n",
-                "Código", "Producto", "Cantidad", "Precio unit.", "Subtotal");
+                "Codigo", "Producto", "Cantidad", "Precio unit.", "Subtotal");
         System.out.println("--------------------------------------------------------------------------------------");
 
         for (ItemOrden item : orden.getProductos()) {
@@ -316,25 +316,25 @@ public final class ConsolaUtils {
     }
 
     public static void imprimirEnvio(Envio envio) {
-        System.out.println("Código de seguimiento: " + envio.getCodigoSeguimiento());
+        System.out.println("Codigo de seguimiento: " + envio.getCodigoSeguimiento());
         System.out.println("Tipo: " + envio.getTipoEnvio());
         System.out.println("Estado: " + envio.getEstado());
-        System.out.println("Dirección: " + envio.getDireccion());
+        System.out.println("Direccion: " + envio.getDireccion());
         System.out.println("Provincia: " + envio.getProvincia());
         System.out.println("Ciudad: " + envio.getCiudad());
-        System.out.println("Código postal: " + envio.getCodigoPostal());
+        System.out.println("Codigo postal: " + envio.getCodigoPostal());
         System.out.printf("Costo: %.2f%n", envio.getCosto());
     }
 
 
     public static void imprimirEnvios(List<Envio> envios) {
         if (envios.isEmpty()) {
-            System.out.println("No hay envíos registrados.");
+            System.out.println("No hay envios registrados.");
             return;
         }
 
         System.out.printf("%-15s %-18s %-14s %-18s %-18s %-18s %-12s%n",
-                "Código", "Tipo", "Estado", "Provincia", "Ciudad", "Código postal", "Costo");
+                "Codigo", "Tipo", "Estado", "Provincia", "Ciudad", "Codigo postal", "Costo");
         System.out.println("----------------------------------------------------------------------------------------------------------------");
 
         for (Envio envio : envios) {
@@ -355,12 +355,12 @@ public final class ConsolaUtils {
 
     public static void imprimirHistorialEnvio(List<EnvioHistorialEstado> historial) {
         if (historial.isEmpty()) {
-            System.out.println("No hay historial registrado para el envío.");
+            System.out.println("No hay historial registrado para el envio.");
             return;
         }
 
         System.out.printf("%-5s %-15s %-14s %-20s %-45s%n",
-                "ID", "Código", "Estado", "Fecha", "Descripción");
+                "ID", "Codigo", "Estado", "Fecha", "Descripcion");
         System.out.println("---------------------------------------------------------------------------------------------------------------");
 
         for (EnvioHistorialEstado registro : historial) {
@@ -385,7 +385,7 @@ public final class ConsolaUtils {
         }
 
         System.out.printf("%-24s %-28s %-25s %-14s %-18s %-35s%n",
-                "Número", "Cliente", "Orden", "Estado", "Fecha", "Motivo");
+                "Numero", "Cliente", "Orden", "Estado", "Fecha", "Motivo");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------");
 
         for (ecommerce.model.Reclamo reclamo : reclamos) {
@@ -394,7 +394,7 @@ public final class ConsolaUtils {
     }
 
     public static void imprimirReclamo(ecommerce.model.Reclamo reclamo) {
-        System.out.println("Número: " + reclamo.getNumeroReclamo());
+        System.out.println("Numero: " + reclamo.getNumeroReclamo());
         System.out.println("Cliente: " + reclamo.getCliente().getNombre() + " "
                 + reclamo.getCliente().getApellido() + " - " + reclamo.getCliente().getEmail());
         System.out.println("Orden asociada: " + reclamo.getPedidoAsociado().getNumero());
@@ -472,7 +472,7 @@ public final class ConsolaUtils {
                 + calificacion.getCliente().getApellido() + " - " + calificacion.getCliente().getEmail());
         System.out.println("Producto: " + calificacion.getProducto().getNombre()
                 + " (" + calificacion.getProducto().getCodigo() + ")");
-        System.out.println("Puntuación: " + calificacion.getPuntuacion());
+        System.out.println("Puntuacion: " + calificacion.getPuntuacion());
         System.out.println("Comentario: " + calificacion.getComentario());
         System.out.println("Fecha: " + calificacion.getFecha());
     }
@@ -500,9 +500,9 @@ public final class ConsolaUtils {
     public static String describirRol(RolUsuario rol) {
         return switch (rol) {
             case CLIENTE -> "consulta productos, administra carrito, realiza compras y genera reclamos";
-            case ADMINISTRADOR -> "gestiona usuarios, productos, categorías, inventario y reportes";
-            case OPERADOR_VENTAS -> "administra órdenes, confirma pagos y gestiona estados de pedidos";
-            case RESPONSABLE_LOGISTICA -> "gestiona envíos y actualiza estados de entrega";
+            case ADMINISTRADOR -> "gestiona usuarios, productos, categorias, inventario y reportes";
+            case OPERADOR_VENTAS -> "administra ordenes, confirma pagos y gestiona estados de pedidos";
+            case RESPONSABLE_LOGISTICA -> "gestiona envios y actualiza estados de entrega";
         };
     }
 

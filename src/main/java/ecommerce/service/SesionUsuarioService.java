@@ -36,7 +36,7 @@ public class SesionUsuarioService {
 
     public Usuario requerirUsuarioActual() {
         if (usuarioActual == null) {
-            throw new PermisoDenegadoException("Debe iniciar sesión para utilizar el sistema.");
+            throw new PermisoDenegadoException("Debe iniciar sesion para utilizar el sistema.");
         }
         return usuarioActual;
     }

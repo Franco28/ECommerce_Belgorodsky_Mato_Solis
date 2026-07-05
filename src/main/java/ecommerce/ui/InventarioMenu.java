@@ -23,7 +23,7 @@ public class InventarioMenu {
         int opcion;
 
         do {
-            ConsolaUtils.imprimirTitulo("GESTIÓN DE INVENTARIO");
+            ConsolaUtils.imprimirTitulo("GESTION DE INVENTARIO");
             System.out.println("1. Ingreso de stock");
             System.out.println("2. Egreso de stock");
             System.out.println("3. Ajuste de stock");
@@ -32,7 +32,7 @@ public class InventarioMenu {
             System.out.println("6. Listar movimientos");
             System.out.println("0. Volver");
 
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -47,7 +47,7 @@ public class InventarioMenu {
                 case 5 -> historialPorProducto();
                 case 6 -> listarMovimientos();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());

@@ -23,7 +23,7 @@ public class AutenticacionMenu {
         int opcion;
         do {
             imprimirMenu();
-            opcion = entrada.leerOpcion("Opción: ", 1, 2);
+            opcion = entrada.leerOpcion("Opcion: ", 1, 2);
 
             switch (opcion) {
                 case 1 -> {
@@ -34,7 +34,7 @@ public class AutenticacionMenu {
                     System.out.println("Saliendo del sistema.");
                     return false;
                 }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } while (opcion != 2);
 
@@ -43,7 +43,7 @@ public class AutenticacionMenu {
 
     private void imprimirMenu() {
         ConsolaUtils.imprimirTitulo("ACCESO AL SISTEMA");
-        System.out.println("1. Iniciar sesión");
+        System.out.println("1. Iniciar sesion");
         System.out.println("2. Salir");
     }
 
@@ -53,9 +53,9 @@ public class AutenticacionMenu {
         while (!sesionIniciada) {
             try {
                 String email = entrada.leerTexto("Email: ");
-                String contrasenia = entrada.leerTexto("Contraseña: ");
+                String contrasenia = entrada.leerTexto("Contrasena: ");
                 Usuario usuario = autenticacionService.iniciarSesion(email, contrasenia);
-                System.out.println("Sesión iniciada: " + usuario.getNombre() + " "
+                System.out.println("Sesion iniciada: " + usuario.getNombre() + " "
                         + usuario.getApellido() + " - " + usuario.getRol());
                 sesionIniciada = true;
             } catch (EcommerceException ex) {
@@ -70,11 +70,11 @@ public class AutenticacionMenu {
 
         while (!registrado) {
             try {
-                ConsolaUtils.imprimirTitulo("CREACIÓN DEL ADMINISTRADOR INICIAL");
+                ConsolaUtils.imprimirTitulo("CREACION DEL ADMINISTRADOR INICIAL");
                 String nombre = entrada.leerTexto("Nombre: ");
                 String apellido = entrada.leerTexto("Apellido: ");
                 String email = entrada.leerTexto("Email: ");
-                String contrasenia = entrada.leerTexto("Contraseña: ");
+                String contrasenia = entrada.leerTexto("Contrasena: ");
 
                 Usuario usuario = autenticacionService.registrarPrimerAdministrador(nombre, apellido, email, contrasenia);
                 System.out.println("Administrador inicial creado: " + usuario.getEmail());

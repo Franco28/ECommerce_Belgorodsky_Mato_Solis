@@ -21,7 +21,7 @@ public class UsuarioMenu {
         int opcion;
 
         do {
-            ConsolaUtils.imprimirTitulo("GESTIÓN DE USUARIOS");
+            ConsolaUtils.imprimirTitulo("GESTION DE USUARIOS");
             System.out.println("1. Registrar usuario");
             System.out.println("2. Modificar usuario");
             System.out.println("3. Eliminar usuario");
@@ -32,7 +32,7 @@ public class UsuarioMenu {
             System.out.println("8. Desactivar usuario");
             System.out.println("0. Volver");
 
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -49,7 +49,7 @@ public class UsuarioMenu {
                 case 7 -> activarUsuario();
                 case 8 -> desactivarUsuario();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -66,7 +66,7 @@ public class UsuarioMenu {
         String nombre = entrada.leerTexto("Nombre: ");
         String apellido = entrada.leerTexto("Apellido: ");
         String email = entrada.leerTexto("Email: ");
-        String contrasenia = entrada.leerTexto("Contraseña: ");
+        String contrasenia = entrada.leerTexto("Contrasena: ");
         RolUsuario rol = rolSelector.seleccionarRol();
 
         Usuario usuario = usuarioService.registrarUsuario(nombre, apellido, email, contrasenia, rol);
@@ -87,7 +87,7 @@ public class UsuarioMenu {
         usuario.setNombre(entrada.leerTextoOpcional("Nombre", usuario.getNombre()));
         usuario.setApellido(entrada.leerTextoOpcional("Apellido", usuario.getApellido()));
         usuario.setEmail(entrada.leerTextoOpcional("Email", usuario.getEmail()));
-        usuario.setContrasenia(entrada.leerTextoOpcional("Contraseña", usuario.getContrasenia()));
+        usuario.setContrasenia(entrada.leerTextoOpcional("Contrasena", usuario.getContrasenia()));
         usuario.setRol(rolSelector.seleccionarRolOpcional(usuario.getRol()));
 
         usuarioService.modificarUsuario(usuario);
@@ -101,12 +101,12 @@ public class UsuarioMenu {
         Usuario usuario = usuarioService.buscarPorId(id);
         ConsolaUtils.imprimirUsuario(usuario);
 
-        String confirmacion = entrada.leerTexto("Escriba SI para confirmar la eliminación: ");
+        String confirmacion = entrada.leerTexto("Escriba SI para confirmar la eliminacion: ");
         if ("SI".equalsIgnoreCase(confirmacion)) {
             usuarioService.eliminarUsuario(id);
             System.out.println("Usuario eliminado correctamente.");
         } else {
-            System.out.println("Eliminación cancelada.");
+            System.out.println("Eliminacion cancelada.");
         }
     }
 

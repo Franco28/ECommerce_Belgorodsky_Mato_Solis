@@ -40,7 +40,7 @@ public class PostCompraMenu {
 
         do {
             imprimirMenu();
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -53,21 +53,21 @@ public class PostCompraMenu {
         System.out.println("4. Listar reclamos por estado");
         System.out.println("5. Cambiar estado de reclamo");
         System.out.println("6. Eliminar reclamo");
-        System.out.println("7. Solicitar devolución");
-        System.out.println("8. Buscar devolución");
+        System.out.println("7. Solicitar devolucion");
+        System.out.println("8. Buscar devolucion");
         System.out.println("9. Listar devoluciones");
         System.out.println("10. Listar devoluciones por cliente");
         System.out.println("11. Listar devoluciones por producto");
         System.out.println("12. Listar devoluciones por estado");
-        System.out.println("13. Cambiar estado de devolución");
-        System.out.println("14. Eliminar devolución");
+        System.out.println("13. Cambiar estado de devolucion");
+        System.out.println("14. Eliminar devolucion");
         System.out.println("15. Calificar producto");
-        System.out.println("16. Buscar calificación");
+        System.out.println("16. Buscar calificacion");
         System.out.println("17. Listar calificaciones");
         System.out.println("18. Listar calificaciones por cliente");
         System.out.println("19. Listar calificaciones por producto");
         System.out.println("20. Consultar promedio de producto");
-        System.out.println("21. Eliminar calificación");
+        System.out.println("21. Eliminar calificacion");
         System.out.println("0. Volver");
     }
 
@@ -96,7 +96,7 @@ public class PostCompraMenu {
                 case 20 -> consultarPromedioProducto();
                 case 21 -> eliminarCalificacion();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -110,7 +110,7 @@ public class PostCompraMenu {
     private void generarReclamo() {
         ConsolaUtils.imprimirTitulo("GENERAR RECLAMO");
         Usuario cliente = clienteSelector.seleccionarClienteActivo();
-        String numeroOrden = entrada.leerTexto("Número de orden: ");
+        String numeroOrden = entrada.leerTexto("Numero de orden: ");
         String motivo = entrada.leerTexto("Motivo: ");
 
         Reclamo reclamo = reclamoService.generarReclamo(cliente, numeroOrden, motivo);
@@ -120,7 +120,7 @@ public class PostCompraMenu {
 
     private void buscarReclamo() {
         ConsolaUtils.imprimirTitulo("BUSCAR RECLAMO");
-        String numero = entrada.leerTexto("Número de reclamo: ");
+        String numero = entrada.leerTexto("Numero de reclamo: ");
         ConsolaUtils.imprimirReclamo(reclamoService.buscarPorNumero(numero));
     }
 
@@ -137,7 +137,7 @@ public class PostCompraMenu {
 
     private void cambiarEstadoReclamo() {
         ConsolaUtils.imprimirTitulo("CAMBIAR ESTADO DE RECLAMO");
-        String numero = entrada.leerTexto("Número de reclamo: ");
+        String numero = entrada.leerTexto("Numero de reclamo: ");
         EstadoReclamo estado = estadoReclamoSelector.seleccionarEstadoReclamo();
         reclamoService.cambiarEstado(numero, estado);
         System.out.println("Estado actualizado correctamente.");
@@ -145,30 +145,30 @@ public class PostCompraMenu {
 
     private void eliminarReclamo() {
         ConsolaUtils.imprimirTitulo("ELIMINAR RECLAMO");
-        String numero = entrada.leerTexto("Número de reclamo: ");
+        String numero = entrada.leerTexto("Numero de reclamo: ");
 
-        if (entrada.confirmar("El reclamo será eliminado.")) {
+        if (entrada.confirmar("El reclamo sera eliminado.")) {
             reclamoService.eliminarReclamo(numero);
             System.out.println("Reclamo eliminado correctamente.");
         } else {
-            System.out.println("Operación cancelada.");
+            System.out.println("Operacion cancelada.");
         }
     }
 
     private void solicitarDevolucion() {
-        ConsolaUtils.imprimirTitulo("SOLICITAR DEVOLUCIÓN");
+        ConsolaUtils.imprimirTitulo("SOLICITAR DEVOLUCION");
         Usuario cliente = clienteSelector.seleccionarClienteActivo();
         int productoId = entrada.leerEntero("ID del producto: ");
         String motivo = entrada.leerTexto("Motivo: ");
 
         Devolucion devolucion = devolucionService.solicitarDevolucion(cliente, productoId, motivo);
-        System.out.println("Devolución solicitada correctamente.");
+        System.out.println("Devolucion solicitada correctamente.");
         ConsolaUtils.imprimirDevolucion(devolucion);
     }
 
     private void buscarDevolucion() {
-        ConsolaUtils.imprimirTitulo("BUSCAR DEVOLUCIÓN");
-        int id = entrada.leerEntero("ID de devolución: ");
+        ConsolaUtils.imprimirTitulo("BUSCAR DEVOLUCION");
+        int id = entrada.leerEntero("ID de devolucion: ");
         ConsolaUtils.imprimirDevolucion(devolucionService.buscarPorId(id));
     }
 
@@ -196,22 +196,22 @@ public class PostCompraMenu {
     }
 
     private void cambiarEstadoDevolucion() {
-        ConsolaUtils.imprimirTitulo("CAMBIAR ESTADO DE DEVOLUCIÓN");
-        int id = entrada.leerEntero("ID de devolución: ");
+        ConsolaUtils.imprimirTitulo("CAMBIAR ESTADO DE DEVOLUCION");
+        int id = entrada.leerEntero("ID de devolucion: ");
         EstadoDevolucion estado = estadoDevolucionSelector.seleccionarEstadoDevolucion();
         devolucionService.cambiarEstado(id, estado);
         System.out.println("Estado actualizado correctamente.");
     }
 
     private void eliminarDevolucion() {
-        ConsolaUtils.imprimirTitulo("ELIMINAR DEVOLUCIÓN");
-        int id = entrada.leerEntero("ID de devolución: ");
+        ConsolaUtils.imprimirTitulo("ELIMINAR DEVOLUCION");
+        int id = entrada.leerEntero("ID de devolucion: ");
 
-        if (entrada.confirmar("La devolución será eliminada.")) {
+        if (entrada.confirmar("La devolucion sera eliminada.")) {
             devolucionService.eliminarDevolucion(id);
-            System.out.println("Devolución eliminada correctamente.");
+            System.out.println("Devolucion eliminada correctamente.");
         } else {
-            System.out.println("Operación cancelada.");
+            System.out.println("Operacion cancelada.");
         }
     }
 
@@ -219,17 +219,17 @@ public class PostCompraMenu {
         ConsolaUtils.imprimirTitulo("CALIFICAR PRODUCTO");
         Usuario cliente = clienteSelector.seleccionarClienteActivo();
         int productoId = entrada.leerEntero("ID del producto: ");
-        int puntuacion = entrada.leerOpcion("Puntuación de 1 a 5: ", 1, 5);
+        int puntuacion = entrada.leerOpcion("Puntuacion de 1 a 5: ", 1, 5);
         String comentario = entrada.leerTexto("Comentario: ");
 
         Calificacion calificacion = calificacionService.calificarProducto(cliente, productoId, puntuacion, comentario);
-        System.out.println("Calificación registrada correctamente.");
+        System.out.println("Calificacion registrada correctamente.");
         ConsolaUtils.imprimirCalificacion(calificacion);
     }
 
     private void buscarCalificacion() {
-        ConsolaUtils.imprimirTitulo("BUSCAR CALIFICACIÓN");
-        int id = entrada.leerEntero("ID de calificación: ");
+        ConsolaUtils.imprimirTitulo("BUSCAR CALIFICACION");
+        int id = entrada.leerEntero("ID de calificacion: ");
         ConsolaUtils.imprimirCalificacion(calificacionService.buscarPorId(id));
     }
 
@@ -258,14 +258,14 @@ public class PostCompraMenu {
     }
 
     private void eliminarCalificacion() {
-        ConsolaUtils.imprimirTitulo("ELIMINAR CALIFICACIÓN");
-        int id = entrada.leerEntero("ID de calificación: ");
+        ConsolaUtils.imprimirTitulo("ELIMINAR CALIFICACION");
+        int id = entrada.leerEntero("ID de calificacion: ");
 
-        if (entrada.confirmar("La calificación será eliminada.")) {
+        if (entrada.confirmar("La calificacion sera eliminada.")) {
             calificacionService.eliminarCalificacion(id);
-            System.out.println("Calificación eliminada correctamente.");
+            System.out.println("Calificacion eliminada correctamente.");
         } else {
-            System.out.println("Operación cancelada.");
+            System.out.println("Operacion cancelada.");
         }
     }
 }

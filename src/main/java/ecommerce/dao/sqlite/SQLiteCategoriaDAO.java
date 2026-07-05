@@ -34,9 +34,9 @@ public class SQLiteCategoriaDAO extends SQLiteBaseDAO implements CategoriaDAO {
             categoria.setId(obtenerIdGenerado(statement));
         } catch (SQLException ex) {
             if (esRestriccionUnica(ex)) {
-                throw new CategoriaDuplicadaException("Ya existe una categoría con el nombre indicado.");
+                throw new CategoriaDuplicadaException("Ya existe una categoria con el nombre indicado.");
             }
-            throw new DatabaseException("No se pudo guardar la categoría.", ex);
+            throw new DatabaseException("No se pudo guardar la categoria.", ex);
         }
     }
 
@@ -51,9 +51,9 @@ public class SQLiteCategoriaDAO extends SQLiteBaseDAO implements CategoriaDAO {
             if (resultSet.next()) {
                 return mapearCategoria(resultSet);
             }
-            throw new CategoriaNoEncontradaException("No se encontró una categoría con ID " + id + ".");
+            throw new CategoriaNoEncontradaException("No se encontro una categoria con ID " + id + ".");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo buscar la categoría por ID.", ex);
+            throw new DatabaseException("No se pudo buscar la categoria por ID.", ex);
         }
     }
 
@@ -61,7 +61,7 @@ public class SQLiteCategoriaDAO extends SQLiteBaseDAO implements CategoriaDAO {
     public Categoria buscarPorNombre(String nombre) throws CategoriaNoEncontradaException {
         return buscarOpcionalPorNombre(nombre)
                 .orElseThrow(() -> new CategoriaNoEncontradaException(
-                        "No se encontró una categoría con nombre " + nombre + "."));
+                        "No se encontro una categoria con nombre " + nombre + "."));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class SQLiteCategoriaDAO extends SQLiteBaseDAO implements CategoriaDAO {
             }
             return Optional.empty();
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo buscar la categoría por nombre.", ex);
+            throw new DatabaseException("No se pudo buscar la categoria por nombre.", ex);
         }
     }
 
@@ -95,7 +95,7 @@ public class SQLiteCategoriaDAO extends SQLiteBaseDAO implements CategoriaDAO {
             }
             return categorias;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudieron obtener las categorías.", ex);
+            throw new DatabaseException("No se pudieron obtener las categorias.", ex);
         }
     }
 
@@ -116,13 +116,13 @@ public class SQLiteCategoriaDAO extends SQLiteBaseDAO implements CategoriaDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new CategoriaNoEncontradaException("No se encontró la categoría a actualizar.");
+                throw new CategoriaNoEncontradaException("No se encontro la categoria a actualizar.");
             }
         } catch (SQLException ex) {
             if (esRestriccionUnica(ex)) {
-                throw new CategoriaDuplicadaException("Ya existe una categoría con el nombre indicado.");
+                throw new CategoriaDuplicadaException("Ya existe una categoria con el nombre indicado.");
             }
-            throw new DatabaseException("No se pudo actualizar la categoría.", ex);
+            throw new DatabaseException("No se pudo actualizar la categoria.", ex);
         }
     }
 
@@ -135,10 +135,10 @@ public class SQLiteCategoriaDAO extends SQLiteBaseDAO implements CategoriaDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new CategoriaNoEncontradaException("No se encontró la categoría a eliminar.");
+                throw new CategoriaNoEncontradaException("No se encontro la categoria a eliminar.");
             }
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo eliminar la categoría.", ex);
+            throw new DatabaseException("No se pudo eliminar la categoria.", ex);
         }
     }
 

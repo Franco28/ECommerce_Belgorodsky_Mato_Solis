@@ -105,7 +105,7 @@ public class PagoService {
     }
 
     private void validarPago(MetodoPago metodoPago, double monto) {
-        ValidadorDominio.validarObjetoObligatorio(metodoPago, "El método de pago es obligatorio.");
+        ValidadorDominio.validarObjetoObligatorio(metodoPago, "El metodo de pago es obligatorio.");
         ValidadorDominio.validarDecimalMayorACero(monto, "El monto del pago debe ser mayor a cero.");
     }
 }

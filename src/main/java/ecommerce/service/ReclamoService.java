@@ -35,7 +35,7 @@ public class ReclamoService {
         this.reclamoDAO = ValidadorDominio.validarObjetoObligatorio(reclamoDAO,
                 "El DAO de reclamos es obligatorio.");
         this.ordenService = ValidadorDominio.validarObjetoObligatorio(ordenService,
-                "El servicio de órdenes es obligatorio.");
+                "El servicio de ordenes es obligatorio.");
         this.seguridadService = ValidadorDominio.validarObjetoObligatorio(seguridadService,
                 "El servicio de seguridad es obligatorio.");
     }
@@ -45,7 +45,7 @@ public class ReclamoService {
         OrdenCompra orden = ordenService.buscarPorNumero(numeroOrden);
 
         if (orden.getCliente().getId() != cliente.getId()) {
-            throw new PermisoDenegadoException("El cliente solo puede reclamar sus propias órdenes.");
+            throw new PermisoDenegadoException("El cliente solo puede reclamar sus propias ordenes.");
         }
 
         Reclamo reclamo = new Reclamo(
@@ -62,7 +62,7 @@ public class ReclamoService {
 
     public Reclamo buscarPorNumero(String numeroReclamo) {
         ValidadorDominio.validarTextoObligatorio(numeroReclamo,
-                "El número de reclamo es obligatorio.");
+                "El numero de reclamo es obligatorio.");
         return reclamoDAO.buscarPorNumero(numeroReclamo);
     }
 
@@ -77,7 +77,7 @@ public class ReclamoService {
 
     public void cambiarEstado(String numeroReclamo, EstadoReclamo nuevoEstado) {
         ValidadorDominio.validarTextoObligatorio(numeroReclamo,
-                "El número de reclamo es obligatorio.");
+                "El numero de reclamo es obligatorio.");
         ValidadorDominio.validarObjetoObligatorio(nuevoEstado,
                 "El nuevo estado del reclamo es obligatorio.");
         reclamoDAO.actualizarEstado(numeroReclamo, nuevoEstado);
@@ -85,7 +85,7 @@ public class ReclamoService {
 
     public void eliminarReclamo(String numeroReclamo) {
         ValidadorDominio.validarTextoObligatorio(numeroReclamo,
-                "El número de reclamo es obligatorio.");
+                "El numero de reclamo es obligatorio.");
         reclamoDAO.eliminar(numeroReclamo);
     }
 

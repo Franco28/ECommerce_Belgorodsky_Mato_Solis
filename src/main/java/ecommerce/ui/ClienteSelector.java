@@ -50,7 +50,7 @@ public class ClienteSelector {
         }
 
         if (!cliente.estaActivo()) {
-            throw new DatosInvalidosException("El cliente seleccionado no está activo.");
+            throw new DatosInvalidosException("El cliente seleccionado no esta activo.");
         }
 
         return cliente;

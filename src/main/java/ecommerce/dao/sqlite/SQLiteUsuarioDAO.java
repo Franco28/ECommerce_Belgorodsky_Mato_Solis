@@ -56,7 +56,7 @@ public class SQLiteUsuarioDAO extends SQLiteBaseDAO implements UsuarioDAO {
             if (resultSet.next()) {
                 return mapearUsuario(resultSet);
             }
-            throw new UsuarioNoEncontradoException("No se encontró un usuario con ID " + id + ".");
+            throw new UsuarioNoEncontradoException("No se encontro un usuario con ID " + id + ".");
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo buscar el usuario por ID.", ex);
         }
@@ -66,7 +66,7 @@ public class SQLiteUsuarioDAO extends SQLiteBaseDAO implements UsuarioDAO {
     public Usuario buscarPorEmail(String email) throws UsuarioNoEncontradoException {
         return buscarOpcionalPorEmail(email)
                 .orElseThrow(() -> new UsuarioNoEncontradoException(
-                        "No se encontró un usuario con email " + email + "."));
+                        "No se encontro un usuario con email " + email + "."));
     }
 
     @Override
@@ -125,7 +125,7 @@ public class SQLiteUsuarioDAO extends SQLiteBaseDAO implements UsuarioDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new UsuarioNoEncontradoException("No se encontró el usuario a actualizar.");
+                throw new UsuarioNoEncontradoException("No se encontro el usuario a actualizar.");
             }
         } catch (SQLException ex) {
             if (esRestriccionUnica(ex)) {
@@ -144,7 +144,7 @@ public class SQLiteUsuarioDAO extends SQLiteBaseDAO implements UsuarioDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new UsuarioNoEncontradoException("No se encontró el usuario a eliminar.");
+                throw new UsuarioNoEncontradoException("No se encontro el usuario a eliminar.");
             }
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo eliminar el usuario.", ex);

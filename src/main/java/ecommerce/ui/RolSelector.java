@@ -21,7 +21,7 @@ public class RolSelector {
                 return roles[opcion - 1];
             }
 
-            System.out.println("Rol inválido.");
+            System.out.println("Rol invalido.");
         }
     }
 
@@ -41,7 +41,7 @@ public class RolSelector {
                 return roles[opcion - 1];
             }
 
-            System.out.println("Rol inválido.");
+            System.out.println("Rol invalido.");
         }
     }
 }

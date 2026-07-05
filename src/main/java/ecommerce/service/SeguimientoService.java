@@ -15,20 +15,20 @@ public class SeguimientoService {
 
     public SeguimientoService(OrdenService ordenService, EnvioService envioService) {
         this.ordenService = ValidadorDominio.validarObjetoObligatorio(ordenService,
-                "El servicio de órdenes es obligatorio.");
+                "El servicio de ordenes es obligatorio.");
         this.envioService = ValidadorDominio.validarObjetoObligatorio(envioService,
-                "El servicio de envíos es obligatorio.");
+                "El servicio de envios es obligatorio.");
     }
 
     public OrdenCompra consultarPedido(String numeroOrden) {
         ValidadorDominio.validarTextoObligatorio(numeroOrden,
-                "El número de orden es obligatorio.");
+                "El numero de orden es obligatorio.");
         return ordenService.buscarPorNumero(numeroOrden);
     }
 
     public Envio consultarEnvio(String codigoSeguimiento) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         return envioService.buscarPorCodigoSeguimiento(codigoSeguimiento);
     }
 
@@ -36,14 +36,14 @@ public class SeguimientoService {
         OrdenCompra orden = consultarPedido(numeroOrden);
         if (orden.getEnvio() == null) {
             throw new ecommerce.exception.EnvioNoEncontradoException(
-                    "La orden no tiene un envío asociado.");
+                    "La orden no tiene un envio asociado.");
         }
         return orden.getEnvio();
     }
 
     public List<EnvioHistorialEstado> consultarHistorialPorCodigo(String codigoSeguimiento) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         return envioService.consultarHistorial(codigoSeguimiento);
     }
 
@@ -54,7 +54,7 @@ public class SeguimientoService {
 
     public LocalDate consultarFechaEstimadaPorCodigo(String codigoSeguimiento) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         return envioService.calcularFechaEstimada(codigoSeguimiento);
     }
 

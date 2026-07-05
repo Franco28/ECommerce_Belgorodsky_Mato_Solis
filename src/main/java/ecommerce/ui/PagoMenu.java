@@ -23,7 +23,7 @@ public class PagoMenu {
 
         do {
             imprimirMenu();
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -53,7 +53,7 @@ public class PagoMenu {
                 case 7 -> cancelarPago();
                 case 8 -> eliminarPago();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (PagoRechazadoException ex) {
             System.out.println("Pago rechazado: " + ex.getMessage());
@@ -124,11 +124,11 @@ public class PagoMenu {
         ConsolaUtils.imprimirTitulo("ELIMINAR PAGO");
         int id = entrada.leerEntero("ID del pago: ");
 
-        if (entrada.confirmar("El pago será eliminado.")) {
+        if (entrada.confirmar("El pago sera eliminado.")) {
             pagoService.eliminarPago(id);
             System.out.println("Pago eliminado correctamente.");
         } else {
-            System.out.println("Operación cancelada.");
+            System.out.println("Operacion cancelada.");
         }
     }
 }

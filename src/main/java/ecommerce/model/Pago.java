@@ -17,7 +17,7 @@ public class Pago {
     public Pago(int id, MetodoPago metodoPago, double monto, EstadoPago estado, LocalDateTime fecha) {
         setId(id);
         this.metodoPago = ValidadorDominio.validarObjetoObligatorio(metodoPago,
-                "El método de pago es obligatorio.");
+                "El metodo de pago es obligatorio.");
         setMonto(monto);
         this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
                 "El estado del pago es obligatorio.");

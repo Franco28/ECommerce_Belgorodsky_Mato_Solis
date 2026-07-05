@@ -1,6 +1,7 @@
 package ecommerce.dao.factory;
 
 import ecommerce.dao.interfaces.CalificacionDAO;
+import ecommerce.dao.interfaces.CarritoDAO;
 import ecommerce.dao.interfaces.CategoriaDAO;
 import ecommerce.dao.interfaces.DevolucionDAO;
 import ecommerce.dao.interfaces.EnvioDAO;
@@ -16,6 +17,8 @@ public abstract class DAOFactory {
     public abstract UsuarioDAO crearUsuarioDAO();
 
     public abstract CategoriaDAO crearCategoriaDAO();
+
+    public abstract CarritoDAO crearCarritoDAO();
 
     public abstract ProductoDAO crearProductoDAO();
 

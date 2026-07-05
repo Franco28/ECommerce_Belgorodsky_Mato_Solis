@@ -89,7 +89,7 @@ public class Usuario {
     }
 
     public void setContrasenia(String contrasenia) {
-        ValidadorDominio.validarTextoObligatorio(contrasenia, "La contraseña es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(contrasenia, "La contrasena es obligatoria.");
         this.contrasenia = contrasenia;
     }
 

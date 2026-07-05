@@ -15,7 +15,7 @@ public class Categoria {
         setNombre(nombre);
         setDescripcion(descripcion);
         this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
-                "El estado de la categoría es obligatorio.");
+                "El estado de la categoria es obligatorio.");
     }
 
     public boolean estaActiva() {
@@ -44,7 +44,7 @@ public class Categoria {
     }
 
     public void setNombre(String nombre) {
-        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoría es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoria es obligatorio.");
         this.nombre = nombre.trim();
     }
 
@@ -53,7 +53,7 @@ public class Categoria {
     }
 
     public void setDescripcion(String descripcion) {
-        ValidadorDominio.validarTextoObligatorio(descripcion, "La descripción de la categoría es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(descripcion, "La descripcion de la categoria es obligatoria.");
         this.descripcion = descripcion.trim();
     }
 

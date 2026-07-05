@@ -1,8 +1,8 @@
 package ecommerce.exception;
 
 /**
- * Excepción específica para errores de infraestructura de base de datos.
- * Se separa de las excepciones de negocio para distinguir fallas técnicas
+ * Excepcion especifica para errores de infraestructura de base de datos.
+ * Se separa de las excepciones de negocio para distinguir fallas tecnicas
  * de validaciones propias del dominio.
  */
 public class DatabaseException extends EcommerceException {

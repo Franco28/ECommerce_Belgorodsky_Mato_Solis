@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Servicio de reportes. Calcula métricas de gestión sobre los datos obtenidos
+ * Servicio de reportes. Calcula metricas de gestion sobre los datos obtenidos
  * desde los DAOs. 
  */
 public class ReporteService {
@@ -46,11 +46,11 @@ public class ReporteService {
         this.productoDAO = ValidadorDominio.validarObjetoObligatorio(productoDAO,
                 "El DAO de productos es obligatorio.");
         this.ordenDAO = ValidadorDominio.validarObjetoObligatorio(ordenDAO,
-                "El DAO de órdenes es obligatorio.");
+                "El DAO de ordenes es obligatorio.");
         this.reclamoDAO = ValidadorDominio.validarObjetoObligatorio(reclamoDAO,
                 "El DAO de reclamos es obligatorio.");
         this.envioDAO = ValidadorDominio.validarObjetoObligatorio(envioDAO,
-                "El DAO de envíos es obligatorio.");
+                "El DAO de envios es obligatorio.");
     }
 
     public int cantidadTotalUsuarios() {

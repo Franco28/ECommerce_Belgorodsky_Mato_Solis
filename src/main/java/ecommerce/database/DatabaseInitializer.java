@@ -42,7 +42,7 @@ public final class DatabaseInitializer {
                 return Files.readString(SCHEMA_SOURCE_PATH, StandardCharsets.UTF_8);
             }
 
-            throw new DatabaseException("No se encontró el archivo schema.sql.");
+            throw new DatabaseException("No se encontro el archivo schema.sql.");
         } catch (IOException ex) {
             throw new DatabaseException("No se pudo leer el archivo schema.sql.", ex);
         }

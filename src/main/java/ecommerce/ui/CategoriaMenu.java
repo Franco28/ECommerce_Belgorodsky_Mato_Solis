@@ -18,18 +18,18 @@ public class CategoriaMenu {
         int opcion;
 
         do {
-            ConsolaUtils.imprimirTitulo("GESTIÓN DE CATEGORÍAS");
-            System.out.println("1. Alta de categoría");
-            System.out.println("2. Modificar categoría");
-            System.out.println("3. Eliminar categoría");
-            System.out.println("4. Buscar categoría por ID");
-            System.out.println("5. Buscar categoría por nombre");
-            System.out.println("6. Listar categorías");
-            System.out.println("7. Activar categoría");
-            System.out.println("8. Desactivar categoría");
+            ConsolaUtils.imprimirTitulo("GESTION DE CATEGORIAS");
+            System.out.println("1. Alta de categoria");
+            System.out.println("2. Modificar categoria");
+            System.out.println("3. Eliminar categoria");
+            System.out.println("4. Buscar categoria por ID");
+            System.out.println("5. Buscar categoria por nombre");
+            System.out.println("6. Listar categorias");
+            System.out.println("7. Activar categoria");
+            System.out.println("8. Desactivar categoria");
             System.out.println("0. Volver");
 
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -46,7 +46,7 @@ public class CategoriaMenu {
                 case 7 -> activarCategoria();
                 case 8 -> desactivarCategoria();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -58,73 +58,73 @@ public class CategoriaMenu {
     }
 
     private void crearCategoria() {
-        ConsolaUtils.imprimirTitulo("ALTA DE CATEGORÍA");
+        ConsolaUtils.imprimirTitulo("ALTA DE CATEGORIA");
         String nombre = entrada.leerTexto("Nombre: ");
-        String descripcion = entrada.leerTexto("Descripción: ");
+        String descripcion = entrada.leerTexto("Descripcion: ");
 
         Categoria categoria = categoriaService.crearCategoria(nombre, descripcion);
 
-        System.out.println("Categoría creada correctamente.");
+        System.out.println("Categoria creada correctamente.");
         ConsolaUtils.imprimirCategoria(categoria);
     }
 
     private void modificarCategoria() {
-        ConsolaUtils.imprimirTitulo("MODIFICAR CATEGORÍA");
-        int id = entrada.leerEntero("ID de categoría: ");
+        ConsolaUtils.imprimirTitulo("MODIFICAR CATEGORIA");
+        int id = entrada.leerEntero("ID de categoria: ");
         Categoria categoria = categoriaService.buscarPorId(id);
 
         ConsolaUtils.imprimirCategoria(categoria);
         System.out.println();
 
         categoria.setNombre(entrada.leerTextoOpcional("Nombre", categoria.getNombre()));
-        categoria.setDescripcion(entrada.leerTextoOpcional("Descripción", categoria.getDescripcion()));
+        categoria.setDescripcion(entrada.leerTextoOpcional("Descripcion", categoria.getDescripcion()));
 
         categoriaService.modificarCategoria(categoria);
-        System.out.println("Categoría modificada correctamente.");
+        System.out.println("Categoria modificada correctamente.");
     }
 
     private void eliminarCategoria() {
-        ConsolaUtils.imprimirTitulo("ELIMINAR CATEGORÍA");
-        int id = entrada.leerEntero("ID de categoría: ");
+        ConsolaUtils.imprimirTitulo("ELIMINAR CATEGORIA");
+        int id = entrada.leerEntero("ID de categoria: ");
         Categoria categoria = categoriaService.buscarPorId(id);
         ConsolaUtils.imprimirCategoria(categoria);
 
-        if (entrada.confirmar("La categoría se eliminará definitivamente.")) {
+        if (entrada.confirmar("La categoria se eliminara definitivamente.")) {
             categoriaService.eliminarCategoria(id);
-            System.out.println("Categoría eliminada correctamente.");
+            System.out.println("Categoria eliminada correctamente.");
         } else {
-            System.out.println("Eliminación cancelada.");
+            System.out.println("Eliminacion cancelada.");
         }
     }
 
     private void buscarPorId() {
-        ConsolaUtils.imprimirTitulo("BUSCAR CATEGORÍA POR ID");
-        int id = entrada.leerEntero("ID de categoría: ");
+        ConsolaUtils.imprimirTitulo("BUSCAR CATEGORIA POR ID");
+        int id = entrada.leerEntero("ID de categoria: ");
         ConsolaUtils.imprimirCategoria(categoriaService.buscarPorId(id));
     }
 
     private void buscarPorNombre() {
-        ConsolaUtils.imprimirTitulo("BUSCAR CATEGORÍA POR NOMBRE");
+        ConsolaUtils.imprimirTitulo("BUSCAR CATEGORIA POR NOMBRE");
         String nombre = entrada.leerTexto("Nombre: ");
         ConsolaUtils.imprimirCategoria(categoriaService.buscarPorNombre(nombre));
     }
 
     private void listarCategorias() {
-        ConsolaUtils.imprimirTitulo("LISTADO DE CATEGORÍAS");
+        ConsolaUtils.imprimirTitulo("LISTADO DE CATEGORIAS");
         ConsolaUtils.imprimirCategorias(categoriaService.listarCategorias());
     }
 
     private void activarCategoria() {
-        ConsolaUtils.imprimirTitulo("ACTIVAR CATEGORÍA");
-        int id = entrada.leerEntero("ID de categoría: ");
+        ConsolaUtils.imprimirTitulo("ACTIVAR CATEGORIA");
+        int id = entrada.leerEntero("ID de categoria: ");
         categoriaService.activarCategoria(id);
-        System.out.println("Categoría activada correctamente.");
+        System.out.println("Categoria activada correctamente.");
     }
 
     private void desactivarCategoria() {
-        ConsolaUtils.imprimirTitulo("DESACTIVAR CATEGORÍA");
-        int id = entrada.leerEntero("ID de categoría: ");
+        ConsolaUtils.imprimirTitulo("DESACTIVAR CATEGORIA");
+        int id = entrada.leerEntero("ID de categoria: ");
         categoriaService.desactivarCategoria(id);
-        System.out.println("Categoría desactivada correctamente.");
+        System.out.println("Categoria desactivada correctamente.");
     }
 }

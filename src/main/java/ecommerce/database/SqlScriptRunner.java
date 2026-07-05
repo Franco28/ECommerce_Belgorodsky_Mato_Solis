@@ -18,7 +18,7 @@ final class SqlScriptRunner {
 
     static void ejecutar(Connection connection, String scriptSql) {
         if (scriptSql == null || scriptSql.isBlank()) {
-            throw new DatabaseException("El script SQL está vacío.");
+            throw new DatabaseException("El script SQL esta vacio.");
         }
 
         Arrays.stream(scriptSql.split(";"))

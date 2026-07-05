@@ -9,8 +9,8 @@ import ecommerce.util.ValidadorDominio;
 import java.util.List;
 
 /**
- * Servicio de categorías. Mantiene las reglas de duplicidad y estado
- * fuera del menú por consola.
+ * Servicio de categorias. Mantiene las reglas de duplicidad y estado
+ * fuera del menu por consola.
  */
 public class CategoriaService {
 
@@ -18,7 +18,7 @@ public class CategoriaService {
 
     public CategoriaService(CategoriaDAO categoriaDAO) {
         this.categoriaDAO = ValidadorDominio.validarObjetoObligatorio(categoriaDAO,
-                "El DAO de categorías es obligatorio.");
+                "El DAO de categorias es obligatorio.");
     }
 
     public Categoria crearCategoria(String nombre, String descripcion) {
@@ -29,18 +29,18 @@ public class CategoriaService {
     }
 
     public void modificarCategoria(Categoria categoria) {
-        ValidadorDominio.validarObjetoObligatorio(categoria, "La categoría es obligatoria.");
+        ValidadorDominio.validarObjetoObligatorio(categoria, "La categoria es obligatoria.");
         validarNombreDisponibleParaOtraCategoria(categoria.getNombre(), categoria.getId());
         categoriaDAO.actualizar(categoria);
     }
 
     public Categoria buscarPorId(int id) {
-        ValidadorDominio.validarEnteroMayorACero(id, "El ID de la categoría debe ser mayor a cero.");
+        ValidadorDominio.validarEnteroMayorACero(id, "El ID de la categoria debe ser mayor a cero.");
         return categoriaDAO.buscarPorId(id);
     }
 
     public Categoria buscarPorNombre(String nombre) {
-        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoría es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoria es obligatorio.");
         return categoriaDAO.buscarPorNombre(nombre);
     }
 
@@ -49,7 +49,7 @@ public class CategoriaService {
     }
 
     public void eliminarCategoria(int id) {
-        ValidadorDominio.validarEnteroMayorACero(id, "El ID de la categoría debe ser mayor a cero.");
+        ValidadorDominio.validarEnteroMayorACero(id, "El ID de la categoria debe ser mayor a cero.");
         categoriaDAO.eliminar(id);
     }
 
@@ -66,18 +66,18 @@ public class CategoriaService {
     }
 
     private void validarNombreDisponible(String nombre) {
-        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoría es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoria es obligatorio.");
         if (categoriaDAO.buscarOpcionalPorNombre(nombre).isPresent()) {
-            throw new CategoriaDuplicadaException("Ya existe una categoría con el nombre indicado.");
+            throw new CategoriaDuplicadaException("Ya existe una categoria con el nombre indicado.");
         }
     }
 
     private void validarNombreDisponibleParaOtraCategoria(String nombre, int categoriaId) {
-        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoría es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoria es obligatorio.");
         categoriaDAO.buscarOpcionalPorNombre(nombre)
                 .filter(categoriaExistente -> categoriaExistente.getId() != categoriaId)
                 .ifPresent(categoriaExistente -> {
-                    throw new CategoriaDuplicadaException("Ya existe otra categoría con el nombre indicado.");
+                    throw new CategoriaDuplicadaException("Ya existe otra categoria con el nombre indicado.");
                 });
     }
 }

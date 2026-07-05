@@ -45,7 +45,7 @@ public class OrdenCompra implements Calculable {
 
     public void asociarEnvio(Envio envio) {
         this.envio = ValidadorDominio.validarObjetoObligatorio(envio,
-                "El envío es obligatorio.");
+                "El envio es obligatorio.");
     }
 
     public void cambiarEstado(EstadoOrden nuevoEstado) {
@@ -70,7 +70,7 @@ public class OrdenCompra implements Calculable {
 
     public void setNumero(String numero) {
         ValidadorDominio.validarTextoObligatorio(numero,
-                "El número de orden es obligatorio.");
+                "El numero de orden es obligatorio.");
         this.numero = numero.trim().toUpperCase();
     }
 

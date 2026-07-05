@@ -20,21 +20,21 @@ public class CheckoutFacade {
     public CheckoutFacade(CarritoSesionService carritoSesionService, CarritoService carritoService,
             PagoService pagoService, EnvioService envioService, OrdenService ordenService) {
         this.carritoSesionService = ValidadorDominio.validarObjetoObligatorio(carritoSesionService,
-                "El servicio de sesión de carrito es obligatorio.");
+                "El servicio de sesion de carrito es obligatorio.");
         this.carritoService = ValidadorDominio.validarObjetoObligatorio(carritoService,
                 "El servicio de carrito es obligatorio.");
         this.pagoService = ValidadorDominio.validarObjetoObligatorio(pagoService,
                 "El servicio de pagos es obligatorio.");
         this.envioService = ValidadorDominio.validarObjetoObligatorio(envioService,
-                "El servicio de envíos es obligatorio.");
+                "El servicio de envios es obligatorio.");
         this.ordenService = ValidadorDominio.validarObjetoObligatorio(ordenService,
-                "El servicio de órdenes es obligatorio.");
+                "El servicio de ordenes es obligatorio.");
     }
 
     public OrdenCompra confirmarCompra(Usuario cliente, MetodoPago metodoPago, DatosEnvio datosEnvio) {
         ValidadorDominio.validarObjetoObligatorio(cliente, "El cliente es obligatorio.");
-        ValidadorDominio.validarObjetoObligatorio(metodoPago, "El método de pago es obligatorio.");
-        ValidadorDominio.validarObjetoObligatorio(datosEnvio, "Los datos de envío son obligatorios.");
+        ValidadorDominio.validarObjetoObligatorio(metodoPago, "El metodo de pago es obligatorio.");
+        ValidadorDominio.validarObjetoObligatorio(datosEnvio, "Los datos de envio son obligatorios.");
 
         Carrito carrito = carritoSesionService.obtenerCarritoExistente(cliente);
         carritoService.validarCarritoParaCompra(carrito);

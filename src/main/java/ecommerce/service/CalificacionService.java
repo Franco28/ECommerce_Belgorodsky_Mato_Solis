@@ -25,7 +25,7 @@ public class CalificacionService {
         this.calificacionDAO = ValidadorDominio.validarObjetoObligatorio(calificacionDAO,
                 "El DAO de calificaciones es obligatorio.");
         this.ordenService = ValidadorDominio.validarObjetoObligatorio(ordenService,
-                "El servicio de órdenes es obligatorio.");
+                "El servicio de ordenes es obligatorio.");
         this.productoService = ValidadorDominio.validarObjetoObligatorio(productoService,
                 "El servicio de productos es obligatorio.");
         this.seguridadService = ValidadorDominio.validarObjetoObligatorio(seguridadService,
@@ -50,7 +50,7 @@ public class CalificacionService {
     }
 
     public Calificacion buscarPorId(int id) {
-        ValidadorDominio.validarEnteroMayorACero(id, "El ID de calificación debe ser mayor a cero.");
+        ValidadorDominio.validarEnteroMayorACero(id, "El ID de calificacion debe ser mayor a cero.");
         return calificacionDAO.buscarPorId(id);
     }
 
@@ -77,7 +77,7 @@ public class CalificacionService {
     }
 
     public void eliminarCalificacion(int id) {
-        ValidadorDominio.validarEnteroMayorACero(id, "El ID de calificación debe ser mayor a cero.");
+        ValidadorDominio.validarEnteroMayorACero(id, "El ID de calificacion debe ser mayor a cero.");
         calificacionDAO.eliminar(id);
     }
 

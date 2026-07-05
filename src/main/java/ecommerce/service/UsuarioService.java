@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Servicio de aplicación para el módulo de usuarios.
+ * Servicio de aplicacion para el modulo de usuarios.
  * Valida reglas de negocio antes de delegar la persistencia al DAO.
  */
 public class UsuarioService {

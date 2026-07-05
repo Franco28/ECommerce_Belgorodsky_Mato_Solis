@@ -39,7 +39,7 @@ public class Reclamo {
 
     public void setNumeroReclamo(String numeroReclamo) {
         ValidadorDominio.validarTextoObligatorio(numeroReclamo,
-                "El número de reclamo es obligatorio.");
+                "El numero de reclamo es obligatorio.");
         this.numeroReclamo = numeroReclamo.trim().toUpperCase();
     }
 

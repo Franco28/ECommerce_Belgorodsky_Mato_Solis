@@ -12,7 +12,7 @@ public class EstadoDevolucionSelector {
 
     public EstadoDevolucion seleccionarEstadoDevolucion() {
         imprimirEstados();
-        int opcion = entrada.leerOpcion("Seleccione estado de devolución: ", 1, EstadoDevolucion.values().length);
+        int opcion = entrada.leerOpcion("Seleccione estado de devolucion: ", 1, EstadoDevolucion.values().length);
         return EstadoDevolucion.values()[opcion - 1];
     }
 

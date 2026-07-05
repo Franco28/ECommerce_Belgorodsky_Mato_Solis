@@ -48,7 +48,7 @@ public class CarritoMenu {
             System.out.println("10. Listar productos disponibles");
             System.out.println("0. Volver");
 
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -78,7 +78,7 @@ public class CarritoMenu {
                 case 9 -> calcularTotal();
                 case 10 -> listarProductosDisponibles();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -107,7 +107,7 @@ public class CarritoMenu {
         ConsolaUtils.imprimirTitulo("AGREGAR PRODUCTO AL CARRITO");
         listarProductosDisponiblesSinPausa();
 
-        String codigo = entrada.leerTexto("Código del producto: ");
+        String codigo = entrada.leerTexto("Codigo del producto: ");
         int cantidad = entrada.leerEntero("Cantidad: ");
         carritoService.agregarProducto(carrito, codigo, cantidad);
 
@@ -121,7 +121,7 @@ public class CarritoMenu {
         ConsolaUtils.imprimirTitulo("ELIMINAR PRODUCTO DEL CARRITO");
         ConsolaUtils.imprimirCarrito(carrito);
 
-        String codigo = entrada.leerTexto("Código del producto: ");
+        String codigo = entrada.leerTexto("Codigo del producto: ");
         carritoService.eliminarProducto(carrito, codigo);
 
         System.out.println("Producto eliminado del carrito.");
@@ -134,7 +134,7 @@ public class CarritoMenu {
         ConsolaUtils.imprimirTitulo("MODIFICAR CANTIDAD");
         ConsolaUtils.imprimirCarrito(carrito);
 
-        String codigo = entrada.leerTexto("Código del producto: ");
+        String codigo = entrada.leerTexto("Codigo del producto: ");
         int cantidad = entrada.leerEntero("Nueva cantidad: ");
         carritoService.modificarCantidad(carrito, codigo, cantidad);
 
@@ -148,11 +148,11 @@ public class CarritoMenu {
         ConsolaUtils.imprimirTitulo("VACIAR CARRITO");
         ConsolaUtils.imprimirCarrito(carrito);
 
-        if (entrada.confirmar("El carrito quedará vacío.")) {
+        if (entrada.confirmar("El carrito quedara vacio.")) {
             carritoService.vaciarCarrito(carrito);
             System.out.println("Carrito vaciado correctamente.");
         } else {
-            System.out.println("Operación cancelada.");
+            System.out.println("Operacion cancelada.");
         }
     }
 

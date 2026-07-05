@@ -26,7 +26,7 @@ public class DevolucionService {
         this.devolucionDAO = ValidadorDominio.validarObjetoObligatorio(devolucionDAO,
                 "El DAO de devoluciones es obligatorio.");
         this.ordenService = ValidadorDominio.validarObjetoObligatorio(ordenService,
-                "El servicio de órdenes es obligatorio.");
+                "El servicio de ordenes es obligatorio.");
         this.productoService = ValidadorDominio.validarObjetoObligatorio(productoService,
                 "El servicio de productos es obligatorio.");
         this.seguridadService = ValidadorDominio.validarObjetoObligatorio(seguridadService,
@@ -51,7 +51,7 @@ public class DevolucionService {
     }
 
     public Devolucion buscarPorId(int id) {
-        ValidadorDominio.validarEnteroMayorACero(id, "El ID de devolución debe ser mayor a cero.");
+        ValidadorDominio.validarEnteroMayorACero(id, "El ID de devolucion debe ser mayor a cero.");
         return devolucionDAO.buscarPorId(id);
     }
 
@@ -73,19 +73,19 @@ public class DevolucionService {
 
     public List<Devolucion> listarPorEstado(EstadoDevolucion estado) {
         ValidadorDominio.validarObjetoObligatorio(estado,
-                "El estado de devolución es obligatorio.");
+                "El estado de devolucion es obligatorio.");
         return devolucionDAO.obtenerPorEstado(estado);
     }
 
     public void cambiarEstado(int id, EstadoDevolucion estado) {
-        ValidadorDominio.validarEnteroMayorACero(id, "El ID de devolución debe ser mayor a cero.");
+        ValidadorDominio.validarEnteroMayorACero(id, "El ID de devolucion debe ser mayor a cero.");
         ValidadorDominio.validarObjetoObligatorio(estado,
-                "El estado de devolución es obligatorio.");
+                "El estado de devolucion es obligatorio.");
         devolucionDAO.actualizarEstado(id, estado);
     }
 
     public void eliminarDevolucion(int id) {
-        ValidadorDominio.validarEnteroMayorACero(id, "El ID de devolución debe ser mayor a cero.");
+        ValidadorDominio.validarEnteroMayorACero(id, "El ID de devolucion debe ser mayor a cero.");
         devolucionDAO.eliminar(id);
     }
 

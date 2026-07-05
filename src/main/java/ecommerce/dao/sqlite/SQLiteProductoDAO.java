@@ -63,7 +63,7 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
             producto.setId(obtenerIdGenerado(statement));
         } catch (SQLException ex) {
             if (esRestriccionUnica(ex)) {
-                throw new ProductoDuplicadoException("Ya existe un producto con el código indicado.");
+                throw new ProductoDuplicadoException("Ya existe un producto con el codigo indicado.");
             }
             throw new DatabaseException("No se pudo guardar el producto.", ex);
         }
@@ -80,7 +80,7 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
             if (resultSet.next()) {
                 return mapearProducto(resultSet);
             }
-            throw new ProductoNoEncontradoException("No se encontró un producto con ID " + id + ".");
+            throw new ProductoNoEncontradoException("No se encontro un producto con ID " + id + ".");
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo buscar el producto por ID.", ex);
         }
@@ -90,7 +90,7 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
     public Producto buscarPorCodigo(String codigo) throws ProductoNoEncontradoException {
         return buscarOpcionalPorCodigo(codigo)
                 .orElseThrow(() -> new ProductoNoEncontradoException(
-                        "No se encontró un producto con código " + codigo + "."));
+                        "No se encontro un producto con codigo " + codigo + "."));
     }
 
     @Override
@@ -106,7 +106,7 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
             }
             return Optional.empty();
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo buscar el producto por código.", ex);
+            throw new DatabaseException("No se pudo buscar el producto por codigo.", ex);
         }
     }
 
@@ -129,7 +129,7 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
             }
             return productos;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudieron obtener los productos por categoría.", ex);
+            throw new DatabaseException("No se pudieron obtener los productos por categoria.", ex);
         }
     }
 
@@ -164,11 +164,11 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new ProductoNoEncontradoException("No se encontró el producto a actualizar.");
+                throw new ProductoNoEncontradoException("No se encontro el producto a actualizar.");
             }
         } catch (SQLException ex) {
             if (esRestriccionUnica(ex)) {
-                throw new ProductoDuplicadoException("Ya existe un producto con el código indicado.");
+                throw new ProductoDuplicadoException("Ya existe un producto con el codigo indicado.");
             }
             throw new DatabaseException("No se pudo actualizar el producto.", ex);
         }
@@ -184,7 +184,7 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new ProductoNoEncontradoException("No se encontró el producto para actualizar stock.");
+                throw new ProductoNoEncontradoException("No se encontro el producto para actualizar stock.");
             }
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo actualizar el stock del producto.", ex);
@@ -200,7 +200,7 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
 
             int filas = statement.executeUpdate();
             if (filas == 0) {
-                throw new ProductoNoEncontradoException("No se encontró el producto a eliminar.");
+                throw new ProductoNoEncontradoException("No se encontro el producto a eliminar.");
             }
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo eliminar el producto.", ex);
@@ -212,7 +212,7 @@ public class SQLiteProductoDAO extends SQLiteBaseDAO implements ProductoDAO {
         try {
             categoria = categoriaDAO.buscarPorId(resultSet.getInt("categoria_id"));
         } catch (CategoriaNoEncontradaException ex) {
-            throw new DatabaseException("El producto referencia una categoría inexistente.", ex);
+            throw new DatabaseException("El producto referencia una categoria inexistente.", ex);
         }
 
         String tipoProducto = resultSet.getString("tipo_producto");

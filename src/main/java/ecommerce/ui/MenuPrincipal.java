@@ -69,7 +69,7 @@ public class MenuPrincipal {
 
         do {
             imprimirMenu();
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 13 && sesionUsuarioService.haySesionActiva());
     }
@@ -77,15 +77,15 @@ public class MenuPrincipal {
     private void imprimirMenu() {
         ConsolaUtils.imprimirTitulo("SISTEMA E-COMMERCE");
         imprimirSesionActual();
-        System.out.println("1. Gestión de Usuarios");
-        System.out.println("2. Gestión de Roles");
-        System.out.println("3. Gestión de Productos");
-        System.out.println("4. Gestión de Categorías");
-        System.out.println("5. Gestión de Inventario");
+        System.out.println("1. Gestion de Usuarios");
+        System.out.println("2. Gestion de Roles");
+        System.out.println("3. Gestion de Productos");
+        System.out.println("4. Gestion de Categorias");
+        System.out.println("5. Gestion de Inventario");
         System.out.println("6. Carrito de Compras");
-        System.out.println("7. Órdenes de Compra");
+        System.out.println("7. Ordenes de Compra");
         System.out.println("8. Procesamiento de Pagos");
-        System.out.println("9. Gestión de Envíos");
+        System.out.println("9. Gestion de Envios");
         System.out.println("10. Seguimiento de Pedidos");
         System.out.println("11. Reclamos y Devoluciones");
         System.out.println("12. Reportes");
@@ -115,8 +115,8 @@ public class MenuPrincipal {
                 case 10 -> seguimientoMenu.mostrar();
                 case 11 -> postCompraMenu.mostrar();
                 case 12 -> reporteMenu.mostrar();
-                case 13 -> System.out.println("Saliendo del menú principal.");
-                default -> System.out.println("Opción incorrecta.");
+                case 13 -> System.out.println("Saliendo del menu principal.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());

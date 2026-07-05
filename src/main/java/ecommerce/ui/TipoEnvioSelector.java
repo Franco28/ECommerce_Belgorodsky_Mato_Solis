@@ -12,7 +12,7 @@ public class TipoEnvioSelector {
 
     public TipoEnvio seleccionarTipoEnvio() {
         imprimirTipos();
-        int opcion = entrada.leerOpcion("Seleccione tipo de envío: ", 1, TipoEnvio.values().length);
+        int opcion = entrada.leerOpcion("Seleccione tipo de envio: ", 1, TipoEnvio.values().length);
         return TipoEnvio.values()[opcion - 1];
     }
 

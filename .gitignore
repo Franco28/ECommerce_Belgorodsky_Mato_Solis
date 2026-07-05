@@ -1,5 +1,6 @@
 target/
 out/
+build/
 *.class
 *.log
 .idea/

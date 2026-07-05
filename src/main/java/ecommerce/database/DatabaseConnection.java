@@ -10,8 +10,8 @@ import java.sql.Statement;
 /**
  * Provee conexiones JDBC contra SQLite.
  *
- * Cada conexión activa las claves foráneas porque SQLite no las aplica
- * automáticamente si no se habilita PRAGMA foreign_keys = ON.
+ * Cada conexion activa las claves foraneas porque SQLite no las aplica
+ * automaticamente si no se habilita PRAGMA foreign_keys = ON.
  */
 public final class DatabaseConnection {
 
@@ -26,7 +26,7 @@ public final class DatabaseConnection {
             habilitarClavesForaneas(connection);
             return connection;
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo abrir la conexión con SQLite.", ex);
+            throw new DatabaseException("No se pudo abrir la conexion con SQLite.", ex);
         }
     }
 

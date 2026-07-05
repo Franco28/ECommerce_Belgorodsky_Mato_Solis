@@ -1,5 +1,6 @@
 package ecommerce.service;
 
+import ecommerce.dao.interfaces.CarritoDAO;
 import ecommerce.dao.interfaces.ProductoDAO;
 import ecommerce.enums.RolUsuario;
 import ecommerce.exception.PermisoDenegadoException;
@@ -16,16 +17,22 @@ public class CarritoService {
 
     private final ProductoDAO productoDAO;
     private final SeguridadService seguridadService;
+    private final CarritoDAO carritoDAO;
 
     public CarritoService(ProductoDAO productoDAO) {
-        this(productoDAO, new SeguridadService());
+        this(productoDAO, new SeguridadService(), null);
     }
 
     public CarritoService(ProductoDAO productoDAO, SeguridadService seguridadService) {
+        this(productoDAO, seguridadService, null);
+    }
+
+    public CarritoService(ProductoDAO productoDAO, SeguridadService seguridadService, CarritoDAO carritoDAO) {
         this.productoDAO = ValidadorDominio.validarObjetoObligatorio(productoDAO,
                 "El DAO de productos es obligatorio.");
         this.seguridadService = ValidadorDominio.validarObjetoObligatorio(seguridadService,
                 "El servicio de seguridad es obligatorio.");
+        this.carritoDAO = carritoDAO;
     }
 
     public Carrito crearCarrito(Usuario cliente) {
@@ -36,28 +43,32 @@ public class CarritoService {
     public void agregarProducto(Carrito carrito, String codigoProducto, int cantidad) {
         validarCarrito(carrito);
         ValidadorDominio.validarTextoObligatorio(codigoProducto,
-                "El código del producto es obligatorio.");
+                "El codigo del producto es obligatorio.");
         ValidadorDominio.validarEnteroMayorACero(cantidad,
                 "La cantidad debe ser mayor a cero.");
 
         Producto producto = productoDAO.buscarPorCodigo(codigoProducto);
         carrito.agregarProducto(producto, cantidad);
+        persistirCarrito(carrito);
     }
 
     public void modificarCantidad(Carrito carrito, String codigoProducto, int nuevaCantidad) {
         validarCarrito(carrito);
         Producto productoActualizado = productoDAO.buscarPorCodigo(codigoProducto);
         carrito.modificarCantidad(productoActualizado.getCodigo(), nuevaCantidad);
+        persistirCarrito(carrito);
     }
 
     public void eliminarProducto(Carrito carrito, String codigoProducto) {
         validarCarrito(carrito);
         carrito.eliminarProducto(codigoProducto);
+        persistirCarrito(carrito);
     }
 
     public void vaciarCarrito(Carrito carrito) {
         validarCarrito(carrito);
         carrito.vaciar();
+        persistirCarrito(carrito);
     }
 
     public double calcularSubtotal(Carrito carrito) {
@@ -80,6 +91,20 @@ public class CarritoService {
                         "No hay stock suficiente para el producto " + productoActualizado.getCodigo() + ".");
             }
         });
+    }
+
+    public Carrito guardarCarrito(Carrito carrito) {
+        validarCarrito(carrito);
+        if (carritoDAO == null) {
+            return carrito;
+        }
+        return carritoDAO.guardar(carrito);
+    }
+
+    private void persistirCarrito(Carrito carrito) {
+        if (carritoDAO != null && carrito.getId() > 0) {
+            carritoDAO.guardar(carrito);
+        }
     }
 
     private void validarCarrito(Carrito carrito) {

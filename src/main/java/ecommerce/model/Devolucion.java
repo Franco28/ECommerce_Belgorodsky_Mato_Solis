@@ -23,14 +23,14 @@ public class Devolucion {
                 "El producto es obligatorio.");
         setMotivo(motivo);
         this.fecha = ValidadorDominio.validarObjetoObligatorio(fecha,
-                "La fecha de la devolución es obligatoria.");
+                "La fecha de la devolucion es obligatoria.");
         this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
-                "El estado de la devolución es obligatorio.");
+                "El estado de la devolucion es obligatorio.");
     }
 
     public void cambiarEstado(EstadoDevolucion nuevoEstado) {
         this.estado = ValidadorDominio.validarObjetoObligatorio(nuevoEstado,
-                "El nuevo estado de la devolución es obligatorio.");
+                "El nuevo estado de la devolucion es obligatorio.");
     }
 
     public int getId() {
@@ -56,7 +56,7 @@ public class Devolucion {
 
     public void setMotivo(String motivo) {
         ValidadorDominio.validarTextoObligatorio(motivo,
-                "El motivo de la devolución es obligatorio.");
+                "El motivo de la devolucion es obligatorio.");
         this.motivo = motivo.trim();
     }
 

@@ -8,8 +8,8 @@ import ecommerce.util.ValidadorDominio;
 import java.util.Arrays;
 
 /**
- * Centraliza las reglas de permisos para evitar que el menú por consola
- * duplique validaciones en cada opción.
+ * Centraliza las reglas de permisos para evitar que el menu por consola
+ * duplique validaciones en cada opcion.
  */
 public class SeguridadService {
 
@@ -26,21 +26,21 @@ public class SeguridadService {
 
         if (!usuario.tieneRol(rolRequerido)) {
             throw new PermisoDenegadoException(
-                    "La acción requiere el rol " + rolRequerido + ".");
+                    "La accion requiere el rol " + rolRequerido + ".");
         }
     }
 
     public void validarAlgunRol(Usuario usuario, RolUsuario... rolesPermitidos) {
         validarUsuarioActivo(usuario);
         if (rolesPermitidos == null || rolesPermitidos.length == 0) {
-            throw new PermisoDenegadoException("No se configuraron roles permitidos para la acción.");
+            throw new PermisoDenegadoException("No se configuraron roles permitidos para la accion.");
         }
 
         boolean permitido = Arrays.stream(rolesPermitidos)
                 .anyMatch(usuario::tieneRol);
 
         if (!permitido) {
-            throw new PermisoDenegadoException("El usuario no tiene permisos para realizar esta acción.");
+            throw new PermisoDenegadoException("El usuario no tiene permisos para realizar esta accion.");
         }
     }
 

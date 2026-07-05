@@ -48,7 +48,7 @@ public class SQLiteDevolucionDAO extends SQLiteBaseDAO implements DevolucionDAO 
             statement.executeUpdate();
             devolucion.setId(obtenerIdGenerado(statement));
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo guardar la devolución.", ex);
+            throw new DatabaseException("No se pudo guardar la devolucion.", ex);
         }
     }
 
@@ -63,9 +63,9 @@ public class SQLiteDevolucionDAO extends SQLiteBaseDAO implements DevolucionDAO 
             if (resultSet.next()) {
                 return mapearDevolucion(resultSet);
             }
-            throw new DatabaseException("No se encontró una devolución con ID " + id + ".");
+            throw new DatabaseException("No se encontro una devolucion con ID " + id + ".");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo buscar la devolución por ID.", ex);
+            throw new DatabaseException("No se pudo buscar la devolucion por ID.", ex);
         }
     }
 
@@ -99,9 +99,9 @@ public class SQLiteDevolucionDAO extends SQLiteBaseDAO implements DevolucionDAO 
         try (Connection connection = obtenerConexion();
              PreparedStatement statement = preparar(connection, sql, estado, id)) {
 
-            validarFilasAfectadas(statement.executeUpdate(), "No se encontró la devolución a actualizar.");
+            validarFilasAfectadas(statement.executeUpdate(), "No se encontro la devolucion a actualizar.");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo actualizar el estado de la devolución.", ex);
+            throw new DatabaseException("No se pudo actualizar el estado de la devolucion.", ex);
         }
     }
 
@@ -112,9 +112,9 @@ public class SQLiteDevolucionDAO extends SQLiteBaseDAO implements DevolucionDAO 
         try (Connection connection = obtenerConexion();
              PreparedStatement statement = preparar(connection, sql, id)) {
 
-            validarFilasAfectadas(statement.executeUpdate(), "No se encontró la devolución a eliminar.");
+            validarFilasAfectadas(statement.executeUpdate(), "No se encontro la devolucion a eliminar.");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo eliminar la devolución.", ex);
+            throw new DatabaseException("No se pudo eliminar la devolucion.", ex);
         }
     }
 
@@ -142,7 +142,7 @@ public class SQLiteDevolucionDAO extends SQLiteBaseDAO implements DevolucionDAO 
             cliente = usuarioDAO.buscarPorId(resultSet.getInt("cliente_id"));
             producto = productoDAO.buscarPorId(resultSet.getInt("producto_id"));
         } catch (UsuarioNoEncontradoException | ProductoNoEncontradoException ex) {
-            throw new DatabaseException("La devolución referencia datos inexistentes.", ex);
+            throw new DatabaseException("La devolucion referencia datos inexistentes.", ex);
         }
 
         return new Devolucion(

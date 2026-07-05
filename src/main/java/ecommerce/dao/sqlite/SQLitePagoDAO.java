@@ -47,7 +47,7 @@ public class SQLitePagoDAO extends SQLiteBaseDAO implements PagoDAO {
             if (resultSet.next()) {
                 return mapearPago(resultSet);
             }
-            throw new DatabaseException("No se encontró un pago con ID " + id + ".");
+            throw new DatabaseException("No se encontro un pago con ID " + id + ".");
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo buscar el pago por ID.", ex);
         }
@@ -83,7 +83,7 @@ public class SQLitePagoDAO extends SQLiteBaseDAO implements PagoDAO {
                      pago.getFecha(),
                      pago.getId())) {
 
-            validarFilasAfectadas(statement.executeUpdate(), "No se encontró el pago a actualizar.");
+            validarFilasAfectadas(statement.executeUpdate(), "No se encontro el pago a actualizar.");
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo actualizar el pago.", ex);
         }
@@ -96,7 +96,7 @@ public class SQLitePagoDAO extends SQLiteBaseDAO implements PagoDAO {
         try (Connection connection = obtenerConexion();
              PreparedStatement statement = preparar(connection, sql, id)) {
 
-            validarFilasAfectadas(statement.executeUpdate(), "No se encontró el pago a eliminar.");
+            validarFilasAfectadas(statement.executeUpdate(), "No se encontro el pago a eliminar.");
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo eliminar el pago.", ex);
         }

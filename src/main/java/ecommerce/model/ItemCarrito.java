@@ -9,10 +9,16 @@ public class ItemCarrito {
     private double precioUnitario;
 
     public ItemCarrito(Producto producto, int cantidad) {
+        this(producto, cantidad, producto.calcularPrecioFinal());
+    }
+
+    public ItemCarrito(Producto producto, int cantidad, double precioUnitario) {
         this.producto = ValidadorDominio.validarObjetoObligatorio(producto,
                 "El producto es obligatorio.");
         setCantidad(cantidad);
-        this.precioUnitario = producto.calcularPrecioFinal();
+        ValidadorDominio.validarDecimalMayorACero(precioUnitario,
+                "El precio unitario debe ser mayor a cero.");
+        this.precioUnitario = precioUnitario;
     }
 
     public double calcularSubtotal() {

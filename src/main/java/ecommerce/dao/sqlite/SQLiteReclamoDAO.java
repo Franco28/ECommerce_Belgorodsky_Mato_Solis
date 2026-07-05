@@ -63,9 +63,9 @@ public class SQLiteReclamoDAO extends SQLiteBaseDAO implements ReclamoDAO {
             if (resultSet.next()) {
                 return mapearReclamo(resultSet);
             }
-            throw new DatabaseException("No se encontró un reclamo con número " + numeroReclamo + ".");
+            throw new DatabaseException("No se encontro un reclamo con numero " + numeroReclamo + ".");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo buscar el reclamo por número.", ex);
+            throw new DatabaseException("No se pudo buscar el reclamo por numero.", ex);
         }
     }
 
@@ -99,7 +99,7 @@ public class SQLiteReclamoDAO extends SQLiteBaseDAO implements ReclamoDAO {
         try (Connection connection = obtenerConexion();
              PreparedStatement statement = preparar(connection, sql, estado, numeroReclamo.trim().toUpperCase())) {
 
-            validarFilasAfectadas(statement.executeUpdate(), "No se encontró el reclamo a actualizar.");
+            validarFilasAfectadas(statement.executeUpdate(), "No se encontro el reclamo a actualizar.");
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo actualizar el estado del reclamo.", ex);
         }
@@ -112,7 +112,7 @@ public class SQLiteReclamoDAO extends SQLiteBaseDAO implements ReclamoDAO {
         try (Connection connection = obtenerConexion();
              PreparedStatement statement = preparar(connection, sql, numeroReclamo.trim().toUpperCase())) {
 
-            validarFilasAfectadas(statement.executeUpdate(), "No se encontró el reclamo a eliminar.");
+            validarFilasAfectadas(statement.executeUpdate(), "No se encontro el reclamo a eliminar.");
         } catch (SQLException ex) {
             throw new DatabaseException("No se pudo eliminar el reclamo.", ex);
         }

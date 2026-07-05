@@ -47,7 +47,7 @@ public class SQLiteCalificacionDAO extends SQLiteBaseDAO implements Calificacion
             statement.executeUpdate();
             calificacion.setId(obtenerIdGenerado(statement));
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo guardar la calificación.", ex);
+            throw new DatabaseException("No se pudo guardar la calificacion.", ex);
         }
     }
 
@@ -62,9 +62,9 @@ public class SQLiteCalificacionDAO extends SQLiteBaseDAO implements Calificacion
             if (resultSet.next()) {
                 return mapearCalificacion(resultSet);
             }
-            throw new DatabaseException("No se encontró una calificación con ID " + id + ".");
+            throw new DatabaseException("No se encontro una calificacion con ID " + id + ".");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo buscar la calificación por ID.", ex);
+            throw new DatabaseException("No se pudo buscar la calificacion por ID.", ex);
         }
     }
 
@@ -109,9 +109,9 @@ public class SQLiteCalificacionDAO extends SQLiteBaseDAO implements Calificacion
         try (Connection connection = obtenerConexion();
              PreparedStatement statement = preparar(connection, sql, id)) {
 
-            validarFilasAfectadas(statement.executeUpdate(), "No se encontró la calificación a eliminar.");
+            validarFilasAfectadas(statement.executeUpdate(), "No se encontro la calificacion a eliminar.");
         } catch (SQLException ex) {
-            throw new DatabaseException("No se pudo eliminar la calificación.", ex);
+            throw new DatabaseException("No se pudo eliminar la calificacion.", ex);
         }
     }
 
@@ -139,7 +139,7 @@ public class SQLiteCalificacionDAO extends SQLiteBaseDAO implements Calificacion
             cliente = usuarioDAO.buscarPorId(resultSet.getInt("cliente_id"));
             producto = productoDAO.buscarPorId(resultSet.getInt("producto_id"));
         } catch (UsuarioNoEncontradoException | ProductoNoEncontradoException ex) {
-            throw new DatabaseException("La calificación referencia datos inexistentes.", ex);
+            throw new DatabaseException("La calificacion referencia datos inexistentes.", ex);
         }
 
         return new Calificacion(

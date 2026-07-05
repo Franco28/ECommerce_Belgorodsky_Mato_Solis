@@ -24,9 +24,9 @@ public class Envio implements Enviable {
         setCiudad(ciudad);
         setCodigoPostal(codigoPostal);
         this.tipoEnvio = ValidadorDominio.validarObjetoObligatorio(tipoEnvio,
-                "El tipo de envío es obligatorio.");
+                "El tipo de envio es obligatorio.");
         this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
-                "El estado del envío es obligatorio.");
+                "El estado del envio es obligatorio.");
         setCosto(costo);
     }
 
@@ -37,7 +37,7 @@ public class Envio implements Enviable {
 
     public void actualizarEstado(EstadoEnvio nuevoEstado) {
         this.estado = ValidadorDominio.validarObjetoObligatorio(nuevoEstado,
-                "El nuevo estado del envío es obligatorio.");
+                "El nuevo estado del envio es obligatorio.");
     }
 
     public String getCodigoSeguimiento() {
@@ -46,7 +46,7 @@ public class Envio implements Enviable {
 
     public void setCodigoSeguimiento(String codigoSeguimiento) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         this.codigoSeguimiento = codigoSeguimiento.trim().toUpperCase();
     }
 
@@ -55,7 +55,7 @@ public class Envio implements Enviable {
     }
 
     public void setDireccion(String direccion) {
-        ValidadorDominio.validarTextoObligatorio(direccion, "La dirección es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(direccion, "La direccion es obligatoria.");
         this.direccion = direccion.trim();
     }
 
@@ -83,7 +83,7 @@ public class Envio implements Enviable {
 
     public void setCodigoPostal(String codigoPostal) {
         ValidadorDominio.validarTextoObligatorio(codigoPostal,
-                "El código postal es obligatorio.");
+                "El codigo postal es obligatorio.");
         this.codigoPostal = codigoPostal.trim();
     }
 
@@ -101,7 +101,7 @@ public class Envio implements Enviable {
 
     public void setCosto(double costo) {
         ValidadorDominio.validarDecimalNoNegativo(costo,
-                "El costo del envío no puede ser negativo.");
+                "El costo del envio no puede ser negativo.");
         this.costo = costo;
     }
 }

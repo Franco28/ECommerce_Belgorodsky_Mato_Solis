@@ -3,7 +3,7 @@ package ecommerce.util;
 import ecommerce.exception.DatosInvalidosException;
 
 /**
- * Validador común para evitar repetir reglas básicas en todas las entidades.
+ * Validador comun para evitar repetir reglas basicas en todas las entidades.
  */
 public final class ValidadorDominio {
 
@@ -57,7 +57,7 @@ public final class ValidadorDominio {
         validarTextoObligatorio(email, "El email es obligatorio.");
         String normalizado = email.trim();
         if (!normalizado.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            throw new DatosInvalidosException("El email no tiene un formato válido.");
+            throw new DatosInvalidosException("El email no tiene un formato valido.");
         }
     }
 }

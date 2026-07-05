@@ -25,11 +25,11 @@ public final class ProcesadorPagoFactory {
     }
 
     public static ProcesadorPago crearProcesador(MetodoPago metodoPago) {
-        ValidadorDominio.validarObjetoObligatorio(metodoPago, "El método de pago es obligatorio.");
+        ValidadorDominio.validarObjetoObligatorio(metodoPago, "El metodo de pago es obligatorio.");
         Supplier<ProcesadorPago> supplier = PROCESADORES.get(metodoPago);
 
         if (supplier == null) {
-            throw new DatosInvalidosException("No existe un procesador para el método de pago seleccionado.");
+            throw new DatosInvalidosException("No existe un procesador para el metodo de pago seleccionado.");
         }
 
         return supplier.get();

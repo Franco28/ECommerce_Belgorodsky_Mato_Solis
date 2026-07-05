@@ -44,18 +44,18 @@ public class OrdenMenu {
 
         do {
             imprimirMenu();
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
 
     private void imprimirMenu() {
-        ConsolaUtils.imprimirTitulo("ÓRDENES DE COMPRA");
+        ConsolaUtils.imprimirTitulo("ORDENES DE COMPRA");
         System.out.println("1. Confirmar compra desde carrito");
-        System.out.println("2. Buscar orden por número");
-        System.out.println("3. Listar órdenes");
-        System.out.println("4. Listar órdenes por cliente");
-        System.out.println("5. Listar órdenes por estado");
+        System.out.println("2. Buscar orden por numero");
+        System.out.println("3. Listar ordenes");
+        System.out.println("4. Listar ordenes por cliente");
+        System.out.println("5. Listar ordenes por estado");
         System.out.println("6. Actualizar estado de orden");
         System.out.println("7. Eliminar orden");
         System.out.println("0. Volver");
@@ -72,7 +72,7 @@ public class OrdenMenu {
                 case 6 -> actualizarEstado();
                 case 7 -> eliminarOrden();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (PagoRechazadoException ex) {
             System.out.println("Pago rechazado: " + ex.getMessage());
@@ -94,8 +94,8 @@ public class OrdenMenu {
         MetodoPago metodoPago = metodoPagoSelector.seleccionarMetodoPago();
         DatosEnvio datosEnvio = leerDatosEnvio();
 
-        if (!entrada.confirmar("Se generará la orden, el pago, el envío y el egreso de stock.")) {
-            System.out.println("Operación cancelada.");
+        if (!entrada.confirmar("Se generara la orden, el pago, el envio y el egreso de stock.")) {
+            System.out.println("Operacion cancelada.");
             return;
         }
 
@@ -105,41 +105,41 @@ public class OrdenMenu {
     }
 
     private DatosEnvio leerDatosEnvio() {
-        ConsolaUtils.imprimirTitulo("DATOS DE ENVÍO");
+        ConsolaUtils.imprimirTitulo("DATOS DE ENVIO");
         TipoEnvio tipoEnvio = tipoEnvioSelector.seleccionarTipoEnvio();
-        String direccion = entrada.leerTexto("Dirección: ");
+        String direccion = entrada.leerTexto("Direccion: ");
         String provincia = entrada.leerTexto("Provincia: ");
         String ciudad = entrada.leerTexto("Ciudad: ");
-        String codigoPostal = entrada.leerTexto("Código postal: ");
+        String codigoPostal = entrada.leerTexto("Codigo postal: ");
         return new DatosEnvio(direccion, provincia, ciudad, codigoPostal, tipoEnvio);
     }
 
     private void buscarOrdenPorNumero() {
         ConsolaUtils.imprimirTitulo("BUSCAR ORDEN");
-        String numero = entrada.leerTexto("Número de orden: ");
+        String numero = entrada.leerTexto("Numero de orden: ");
         ConsolaUtils.imprimirOrden(ordenService.buscarPorNumero(numero));
     }
 
     private void listarOrdenes() {
-        ConsolaUtils.imprimirTitulo("LISTADO DE ÓRDENES");
+        ConsolaUtils.imprimirTitulo("LISTADO DE ORDENES");
         ConsolaUtils.imprimirOrdenes(ordenService.listarOrdenes());
     }
 
     private void listarOrdenesPorCliente() {
-        ConsolaUtils.imprimirTitulo("ÓRDENES POR CLIENTE");
+        ConsolaUtils.imprimirTitulo("ORDENES POR CLIENTE");
         Usuario cliente = clienteSelector.seleccionarClienteActivo();
         ConsolaUtils.imprimirOrdenes(ordenService.listarPorCliente(cliente.getId()));
     }
 
     private void listarOrdenesPorEstado() {
-        ConsolaUtils.imprimirTitulo("ÓRDENES POR ESTADO");
+        ConsolaUtils.imprimirTitulo("ORDENES POR ESTADO");
         EstadoOrden estado = estadoOrdenSelector.seleccionarEstadoOrden();
         ConsolaUtils.imprimirOrdenes(ordenService.listarPorEstado(estado));
     }
 
     private void actualizarEstado() {
         ConsolaUtils.imprimirTitulo("ACTUALIZAR ESTADO DE ORDEN");
-        String numero = entrada.leerTexto("Número de orden: ");
+        String numero = entrada.leerTexto("Numero de orden: ");
         EstadoOrden estado = estadoOrdenSelector.seleccionarEstadoOrden();
         ordenService.actualizarEstado(numero, estado);
         System.out.println("Estado actualizado correctamente.");
@@ -147,13 +147,13 @@ public class OrdenMenu {
 
     private void eliminarOrden() {
         ConsolaUtils.imprimirTitulo("ELIMINAR ORDEN");
-        String numero = entrada.leerTexto("Número de orden: ");
+        String numero = entrada.leerTexto("Numero de orden: ");
 
-        if (entrada.confirmar("La orden y sus ítems serán eliminados.")) {
+        if (entrada.confirmar("La orden y sus items seran eliminados.")) {
             ordenService.eliminarOrden(numero);
             System.out.println("Orden eliminada correctamente.");
         } else {
-            System.out.println("Operación cancelada.");
+            System.out.println("Operacion cancelada.");
         }
     }
 }

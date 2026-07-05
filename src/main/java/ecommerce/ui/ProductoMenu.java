@@ -31,21 +31,21 @@ public class ProductoMenu {
         int opcion;
 
         do {
-            ConsolaUtils.imprimirTitulo("GESTIÓN DE PRODUCTOS");
+            ConsolaUtils.imprimirTitulo("GESTION DE PRODUCTOS");
             System.out.println("1. Registrar producto");
             System.out.println("2. Modificar producto");
             System.out.println("3. Eliminar producto");
             System.out.println("4. Buscar producto por ID");
-            System.out.println("5. Buscar producto por código");
+            System.out.println("5. Buscar producto por codigo");
             System.out.println("6. Listar productos");
-            System.out.println("7. Listar productos por categoría");
+            System.out.println("7. Listar productos por categoria");
             System.out.println("8. Listar productos sin stock");
             System.out.println("9. Activar producto");
             System.out.println("10. Inactivar producto");
             System.out.println("11. Suspender producto");
             System.out.println("0. Volver");
 
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -65,7 +65,7 @@ public class ProductoMenu {
                 case 10 -> inactivarProducto();
                 case 11 -> suspenderProducto();
                 case 0 -> { }
-                default -> System.out.println("Opción incorrecta.");
+                default -> System.out.println("Opcion incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -89,9 +89,9 @@ public class ProductoMenu {
 
     private Producto leerNuevoProducto() {
         int tipo = seleccionarTipoProducto();
-        String codigo = entrada.leerTexto("Código único: ");
+        String codigo = entrada.leerTexto("Codigo unico: ");
         String nombre = entrada.leerTexto("Nombre: ");
-        String descripcion = entrada.leerTexto("Descripción: ");
+        String descripcion = entrada.leerTexto("Descripcion: ");
         double precio = entrada.leerDecimal("Precio: ");
         Categoria categoria = categoriaSelector.seleccionarCategoria();
         int stock = entrada.leerEntero("Stock inicial: ");
@@ -101,7 +101,7 @@ public class ProductoMenu {
             case 1 -> crearProductoFisico(codigo, nombre, descripcion, precio, categoria, stock, estado);
             case 2 -> crearProductoDigital(codigo, nombre, descripcion, precio, categoria, stock, estado);
             case 3 -> crearProductoImportado(codigo, nombre, descripcion, precio, categoria, stock, estado);
-            default -> throw new DatosInvalidosException("Tipo de producto inválido.");
+            default -> throw new DatosInvalidosException("Tipo de producto invalido.");
         };
     }
 
@@ -120,12 +120,12 @@ public class ProductoMenu {
     private ProductoImportado crearProductoImportado(String codigo, String nombre, String descripcion, double precio,
             Categoria categoria, int stock, EstadoProducto estado) {
         double peso = entrada.leerDecimal("Peso: ");
-        double impuesto = entrada.leerDecimal("Porcentaje de impuesto de importación: ");
+        double impuesto = entrada.leerDecimal("Porcentaje de impuesto de importacion: ");
         return new ProductoImportado(0, codigo, nombre, descripcion, precio, categoria, stock, peso, estado, impuesto);
     }
 
     private int seleccionarTipoProducto() {
-        System.out.println("1. Producto físico");
+        System.out.println("1. Producto fisico");
         System.out.println("2. Producto digital");
         System.out.println("3. Producto importado");
         return entrada.leerOpcion("Tipo de producto: ", 1, 3);
@@ -141,9 +141,9 @@ public class ProductoMenu {
         ConsolaUtils.imprimirProducto(producto);
         System.out.println();
 
-        producto.setCodigo(entrada.leerTextoOpcional("Código", producto.getCodigo()));
+        producto.setCodigo(entrada.leerTextoOpcional("Codigo", producto.getCodigo()));
         producto.setNombre(entrada.leerTextoOpcional("Nombre", producto.getNombre()));
-        producto.setDescripcion(entrada.leerTextoOpcional("Descripción", producto.getDescripcion()));
+        producto.setDescripcion(entrada.leerTextoOpcional("Descripcion", producto.getDescripcion()));
         producto.setPrecio(entrada.leerDecimalOpcional("Precio", producto.getPrecio()));
         producto.setCategoria(categoriaSelector.seleccionarCategoriaOpcional(producto.getCategoria()));
         producto.setStock(entrada.leerEnteroOpcional("Stock", producto.getStock()));
@@ -154,7 +154,7 @@ public class ProductoMenu {
             productoDigital.setUrlDescarga(entrada.leerTextoOpcional("URL de descarga", productoDigital.getUrlDescarga()));
         } else if (producto instanceof ProductoImportado productoImportado) {
             productoImportado.setPorcentajeImpuestoImportacion(
-                    entrada.leerDecimalOpcional("Porcentaje de impuesto de importación",
+                    entrada.leerDecimalOpcional("Porcentaje de impuesto de importacion",
                             productoImportado.getPorcentajeImpuestoImportacion()));
         }
 
@@ -168,11 +168,11 @@ public class ProductoMenu {
         Producto producto = productoService.buscarPorId(id);
         ConsolaUtils.imprimirProducto(producto);
 
-        if (entrada.confirmar("El producto se eliminará definitivamente.")) {
+        if (entrada.confirmar("El producto se eliminara definitivamente.")) {
             productoService.eliminarProducto(id);
             System.out.println("Producto eliminado correctamente.");
         } else {
-            System.out.println("Eliminación cancelada.");
+            System.out.println("Eliminacion cancelada.");
         }
     }
 
@@ -183,8 +183,8 @@ public class ProductoMenu {
     }
 
     private void buscarPorCodigo() {
-        ConsolaUtils.imprimirTitulo("BUSCAR PRODUCTO POR CÓDIGO");
-        String codigo = entrada.leerTexto("Código: ");
+        ConsolaUtils.imprimirTitulo("BUSCAR PRODUCTO POR CODIGO");
+        String codigo = entrada.leerTexto("Codigo: ");
         ConsolaUtils.imprimirProducto(productoService.buscarPorCodigo(codigo));
     }
 
@@ -195,7 +195,7 @@ public class ProductoMenu {
 
     private void listarPorCategoria() {
         validarCategoriasDisponibles();
-        ConsolaUtils.imprimirTitulo("PRODUCTOS POR CATEGORÍA");
+        ConsolaUtils.imprimirTitulo("PRODUCTOS POR CATEGORIA");
         Categoria categoria = categoriaSelector.seleccionarCategoria();
         ConsolaUtils.imprimirProductos(productoService.listarPorCategoria(categoria.getId()));
     }
@@ -228,7 +228,7 @@ public class ProductoMenu {
 
     private void validarCategoriasDisponibles() {
         if (categoriaService.listarCategorias().isEmpty()) {
-            throw new DatosInvalidosException("Debe registrar al menos una categoría antes de operar productos.");
+            throw new DatosInvalidosException("Debe registrar al menos una categoria antes de operar productos.");
         }
     }
 }

@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Servicio de órdenes. Convierte un carrito en una orden persistida y
- * coordina la salida de stock a través de InventarioService.
+ * Servicio de ordenes. Convierte un carrito en una orden persistida y
+ * coordina la salida de stock a traves de InventarioService.
  */
 public class OrdenService {
 
@@ -40,7 +40,7 @@ public class OrdenService {
     public OrdenService(OrdenDAO ordenDAO, InventarioService inventarioService,
             CarritoService carritoService, SeguridadService seguridadService) {
         this.ordenDAO = ValidadorDominio.validarObjetoObligatorio(ordenDAO,
-                "El DAO de órdenes es obligatorio.");
+                "El DAO de ordenes es obligatorio.");
         this.inventarioService = ValidadorDominio.validarObjetoObligatorio(inventarioService,
                 "El servicio de inventario es obligatorio.");
         this.carritoService = ValidadorDominio.validarObjetoObligatorio(carritoService,
@@ -71,7 +71,7 @@ public class OrdenService {
     }
 
     public OrdenCompra buscarPorNumero(String numero) {
-        ValidadorDominio.validarTextoObligatorio(numero, "El número de orden es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(numero, "El numero de orden es obligatorio.");
         return ordenDAO.buscarPorNumero(numero);
     }
 
@@ -91,13 +91,13 @@ public class OrdenService {
     }
 
     public void actualizarEstado(String numero, EstadoOrden nuevoEstado) {
-        ValidadorDominio.validarTextoObligatorio(numero, "El número de orden es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(numero, "El numero de orden es obligatorio.");
         ValidadorDominio.validarObjetoObligatorio(nuevoEstado, "El nuevo estado es obligatorio.");
         ordenDAO.actualizarEstado(numero, nuevoEstado);
     }
 
     public void eliminarOrden(String numero) {
-        ValidadorDominio.validarTextoObligatorio(numero, "El número de orden es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(numero, "El numero de orden es obligatorio.");
         ordenDAO.eliminar(numero);
     }
 
@@ -120,10 +120,10 @@ public class OrdenService {
     private void validarDatosDeCompra(Carrito carrito, Pago pago, Envio envio) {
         carritoService.validarCarritoParaCompra(carrito);
         ValidadorDominio.validarObjetoObligatorio(pago, "El pago es obligatorio.");
-        ValidadorDominio.validarObjetoObligatorio(envio, "El envío es obligatorio.");
+        ValidadorDominio.validarObjetoObligatorio(envio, "El envio es obligatorio.");
 
         if (carrito.estaVacio()) {
-            throw new CarritoVacioException("No se puede crear una orden con un carrito vacío.");
+            throw new CarritoVacioException("No se puede crear una orden con un carrito vacio.");
         }
         if (pago.getEstado() != EstadoPago.APROBADO) {
             throw new DatosInvalidosException("La orden requiere un pago aprobado.");

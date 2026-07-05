@@ -17,12 +17,12 @@ public class EnvioService {
 
     public EnvioService(EnvioDAO envioDAO) {
         this.envioDAO = ValidadorDominio.validarObjetoObligatorio(envioDAO,
-                "El DAO de envíos es obligatorio.");
+                "El DAO de envios es obligatorio.");
     }
 
     public Envio crearEnvio(String direccion, String provincia, String ciudad,
             String codigoPostal, TipoEnvio tipoEnvio) {
-        ValidadorDominio.validarObjetoObligatorio(tipoEnvio, "El tipo de envío es obligatorio.");
+        ValidadorDominio.validarObjetoObligatorio(tipoEnvio, "El tipo de envio es obligatorio.");
 
         Envio envio = new Envio(
                 generarCodigoSeguimiento(),
@@ -36,13 +36,13 @@ public class EnvioService {
 
         envioDAO.guardar(envio);
         envioDAO.registrarHistorial(envio.getCodigoSeguimiento(), envio.getEstado(),
-                "Envío creado y pendiente de preparación.");
+                "Envio creado y pendiente de preparacion.");
         return envio;
     }
 
     public Envio buscarPorCodigoSeguimiento(String codigoSeguimiento) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         return envioDAO.buscarPorCodigoSeguimiento(codigoSeguimiento);
     }
 
@@ -51,13 +51,13 @@ public class EnvioService {
     }
 
     public List<Envio> listarPorEstado(EstadoEnvio estado) {
-        ValidadorDominio.validarObjetoObligatorio(estado, "El estado de envío es obligatorio.");
+        ValidadorDominio.validarObjetoObligatorio(estado, "El estado de envio es obligatorio.");
         return envioDAO.obtenerPorEstado(estado);
     }
 
     public void actualizarEstado(String codigoSeguimiento, EstadoEnvio nuevoEstado) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         ValidadorDominio.validarObjetoObligatorio(nuevoEstado, "El nuevo estado es obligatorio.");
 
         Envio envio = buscarPorCodigoSeguimiento(codigoSeguimiento);
@@ -70,7 +70,7 @@ public class EnvioService {
 
     public List<EnvioHistorialEstado> consultarHistorial(String codigoSeguimiento) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         return envioDAO.obtenerHistorial(codigoSeguimiento);
     }
 
@@ -85,12 +85,12 @@ public class EnvioService {
 
     public void eliminarEnvio(String codigoSeguimiento) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         envioDAO.eliminar(codigoSeguimiento);
     }
 
     public double calcularCostoPorTipo(TipoEnvio tipoEnvio) {
-        ValidadorDominio.validarObjetoObligatorio(tipoEnvio, "El tipo de envío es obligatorio.");
+        ValidadorDominio.validarObjetoObligatorio(tipoEnvio, "El tipo de envio es obligatorio.");
         return switch (tipoEnvio) {
             case RETIRO_EN_SUCURSAL -> 0;
             case ESTANDAR -> 3500;
@@ -103,11 +103,11 @@ public class EnvioService {
         EstadoEnvio estadoActual = envio.getEstado();
         if (estadoActual == EstadoEnvio.ENTREGADO && nuevoEstado != EstadoEnvio.ENTREGADO) {
             throw new ecommerce.exception.DatosInvalidosException(
-                    "Un envío entregado no puede volver a otro estado.");
+                    "Un envio entregado no puede volver a otro estado.");
         }
         if (estadoActual == EstadoEnvio.CANCELADO && nuevoEstado != EstadoEnvio.CANCELADO) {
             throw new ecommerce.exception.DatosInvalidosException(
-                    "Un envío cancelado no puede volver a otro estado.");
+                    "Un envio cancelado no puede volver a otro estado.");
         }
     }
 

@@ -2,6 +2,7 @@ package ecommerce.service;
 
 import ecommerce.dao.factory.DAOFactory;
 import ecommerce.dao.interfaces.CalificacionDAO;
+import ecommerce.dao.interfaces.CarritoDAO;
 import ecommerce.dao.interfaces.CategoriaDAO;
 import ecommerce.dao.interfaces.DevolucionDAO;
 import ecommerce.dao.interfaces.EnvioDAO;
@@ -14,13 +15,14 @@ import ecommerce.dao.interfaces.UsuarioDAO;
 import ecommerce.util.ValidadorDominio;
 
 /**
- * Fábrica simple de servicios de aplicación.
- * Reutiliza la DAOFactory para mantener la creación de dependencias en un solo lugar.
+ * Fabrica simple de servicios de aplicacion.
+ * Reutiliza la DAOFactory para mantener la creacion de dependencias en un solo lugar.
  */
 public class ServiceFactory {
 
     private final UsuarioDAO usuarioDAO;
     private final CategoriaDAO categoriaDAO;
+    private final CarritoDAO carritoDAO;
     private final ProductoDAO productoDAO;
     private final InventarioDAO inventarioDAO;
     private final PagoDAO pagoDAO;
@@ -50,10 +52,11 @@ public class ServiceFactory {
     private final CheckoutFacade checkoutFacade;
 
     public ServiceFactory(DAOFactory daoFactory) {
-        ValidadorDominio.validarObjetoObligatorio(daoFactory, "La fábrica de DAOs es obligatoria.");
+        ValidadorDominio.validarObjetoObligatorio(daoFactory, "La fabrica de DAOs es obligatoria.");
 
         this.usuarioDAO = daoFactory.crearUsuarioDAO();
         this.categoriaDAO = daoFactory.crearCategoriaDAO();
+        this.carritoDAO = daoFactory.crearCarritoDAO();
         this.productoDAO = daoFactory.crearProductoDAO();
         this.inventarioDAO = daoFactory.crearInventarioDAO();
         this.pagoDAO = daoFactory.crearPagoDAO();
@@ -70,8 +73,8 @@ public class ServiceFactory {
         this.categoriaService = new CategoriaService(categoriaDAO);
         this.productoService = new ProductoService(productoDAO, categoriaDAO);
         this.inventarioService = new InventarioService(productoDAO, inventarioDAO);
-        this.carritoService = new CarritoService(productoDAO, seguridadService);
-        this.carritoSesionService = new CarritoSesionService(carritoService);
+        this.carritoService = new CarritoService(productoDAO, seguridadService, carritoDAO);
+        this.carritoSesionService = new CarritoSesionService(carritoService, carritoDAO);
         this.pagoService = new PagoService(pagoDAO);
         this.envioService = new EnvioService(envioDAO);
         this.ordenService = new OrdenService(ordenDAO, inventarioService, carritoService, seguridadService);

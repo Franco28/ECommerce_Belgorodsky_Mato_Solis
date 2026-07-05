@@ -1,8 +1,8 @@
 package ecommerce.exception;
 
 /**
- * Excepción base del dominio del e-commerce.
- * Permite capturar errores propios del negocio sin depender de excepciones genéricas.
+ * Excepcion base del dominio del e-commerce.
+ * Permite capturar errores propios del negocio sin depender de excepciones genericas.
  */
 public class EcommerceException extends RuntimeException {
 

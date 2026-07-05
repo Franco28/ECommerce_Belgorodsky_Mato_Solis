@@ -14,12 +14,12 @@ public class RolMenu {
         int opcion;
 
         do {
-            ConsolaUtils.imprimirTitulo("GESTIÓN DE ROLES");
+            ConsolaUtils.imprimirTitulo("GESTION DE ROLES");
             System.out.println("1. Listar roles");
             System.out.println("2. Consultar permisos de un rol");
             System.out.println("0. Volver");
 
-            opcion = entrada.leerEntero("Opción: ");
+            opcion = entrada.leerEntero("Opcion: ");
             ejecutarOpcion(opcion);
         } while (opcion != 0);
     }
@@ -29,7 +29,7 @@ public class RolMenu {
             case 1 -> listarRoles();
             case 2 -> consultarRol();
             case 0 -> { }
-            default -> System.out.println("Opción incorrecta.");
+            default -> System.out.println("Opcion incorrecta.");
         }
 
         if (opcion != 0) {

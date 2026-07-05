@@ -25,7 +25,7 @@ public class ProductoImportado extends Producto {
 
     public void setPorcentajeImpuestoImportacion(double porcentajeImpuestoImportacion) {
         ValidadorDominio.validarDecimalNoNegativo(porcentajeImpuestoImportacion,
-                "El impuesto de importación no puede ser negativo.");
+                "El impuesto de importacion no puede ser negativo.");
         this.porcentajeImpuestoImportacion = porcentajeImpuestoImportacion;
     }
 }

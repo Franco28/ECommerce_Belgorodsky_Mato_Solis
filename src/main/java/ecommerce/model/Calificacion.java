@@ -23,7 +23,7 @@ public class Calificacion {
         setPuntuacion(puntuacion);
         setComentario(comentario);
         this.fecha = ValidadorDominio.validarObjetoObligatorio(fecha,
-                "La fecha de la calificación es obligatoria.");
+                "La fecha de la calificacion es obligatoria.");
     }
 
     public int getId() {
@@ -50,7 +50,7 @@ public class Calificacion {
     public void setPuntuacion(int puntuacion) {
         if (puntuacion < 1 || puntuacion > 5) {
             throw new ecommerce.exception.DatosInvalidosException(
-                    "La puntuación debe estar entre 1 y 5.");
+                    "La puntuacion debe estar entre 1 y 5.");
         }
         this.puntuacion = puntuacion;
     }

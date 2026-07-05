@@ -12,7 +12,7 @@ public class EstadoEnvioSelector {
 
     public EstadoEnvio seleccionarEstadoEnvio() {
         imprimirEstados();
-        int opcion = entrada.leerOpcion("Seleccione estado de envío: ", 1, EstadoEnvio.values().length);
+        int opcion = entrada.leerOpcion("Seleccione estado de envio: ", 1, EstadoEnvio.values().length);
         return EstadoEnvio.values()[opcion - 1];
     }
 

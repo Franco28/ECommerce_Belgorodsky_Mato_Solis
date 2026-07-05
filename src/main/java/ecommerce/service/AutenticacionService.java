@@ -15,17 +15,17 @@ public class AutenticacionService {
         this.usuarioService = ValidadorDominio.validarObjetoObligatorio(usuarioService,
                 "El servicio de usuarios es obligatorio.");
         this.sesionUsuarioService = ValidadorDominio.validarObjetoObligatorio(sesionUsuarioService,
-                "El servicio de sesión es obligatorio.");
+                "El servicio de sesion es obligatorio.");
     }
 
     public Usuario iniciarSesion(String email, String contrasenia) {
         ValidadorDominio.validarEmail(email);
-        ValidadorDominio.validarTextoObligatorio(contrasenia, "La contraseña es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(contrasenia, "La contrasena es obligatoria.");
 
         Usuario usuario = usuarioService.buscarPorEmail(email);
 
         if (!usuario.getContrasenia().equals(contrasenia)) {
-            throw new DatosInvalidosException("Email o contraseña incorrectos.");
+            throw new DatosInvalidosException("Email o contrasena incorrectos.");
         }
 
         sesionUsuarioService.iniciarSesion(usuario);

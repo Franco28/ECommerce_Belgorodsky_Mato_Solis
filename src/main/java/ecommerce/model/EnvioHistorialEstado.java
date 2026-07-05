@@ -18,7 +18,7 @@ public class EnvioHistorialEstado {
         this.id = id;
         setCodigoSeguimiento(codigoSeguimiento);
         this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
-                "El estado del envío es obligatorio.");
+                "El estado del envio es obligatorio.");
         this.fecha = ValidadorDominio.validarObjetoObligatorio(fecha,
                 "La fecha del historial es obligatoria.");
         setDescripcion(descripcion);
@@ -34,7 +34,7 @@ public class EnvioHistorialEstado {
 
     public void setCodigoSeguimiento(String codigoSeguimiento) {
         ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
-                "El código de seguimiento es obligatorio.");
+                "El codigo de seguimiento es obligatorio.");
         this.codigoSeguimiento = codigoSeguimiento.trim().toUpperCase();
     }
 
@@ -52,7 +52,7 @@ public class EnvioHistorialEstado {
 
     public void setDescripcion(String descripcion) {
         ValidadorDominio.validarTextoObligatorio(descripcion,
-                "La descripción del historial es obligatoria.");
+                "La descripcion del historial es obligatoria.");
         this.descripcion = descripcion.trim();
     }
 }

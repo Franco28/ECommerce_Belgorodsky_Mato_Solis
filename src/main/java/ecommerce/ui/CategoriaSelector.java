@@ -18,16 +18,16 @@ public class CategoriaSelector {
     public Categoria seleccionarCategoria() {
         List<Categoria> categorias = categoriaService.listarCategorias();
         ConsolaUtils.imprimirCategorias(categorias);
-        int id = entrada.leerEntero("ID de categoría: ");
+        int id = entrada.leerEntero("ID de categoria: ");
         return categoriaService.buscarPorId(id);
     }
 
     public Categoria seleccionarCategoriaOpcional(Categoria categoriaActual) {
-        System.out.println("Categoría actual: " + categoriaActual.getNombre() + " (ID " + categoriaActual.getId() + ")");
-        System.out.println("0. Mantener categoría actual");
+        System.out.println("Categoria actual: " + categoriaActual.getNombre() + " (ID " + categoriaActual.getId() + ")");
+        System.out.println("0. Mantener categoria actual");
         ConsolaUtils.imprimirCategorias(categoriaService.listarCategorias());
 
-        int id = entrada.leerEntero("ID de categoría: ");
+        int id = entrada.leerEntero("ID de categoria: ");
         if (id == 0) {
             return categoriaActual;
         }
