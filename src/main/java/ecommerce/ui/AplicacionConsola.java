@@ -14,9 +14,19 @@ public class AplicacionConsola {
         try (Scanner scanner = new Scanner(System.in)) {
             EntradaConsola entrada = new EntradaConsola(scanner);
             ServiceFactory serviceFactory = ServiceFactory.crearConSQLite();
+            AutenticacionMenu autenticacionMenu = new AutenticacionMenu(serviceFactory.autenticacionService(), entrada);
+            MenuPrincipal menuPrincipal = new MenuPrincipal(serviceFactory, entrada);
 
             System.out.println("Base de datos: " + DatabaseConfig.obtenerRutaBaseDatos());
-            new MenuPrincipal(serviceFactory, entrada).mostrar();
+
+            boolean continuar;
+            do {
+                continuar = autenticacionMenu.mostrar();
+                if (continuar) {
+                    menuPrincipal.mostrar();
+                    serviceFactory.autenticacionService().cerrarSesion();
+                }
+            } while (continuar);
         }
     }
 }

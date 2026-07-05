@@ -31,6 +31,8 @@ public class ServiceFactory {
     private final CalificacionDAO calificacionDAO;
 
     private final SeguridadService seguridadService;
+    private final SesionUsuarioService sesionUsuarioService;
+    private final AutenticacionService autenticacionService;
     private final UsuarioService usuarioService;
     private final CategoriaService categoriaService;
     private final ProductoService productoService;
@@ -62,7 +64,9 @@ public class ServiceFactory {
         this.calificacionDAO = daoFactory.crearCalificacionDAO();
 
         this.seguridadService = new SeguridadService();
+        this.sesionUsuarioService = new SesionUsuarioService(seguridadService);
         this.usuarioService = new UsuarioService(usuarioDAO);
+        this.autenticacionService = new AutenticacionService(usuarioService, sesionUsuarioService);
         this.categoriaService = new CategoriaService(categoriaDAO);
         this.productoService = new ProductoService(productoDAO, categoriaDAO);
         this.inventarioService = new InventarioService(productoDAO, inventarioDAO);
@@ -85,6 +89,14 @@ public class ServiceFactory {
 
     public SeguridadService seguridadService() {
         return seguridadService;
+    }
+
+    public SesionUsuarioService sesionUsuarioService() {
+        return sesionUsuarioService;
+    }
+
+    public AutenticacionService autenticacionService() {
+        return autenticacionService;
     }
 
     public UsuarioService usuarioService() {

@@ -11,6 +11,7 @@ import ecommerce.service.CalificacionService;
 import ecommerce.service.DevolucionService;
 import ecommerce.service.ReclamoService;
 import ecommerce.service.UsuarioService;
+import ecommerce.service.SesionUsuarioService;
 
 public class PostCompraMenu {
 
@@ -23,12 +24,13 @@ public class PostCompraMenu {
     private final EstadoDevolucionSelector estadoDevolucionSelector;
 
     public PostCompraMenu(ReclamoService reclamoService, DevolucionService devolucionService,
-            CalificacionService calificacionService, UsuarioService usuarioService, EntradaConsola entrada) {
+            CalificacionService calificacionService, UsuarioService usuarioService,
+            SesionUsuarioService sesionUsuarioService, EntradaConsola entrada) {
         this.reclamoService = reclamoService;
         this.devolucionService = devolucionService;
         this.calificacionService = calificacionService;
         this.entrada = entrada;
-        this.clienteSelector = new ClienteSelector(usuarioService, entrada);
+        this.clienteSelector = new ClienteSelector(usuarioService, entrada, sesionUsuarioService);
         this.estadoReclamoSelector = new EstadoReclamoSelector(entrada);
         this.estadoDevolucionSelector = new EstadoDevolucionSelector(entrada);
     }

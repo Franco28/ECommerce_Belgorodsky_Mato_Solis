@@ -734,6 +734,48 @@ El menú principal ya permite acceder a:
 12. Reportes
 ```
 
+## Etapa 14 - Integración final, autenticación y permisos
+
+Se agregó control de acceso al sistema antes de ingresar al menú principal.
+
+Clases agregadas:
+
+```text
+src/main/java/ecommerce/service/SesionUsuarioService.java
+src/main/java/ecommerce/service/AutenticacionService.java
+src/main/java/ecommerce/ui/AutenticacionMenu.java
+```
+
+También se actualizaron:
+
+```text
+AplicacionConsola
+MenuPrincipal
+ServiceFactory
+ClienteSelector
+CarritoMenu
+OrdenMenu
+PostCompraMenu
+```
+
+Funcionalidades agregadas:
+
+- Creación automática del primer administrador si la base no tiene usuarios.
+- Inicio de sesión mediante email y contraseña.
+- Validación de usuario activo antes de operar el sistema.
+- Control de acceso por rol desde el menú principal.
+- Cierre de sesión al salir del menú principal.
+- Uso automático del cliente de sesión en carrito, órdenes y post compra cuando el usuario logueado tiene rol `CLIENTE`.
+
+Permisos aplicados en el menú principal:
+
+```text
+Administrador: usuarios, roles, productos, categorías, inventario, órdenes, pagos, envíos, seguimiento, post compra y reportes.
+Cliente: carrito, órdenes, seguimiento y post compra.
+Operador de Ventas: órdenes, pagos, seguimiento y post compra.
+Responsable de Logística: envíos y seguimiento.
+```
+
 ## Compilar el proyecto
 
 Con Java 17:

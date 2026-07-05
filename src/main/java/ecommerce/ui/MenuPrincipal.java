@@ -1,11 +1,15 @@
 package ecommerce.ui;
 
+import ecommerce.enums.RolUsuario;
 import ecommerce.exception.EcommerceException;
+import ecommerce.model.Usuario;
 import ecommerce.service.ServiceFactory;
+import ecommerce.service.SesionUsuarioService;
 
 public class MenuPrincipal {
 
     private final EntradaConsola entrada;
+    private final SesionUsuarioService sesionUsuarioService;
     private final UsuarioMenu usuarioMenu;
     private final RolMenu rolMenu;
     private final ProductoMenu productoMenu;
@@ -21,6 +25,7 @@ public class MenuPrincipal {
 
     public MenuPrincipal(ServiceFactory serviceFactory, EntradaConsola entrada) {
         this.entrada = entrada;
+        this.sesionUsuarioService = serviceFactory.sesionUsuarioService();
         this.usuarioMenu = new UsuarioMenu(serviceFactory.usuarioService(), entrada);
         this.rolMenu = new RolMenu(entrada);
         this.productoMenu = new ProductoMenu(
@@ -37,6 +42,7 @@ public class MenuPrincipal {
                 serviceFactory.productoService(),
                 serviceFactory.usuarioService(),
                 serviceFactory.carritoSesionService(),
+                serviceFactory.sesionUsuarioService(),
                 entrada);
         this.pagoMenu = new PagoMenu(serviceFactory.pagoService(), entrada);
         this.ordenMenu = new OrdenMenu(
@@ -44,6 +50,7 @@ public class MenuPrincipal {
                 serviceFactory.ordenService(),
                 serviceFactory.usuarioService(),
                 serviceFactory.carritoSesionService(),
+                serviceFactory.sesionUsuarioService(),
                 entrada);
         this.envioMenu = new EnvioMenu(serviceFactory.envioService(), entrada);
         this.seguimientoMenu = new SeguimientoMenu(serviceFactory.seguimientoService(), entrada);
@@ -52,6 +59,7 @@ public class MenuPrincipal {
                 serviceFactory.devolucionService(),
                 serviceFactory.calificacionService(),
                 serviceFactory.usuarioService(),
+                serviceFactory.sesionUsuarioService(),
                 entrada);
         this.reporteMenu = new ReporteMenu(serviceFactory.reporteService(), entrada);
     }
@@ -63,11 +71,12 @@ public class MenuPrincipal {
             imprimirMenu();
             opcion = entrada.leerEntero("Opción: ");
             ejecutarOpcion(opcion);
-        } while (opcion != 13);
+        } while (opcion != 13 && sesionUsuarioService.haySesionActiva());
     }
 
     private void imprimirMenu() {
         ConsolaUtils.imprimirTitulo("SISTEMA E-COMMERCE");
+        imprimirSesionActual();
         System.out.println("1. Gestión de Usuarios");
         System.out.println("2. Gestión de Roles");
         System.out.println("3. Gestión de Productos");
@@ -83,8 +92,16 @@ public class MenuPrincipal {
         System.out.println("13. Salir");
     }
 
+    private void imprimirSesionActual() {
+        Usuario usuario = sesionUsuarioService.requerirUsuarioActual();
+        System.out.println("Usuario: " + usuario.getNombre() + " " + usuario.getApellido()
+                + " | Rol: " + usuario.getRol());
+        System.out.println();
+    }
+
     private void ejecutarOpcion(int opcion) {
         try {
+            validarAcceso(opcion);
             switch (opcion) {
                 case 1 -> usuarioMenu.mostrar();
                 case 2 -> rolMenu.mostrar();
@@ -98,12 +115,42 @@ public class MenuPrincipal {
                 case 10 -> seguimientoMenu.mostrar();
                 case 11 -> postCompraMenu.mostrar();
                 case 12 -> reporteMenu.mostrar();
-                case 13 -> System.out.println("Saliendo del sistema.");
+                case 13 -> System.out.println("Saliendo del menú principal.");
                 default -> System.out.println("Opción incorrecta.");
             }
         } catch (EcommerceException ex) {
             System.out.println("Error: " + ex.getMessage());
             entrada.pausar();
+        }
+    }
+
+    private void validarAcceso(int opcion) {
+        switch (opcion) {
+            case 1, 2, 3, 4, 5, 12 -> sesionUsuarioService.validarRol(RolUsuario.ADMINISTRADOR);
+            case 6 -> sesionUsuarioService.validarRol(RolUsuario.CLIENTE);
+            case 7 -> sesionUsuarioService.validarAlgunRol(
+                    RolUsuario.ADMINISTRADOR,
+                    RolUsuario.OPERADOR_VENTAS,
+                    RolUsuario.CLIENTE);
+            case 8 -> sesionUsuarioService.validarAlgunRol(
+                    RolUsuario.ADMINISTRADOR,
+                    RolUsuario.OPERADOR_VENTAS);
+            case 9 -> sesionUsuarioService.validarAlgunRol(
+                    RolUsuario.ADMINISTRADOR,
+                    RolUsuario.RESPONSABLE_LOGISTICA);
+            case 10 -> sesionUsuarioService.validarAlgunRol(
+                    RolUsuario.ADMINISTRADOR,
+                    RolUsuario.OPERADOR_VENTAS,
+                    RolUsuario.RESPONSABLE_LOGISTICA,
+                    RolUsuario.CLIENTE);
+            case 11 -> sesionUsuarioService.validarAlgunRol(
+                    RolUsuario.ADMINISTRADOR,
+                    RolUsuario.OPERADOR_VENTAS,
+                    RolUsuario.CLIENTE);
+            case 13 -> {
+            }
+            default -> {
+            }
         }
     }
 

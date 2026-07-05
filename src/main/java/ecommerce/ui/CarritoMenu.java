@@ -8,6 +8,7 @@ import ecommerce.service.CarritoService;
 import ecommerce.service.CarritoSesionService;
 import ecommerce.service.ProductoService;
 import ecommerce.service.UsuarioService;
+import ecommerce.service.SesionUsuarioService;
 
 import java.util.List;
 
@@ -21,11 +22,12 @@ public class CarritoMenu {
     private Usuario clienteActual;
 
     public CarritoMenu(CarritoService carritoService, ProductoService productoService,
-            UsuarioService usuarioService, CarritoSesionService carritoSesionService, EntradaConsola entrada) {
+            UsuarioService usuarioService, CarritoSesionService carritoSesionService,
+            SesionUsuarioService sesionUsuarioService, EntradaConsola entrada) {
         this.carritoService = carritoService;
         this.productoService = productoService;
         this.entrada = entrada;
-        this.clienteSelector = new ClienteSelector(usuarioService, entrada);
+        this.clienteSelector = new ClienteSelector(usuarioService, entrada, sesionUsuarioService);
         this.carritoSesionService = carritoSesionService;
     }
 

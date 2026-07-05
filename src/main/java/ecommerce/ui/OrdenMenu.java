@@ -13,6 +13,7 @@ import ecommerce.service.CarritoSesionService;
 import ecommerce.service.CheckoutFacade;
 import ecommerce.service.OrdenService;
 import ecommerce.service.UsuarioService;
+import ecommerce.service.SesionUsuarioService;
 
 public class OrdenMenu {
 
@@ -27,12 +28,12 @@ public class OrdenMenu {
 
     public OrdenMenu(CheckoutFacade checkoutFacade, OrdenService ordenService,
             UsuarioService usuarioService, CarritoSesionService carritoSesionService,
-            EntradaConsola entrada) {
+            SesionUsuarioService sesionUsuarioService, EntradaConsola entrada) {
         this.checkoutFacade = checkoutFacade;
         this.ordenService = ordenService;
         this.carritoSesionService = carritoSesionService;
         this.entrada = entrada;
-        this.clienteSelector = new ClienteSelector(usuarioService, entrada);
+        this.clienteSelector = new ClienteSelector(usuarioService, entrada, sesionUsuarioService);
         this.metodoPagoSelector = new MetodoPagoSelector(entrada);
         this.tipoEnvioSelector = new TipoEnvioSelector(entrada);
         this.estadoOrdenSelector = new EstadoOrdenSelector(entrada);
