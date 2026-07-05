@@ -1,6 +1,33 @@
+<div align="center">
+
 # E-Commerce Final - Programación Avanzada
 
 Proyecto Java por etapas para el examen final integrador de Programación Avanzada.
+
+</div>
+
+---
+
+## Índice
+
+- [Etapa 1 - Modelo de dominio](#etapa-1---modelo-de-dominio)
+- [Etapa 2 - Excepciones personalizadas y validaciones base](#etapa-2---excepciones-personalizadas-y-validaciones-base)
+- [Etapa 3 - Persistencia SQLite base](#etapa-3---persistencia-sqlite-base)
+- [Etapa 4 - DAO y Factory](#etapa-4---dao-y-factory)
+- [Etapa 5 - Servicios de negocio](#etapa-5---servicios-de-negocio)
+- [Etapa 6 - Usuarios y roles por consola](#etapa-6---usuarios-y-roles-por-consola)
+- [Etapa 7 - Productos, categorías e inventario por consola](#etapa-7---productos-categorías-e-inventario-por-consola)
+- [Etapa 8 - Carrito de compras por consola](#etapa-8---carrito-de-compras-por-consola)
+- [Etapa 9 - Procesamiento de pagos por consola](#etapa-9---procesamiento-de-pagos-por-consola)
+- [Etapa 10 - Órdenes de compra y checkout integrado](#etapa-10---órdenes-de-compra-y-checkout-integrado)
+- [Etapa 11 - Envíos y seguimiento de pedidos](#etapa-11---envíos-y-seguimiento-de-pedidos)
+- [Etapa 12 - Reclamos, devoluciones y calificaciones](#etapa-12---reclamos-devoluciones-y-calificaciones)
+- [Etapa 13 - Reportes de gestión](#etapa-13---reportes-de-gestión)
+- [Compilar el proyecto](#compilar-el-proyecto)
+- [Inicializar SQLite](#inicializar-sqlite)
+- [Ejecutar con Maven](#ejecutar-con-maven)
+
+---
 
 ## Etapa 1 - Modelo de dominio
 
@@ -496,8 +523,6 @@ El menú principal ya permite acceder a:
 8. Procesamiento de Pagos
 ```
 
-
-
 ## Etapa 11 - Envíos y seguimiento de pedidos
 
 Se integraron los módulos de gestión de envíos y seguimiento dentro del menú principal.
@@ -656,6 +681,59 @@ El menú principal ya permite acceder a:
 10. Seguimiento de Pedidos
 11. Reclamos y Devoluciones
 ```
+
+## Etapa 13 - Reportes de gestión
+
+Se integró el módulo de reportes dentro del menú principal.
+
+Clase agregada en `src/main/java/ecommerce/ui`:
+
+```text
+ReporteMenu
+```
+
+También se amplió:
+
+```text
+MenuPrincipal
+```
+
+Reportes disponibles desde consola:
+
+- Cantidad total de usuarios.
+- Cantidad de clientes.
+- Cantidad de productos.
+- Productos por categoría.
+- Productos sin stock.
+- Productos más vendidos.
+- Órdenes generadas.
+- Órdenes por estado.
+- Recaudación total.
+- Recaudación por método de pago.
+- Clientes con más compras.
+- Reclamos abiertos.
+- Reclamos resueltos.
+- Envíos pendientes.
+- Envíos entregados.
+- Resumen general del sistema.
+
+El menú principal ya permite acceder a:
+
+```text
+1. Gestión de Usuarios
+2. Gestión de Roles
+3. Gestión de Productos
+4. Gestión de Categorías
+5. Gestión de Inventario
+6. Carrito de Compras
+7. Órdenes de Compra
+8. Procesamiento de Pagos
+9. Gestión de Envíos
+10. Seguimiento de Pedidos
+11. Reclamos y Devoluciones
+12. Reportes
+```
+
 ## Compilar el proyecto
 
 Con Java 17:

@@ -17,6 +17,7 @@ public class MenuPrincipal {
     private final EnvioMenu envioMenu;
     private final SeguimientoMenu seguimientoMenu;
     private final PostCompraMenu postCompraMenu;
+    private final ReporteMenu reporteMenu;
 
     public MenuPrincipal(ServiceFactory serviceFactory, EntradaConsola entrada) {
         this.entrada = entrada;
@@ -52,6 +53,7 @@ public class MenuPrincipal {
                 serviceFactory.calificacionService(),
                 serviceFactory.usuarioService(),
                 entrada);
+        this.reporteMenu = new ReporteMenu(serviceFactory.reporteService(), entrada);
     }
 
     public void mostrar() {
@@ -95,7 +97,7 @@ public class MenuPrincipal {
                 case 9 -> envioMenu.mostrar();
                 case 10 -> seguimientoMenu.mostrar();
                 case 11 -> postCompraMenu.mostrar();
-                case 12 -> moduloNoDisponible();
+                case 12 -> reporteMenu.mostrar();
                 case 13 -> System.out.println("Saliendo del sistema.");
                 default -> System.out.println("Opción incorrecta.");
             }
@@ -105,8 +107,4 @@ public class MenuPrincipal {
         }
     }
 
-    private void moduloNoDisponible() {
-        System.out.println("El módulo seleccionado todavía no está disponible desde el menú principal.");
-        entrada.pausar();
-    }
 }
