@@ -2,12 +2,12 @@ package ecommerce.model;
 
 import ecommerce.enums.EstadoOrden;
 import ecommerce.interfaces.Calculable;
+import ecommerce.util.ValidadorDominio;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class OrdenCompra implements Calculable {
 
@@ -22,28 +22,35 @@ public class OrdenCompra implements Calculable {
 
     public OrdenCompra(String numero, Usuario cliente, LocalDateTime fecha, EstadoOrden estado) {
         setNumero(numero);
-        this.cliente = Objects.requireNonNull(cliente, "El cliente es obligatorio.");
-        this.fecha = Objects.requireNonNull(fecha, "La fecha de la orden es obligatoria.");
-        this.estado = Objects.requireNonNull(estado, "El estado de la orden es obligatorio.");
+        this.cliente = ValidadorDominio.validarObjetoObligatorio(cliente,
+                "El cliente es obligatorio.");
+        this.fecha = ValidadorDominio.validarObjetoObligatorio(fecha,
+                "La fecha de la orden es obligatoria.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
+                "El estado de la orden es obligatorio.");
         this.productos = new ArrayList<>();
         this.total = 0;
     }
 
     public void agregarItem(ItemOrden item) {
-        productos.add(Objects.requireNonNull(item, "El item de orden es obligatorio."));
+        productos.add(ValidadorDominio.validarObjetoObligatorio(item,
+                "El item de orden es obligatorio."));
         recalcularTotal();
     }
 
     public void asociarPago(Pago pago) {
-        this.pago = Objects.requireNonNull(pago, "El pago es obligatorio.");
+        this.pago = ValidadorDominio.validarObjetoObligatorio(pago,
+                "El pago es obligatorio.");
     }
 
     public void asociarEnvio(Envio envio) {
-        this.envio = Objects.requireNonNull(envio, "El envío es obligatorio.");
+        this.envio = ValidadorDominio.validarObjetoObligatorio(envio,
+                "El envío es obligatorio.");
     }
 
     public void cambiarEstado(EstadoOrden nuevoEstado) {
-        this.estado = Objects.requireNonNull(nuevoEstado, "El nuevo estado de la orden es obligatorio.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(nuevoEstado,
+                "El nuevo estado de la orden es obligatorio.");
     }
 
     @Override
@@ -62,9 +69,8 @@ public class OrdenCompra implements Calculable {
     }
 
     public void setNumero(String numero) {
-        if (numero == null || numero.trim().isEmpty()) {
-            throw new IllegalArgumentException("El número de orden es obligatorio.");
-        }
+        ValidadorDominio.validarTextoObligatorio(numero,
+                "El número de orden es obligatorio.");
         this.numero = numero.trim().toUpperCase();
     }
 

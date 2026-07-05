@@ -1,9 +1,9 @@
 package ecommerce.model;
 
 import ecommerce.enums.EstadoDevolucion;
+import ecommerce.util.ValidadorDominio;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class Devolucion {
 
@@ -17,15 +17,20 @@ public class Devolucion {
     public Devolucion(int id, Usuario cliente, Producto producto, String motivo,
             LocalDateTime fecha, EstadoDevolucion estado) {
         setId(id);
-        this.cliente = Objects.requireNonNull(cliente, "El cliente es obligatorio.");
-        this.producto = Objects.requireNonNull(producto, "El producto es obligatorio.");
+        this.cliente = ValidadorDominio.validarObjetoObligatorio(cliente,
+                "El cliente es obligatorio.");
+        this.producto = ValidadorDominio.validarObjetoObligatorio(producto,
+                "El producto es obligatorio.");
         setMotivo(motivo);
-        this.fecha = Objects.requireNonNull(fecha, "La fecha de la devolución es obligatoria.");
-        this.estado = Objects.requireNonNull(estado, "El estado de la devolución es obligatorio.");
+        this.fecha = ValidadorDominio.validarObjetoObligatorio(fecha,
+                "La fecha de la devolución es obligatoria.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
+                "El estado de la devolución es obligatorio.");
     }
 
     public void cambiarEstado(EstadoDevolucion nuevoEstado) {
-        this.estado = Objects.requireNonNull(nuevoEstado, "El nuevo estado de la devolución es obligatorio.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(nuevoEstado,
+                "El nuevo estado de la devolución es obligatorio.");
     }
 
     public int getId() {
@@ -33,9 +38,7 @@ public class Devolucion {
     }
 
     public void setId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("El ID no puede ser negativo.");
-        }
+        ValidadorDominio.validarIdNoNegativo(id, "El ID no puede ser negativo.");
         this.id = id;
     }
 
@@ -52,9 +55,8 @@ public class Devolucion {
     }
 
     public void setMotivo(String motivo) {
-        if (motivo == null || motivo.trim().isEmpty()) {
-            throw new IllegalArgumentException("El motivo de la devolución es obligatorio.");
-        }
+        ValidadorDominio.validarTextoObligatorio(motivo,
+                "El motivo de la devolución es obligatorio.");
         this.motivo = motivo.trim();
     }
 

@@ -1,13 +1,16 @@
 package ecommerce.model;
 
 import ecommerce.enums.RolUsuario;
+import ecommerce.exception.CarritoVacioException;
+import ecommerce.exception.PermisoDenegadoException;
+import ecommerce.exception.ProductoNoDisponibleException;
 import ecommerce.interfaces.Calculable;
+import ecommerce.util.ValidadorDominio;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class Carrito implements Calculable {
 
@@ -18,18 +21,24 @@ public class Carrito implements Calculable {
 
     public Carrito(int id, Usuario cliente) {
         setId(id);
-        this.cliente = Objects.requireNonNull(cliente, "El cliente es obligatorio.");
+        this.cliente = ValidadorDominio.validarObjetoObligatorio(cliente,
+                "El cliente es obligatorio.");
         if (!cliente.tieneRol(RolUsuario.CLIENTE)) {
-            throw new IllegalArgumentException("El carrito solo puede pertenecer a un usuario cliente.");
+            throw new PermisoDenegadoException(
+                    "El carrito solo puede pertenecer a un usuario cliente.");
         }
         this.items = new ArrayList<>();
         this.fechaCreacion = LocalDateTime.now();
     }
 
     public void agregarProducto(Producto producto, int cantidad) {
-        Objects.requireNonNull(producto, "El producto es obligatorio.");
-        if (!producto.validarDisponibilidad(cantidad)) {
-            throw new IllegalArgumentException("El producto no tiene disponibilidad suficiente.");
+        ValidadorDominio.validarObjetoObligatorio(producto, "El producto es obligatorio.");
+        ValidadorDominio.validarEnteroMayorACero(cantidad, "La cantidad debe ser mayor a cero.");
+
+        int cantidadTotalSolicitada = cantidad + obtenerCantidadActual(producto.getCodigo());
+        if (!producto.validarDisponibilidad(cantidadTotalSolicitada)) {
+            throw new ProductoNoDisponibleException(
+                    "El producto no tiene disponibilidad suficiente para la cantidad solicitada.");
         }
 
         for (ItemCarrito item : items) {
@@ -43,7 +52,29 @@ public class Carrito implements Calculable {
     }
 
     public void eliminarProducto(String codigoProducto) {
-        items.removeIf(item -> item.getProducto().getCodigo().equalsIgnoreCase(codigoProducto));
+        ValidadorDominio.validarTextoObligatorio(codigoProducto,
+                "El código del producto es obligatorio.");
+        items.removeIf(item -> item.getProducto().getCodigo().equalsIgnoreCase(codigoProducto.trim()));
+    }
+
+    public void modificarCantidad(String codigoProducto, int nuevaCantidad) {
+        ValidadorDominio.validarTextoObligatorio(codigoProducto,
+                "El código del producto es obligatorio.");
+        ValidadorDominio.validarEnteroMayorACero(nuevaCantidad,
+                "La cantidad debe ser mayor a cero.");
+
+        for (ItemCarrito item : items) {
+            if (item.getProducto().getCodigo().equalsIgnoreCase(codigoProducto.trim())) {
+                if (!item.getProducto().validarDisponibilidad(nuevaCantidad)) {
+                    throw new ProductoNoDisponibleException(
+                            "El producto no tiene stock suficiente para la nueva cantidad.");
+                }
+                item.setCantidad(nuevaCantidad);
+                return;
+            }
+        }
+
+        throw new ProductoNoDisponibleException("El producto indicado no existe en el carrito.");
     }
 
     public void vaciar() {
@@ -54,10 +85,27 @@ public class Carrito implements Calculable {
         return items.isEmpty();
     }
 
+    public void validarNoVacio() {
+        if (estaVacio()) {
+            throw new CarritoVacioException("El carrito está vacío.");
+        }
+    }
+
     @Override
     public double calcularTotal() {
         return items.stream()
                 .mapToDouble(ItemCarrito::calcularSubtotal)
+                .sum();
+    }
+
+    public double calcularSubtotal() {
+        return calcularTotal();
+    }
+
+    private int obtenerCantidadActual(String codigoProducto) {
+        return items.stream()
+                .filter(item -> item.getProducto().getCodigo().equals(codigoProducto))
+                .mapToInt(ItemCarrito::getCantidad)
                 .sum();
     }
 
@@ -66,9 +114,7 @@ public class Carrito implements Calculable {
     }
 
     public void setId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("El ID no puede ser negativo.");
-        }
+        ValidadorDominio.validarIdNoNegativo(id, "El ID no puede ser negativo.");
         this.id = id;
     }
 

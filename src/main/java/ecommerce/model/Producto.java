@@ -1,10 +1,10 @@
 package ecommerce.model;
 
 import ecommerce.enums.EstadoProducto;
+import ecommerce.exception.StockInsuficienteException;
 import ecommerce.interfaces.Descontable;
 import ecommerce.interfaces.Mostrable;
-
-import java.util.Objects;
+import ecommerce.util.ValidadorDominio;
 
 public abstract class Producto implements Mostrable, Descontable {
 
@@ -28,7 +28,8 @@ public abstract class Producto implements Mostrable, Descontable {
         setCategoria(categoria);
         setStock(stock);
         setPeso(peso);
-        this.estado = Objects.requireNonNull(estado, "El estado del producto es obligatorio.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
+                "El estado del producto es obligatorio.");
         actualizarEstadoPorStock();
     }
 
@@ -41,9 +42,11 @@ public abstract class Producto implements Mostrable, Descontable {
     @Override
     public double aplicarDescuento(double porcentaje) {
         if (porcentaje <= 0 || porcentaje > 100) {
-            throw new IllegalArgumentException("El porcentaje de descuento debe estar entre 1 y 100.");
+            throw new ecommerce.exception.DatosInvalidosException(
+                    "El porcentaje de descuento debe estar entre 1 y 100.");
         }
-        return calcularPrecioFinal() - (calcularPrecioFinal() * porcentaje / 100);
+        double precioFinal = calcularPrecioFinal();
+        return precioFinal - (precioFinal * porcentaje / 100);
     }
 
     @Override
@@ -53,19 +56,17 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void ingresarStock(int cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La cantidad a ingresar debe ser mayor a cero.");
-        }
+        ValidadorDominio.validarEnteroMayorACero(cantidad,
+                "La cantidad a ingresar debe ser mayor a cero.");
         this.stock += cantidad;
         actualizarEstadoPorStock();
     }
 
     public void egresarStock(int cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La cantidad a egresar debe ser mayor a cero.");
-        }
+        ValidadorDominio.validarEnteroMayorACero(cantidad,
+                "La cantidad a egresar debe ser mayor a cero.");
         if (cantidad > stock) {
-            throw new IllegalArgumentException("No hay stock suficiente para realizar el egreso.");
+            throw new StockInsuficienteException("No hay stock suficiente para realizar el egreso.");
         }
         this.stock -= cantidad;
         actualizarEstadoPorStock();
@@ -97,9 +98,7 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("El ID no puede ser negativo.");
-        }
+        ValidadorDominio.validarIdNoNegativo(id, "El ID no puede ser negativo.");
         this.id = id;
     }
 
@@ -108,7 +107,7 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setCodigo(String codigo) {
-        validarTextoObligatorio(codigo, "El código del producto es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(codigo, "El código del producto es obligatorio.");
         this.codigo = codigo.trim().toUpperCase();
     }
 
@@ -117,7 +116,7 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setNombre(String nombre) {
-        validarTextoObligatorio(nombre, "El nombre del producto es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre del producto es obligatorio.");
         this.nombre = nombre.trim();
     }
 
@@ -126,7 +125,8 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setDescripcion(String descripcion) {
-        validarTextoObligatorio(descripcion, "La descripción del producto es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(descripcion,
+                "La descripción del producto es obligatoria.");
         this.descripcion = descripcion.trim();
     }
 
@@ -135,9 +135,7 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setPrecio(double precio) {
-        if (precio <= 0) {
-            throw new IllegalArgumentException("El precio debe ser mayor a cero.");
-        }
+        ValidadorDominio.validarDecimalMayorACero(precio, "El precio debe ser mayor a cero.");
         this.precio = precio;
     }
 
@@ -146,7 +144,8 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setCategoria(Categoria categoria) {
-        this.categoria = Objects.requireNonNull(categoria, "La categoría es obligatoria.");
+        this.categoria = ValidadorDominio.validarObjetoObligatorio(categoria,
+                "La categoría es obligatoria.");
     }
 
     public int getStock() {
@@ -154,9 +153,7 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setStock(int stock) {
-        if (stock < 0) {
-            throw new IllegalArgumentException("El stock no puede ser negativo.");
-        }
+        ValidadorDominio.validarEnteroNoNegativo(stock, "El stock no puede ser negativo.");
         this.stock = stock;
     }
 
@@ -165,9 +162,7 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setPeso(double peso) {
-        if (peso < 0) {
-            throw new IllegalArgumentException("El peso no puede ser negativo.");
-        }
+        ValidadorDominio.validarDecimalNoNegativo(peso, "El peso no puede ser negativo.");
         this.peso = peso;
     }
 
@@ -176,12 +171,8 @@ public abstract class Producto implements Mostrable, Descontable {
     }
 
     public void setEstado(EstadoProducto estado) {
-        this.estado = Objects.requireNonNull(estado, "El estado del producto es obligatorio.");
-    }
-
-    private static void validarTextoObligatorio(String valor, String mensaje) {
-        if (valor == null || valor.trim().isEmpty()) {
-            throw new IllegalArgumentException(mensaje);
-        }
+        this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
+                "El estado del producto es obligatorio.");
+        actualizarEstadoPorStock();
     }
 }

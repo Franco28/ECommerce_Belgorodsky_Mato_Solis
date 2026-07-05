@@ -2,9 +2,9 @@ package ecommerce.model;
 
 import ecommerce.enums.EstadoPago;
 import ecommerce.enums.MetodoPago;
+import ecommerce.util.ValidadorDominio;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class Pago {
 
@@ -16,10 +16,13 @@ public class Pago {
 
     public Pago(int id, MetodoPago metodoPago, double monto, EstadoPago estado, LocalDateTime fecha) {
         setId(id);
-        this.metodoPago = Objects.requireNonNull(metodoPago, "El método de pago es obligatorio.");
+        this.metodoPago = ValidadorDominio.validarObjetoObligatorio(metodoPago,
+                "El método de pago es obligatorio.");
         setMonto(monto);
-        this.estado = Objects.requireNonNull(estado, "El estado del pago es obligatorio.");
-        this.fecha = Objects.requireNonNull(fecha, "La fecha del pago es obligatoria.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
+                "El estado del pago es obligatorio.");
+        this.fecha = ValidadorDominio.validarObjetoObligatorio(fecha,
+                "La fecha del pago es obligatoria.");
     }
 
     public void aprobar() {
@@ -39,9 +42,7 @@ public class Pago {
     }
 
     public void setId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("El ID no puede ser negativo.");
-        }
+        ValidadorDominio.validarIdNoNegativo(id, "El ID no puede ser negativo.");
         this.id = id;
     }
 
@@ -54,9 +55,8 @@ public class Pago {
     }
 
     public void setMonto(double monto) {
-        if (monto <= 0) {
-            throw new IllegalArgumentException("El monto del pago debe ser mayor a cero.");
-        }
+        ValidadorDominio.validarDecimalMayorACero(monto,
+                "El monto del pago debe ser mayor a cero.");
         this.monto = monto;
     }
 

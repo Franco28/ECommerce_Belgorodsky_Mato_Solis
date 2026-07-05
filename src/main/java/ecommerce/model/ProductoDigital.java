@@ -1,6 +1,7 @@
 package ecommerce.model;
 
 import ecommerce.enums.EstadoProducto;
+import ecommerce.util.ValidadorDominio;
 
 public class ProductoDigital extends Producto {
 
@@ -22,9 +23,8 @@ public class ProductoDigital extends Producto {
     }
 
     public void setUrlDescarga(String urlDescarga) {
-        if (urlDescarga == null || urlDescarga.trim().isEmpty()) {
-            throw new IllegalArgumentException("La URL de descarga es obligatoria.");
-        }
+        ValidadorDominio.validarTextoObligatorio(urlDescarga,
+                "La URL de descarga es obligatoria.");
         this.urlDescarga = urlDescarga.trim();
     }
 }

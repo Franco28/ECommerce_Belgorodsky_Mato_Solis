@@ -3,8 +3,7 @@ package ecommerce.model;
 import ecommerce.enums.EstadoEnvio;
 import ecommerce.enums.TipoEnvio;
 import ecommerce.interfaces.Enviable;
-
-import java.util.Objects;
+import ecommerce.util.ValidadorDominio;
 
 public class Envio implements Enviable {
 
@@ -24,8 +23,10 @@ public class Envio implements Enviable {
         setProvincia(provincia);
         setCiudad(ciudad);
         setCodigoPostal(codigoPostal);
-        this.tipoEnvio = Objects.requireNonNull(tipoEnvio, "El tipo de envío es obligatorio.");
-        this.estado = Objects.requireNonNull(estado, "El estado del envío es obligatorio.");
+        this.tipoEnvio = ValidadorDominio.validarObjetoObligatorio(tipoEnvio,
+                "El tipo de envío es obligatorio.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
+                "El estado del envío es obligatorio.");
         setCosto(costo);
     }
 
@@ -35,7 +36,8 @@ public class Envio implements Enviable {
     }
 
     public void actualizarEstado(EstadoEnvio nuevoEstado) {
-        this.estado = Objects.requireNonNull(nuevoEstado, "El nuevo estado del envío es obligatorio.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(nuevoEstado,
+                "El nuevo estado del envío es obligatorio.");
     }
 
     public String getCodigoSeguimiento() {
@@ -43,7 +45,8 @@ public class Envio implements Enviable {
     }
 
     public void setCodigoSeguimiento(String codigoSeguimiento) {
-        validarTextoObligatorio(codigoSeguimiento, "El código de seguimiento es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(codigoSeguimiento,
+                "El código de seguimiento es obligatorio.");
         this.codigoSeguimiento = codigoSeguimiento.trim().toUpperCase();
     }
 
@@ -52,7 +55,7 @@ public class Envio implements Enviable {
     }
 
     public void setDireccion(String direccion) {
-        validarTextoObligatorio(direccion, "La dirección es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(direccion, "La dirección es obligatoria.");
         this.direccion = direccion.trim();
     }
 
@@ -61,7 +64,7 @@ public class Envio implements Enviable {
     }
 
     public void setProvincia(String provincia) {
-        validarTextoObligatorio(provincia, "La provincia es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(provincia, "La provincia es obligatoria.");
         this.provincia = provincia.trim();
     }
 
@@ -70,7 +73,7 @@ public class Envio implements Enviable {
     }
 
     public void setCiudad(String ciudad) {
-        validarTextoObligatorio(ciudad, "La ciudad es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(ciudad, "La ciudad es obligatoria.");
         this.ciudad = ciudad.trim();
     }
 
@@ -79,7 +82,8 @@ public class Envio implements Enviable {
     }
 
     public void setCodigoPostal(String codigoPostal) {
-        validarTextoObligatorio(codigoPostal, "El código postal es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(codigoPostal,
+                "El código postal es obligatorio.");
         this.codigoPostal = codigoPostal.trim();
     }
 
@@ -96,15 +100,8 @@ public class Envio implements Enviable {
     }
 
     public void setCosto(double costo) {
-        if (costo < 0) {
-            throw new IllegalArgumentException("El costo del envío no puede ser negativo.");
-        }
+        ValidadorDominio.validarDecimalNoNegativo(costo,
+                "El costo del envío no puede ser negativo.");
         this.costo = costo;
-    }
-
-    private static void validarTextoObligatorio(String valor, String mensaje) {
-        if (valor == null || valor.trim().isEmpty()) {
-            throw new IllegalArgumentException(mensaje);
-        }
     }
 }

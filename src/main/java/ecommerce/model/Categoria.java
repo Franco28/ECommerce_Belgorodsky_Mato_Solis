@@ -1,8 +1,7 @@
 package ecommerce.model;
 
 import ecommerce.enums.EstadoCategoria;
-
-import java.util.Objects;
+import ecommerce.util.ValidadorDominio;
 
 public class Categoria {
 
@@ -15,7 +14,8 @@ public class Categoria {
         setId(id);
         setNombre(nombre);
         setDescripcion(descripcion);
-        this.estado = Objects.requireNonNull(estado, "El estado de la categoría es obligatorio.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
+                "El estado de la categoría es obligatorio.");
     }
 
     public boolean estaActiva() {
@@ -35,9 +35,7 @@ public class Categoria {
     }
 
     public void setId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("El ID no puede ser negativo.");
-        }
+        ValidadorDominio.validarIdNoNegativo(id, "El ID no puede ser negativo.");
         this.id = id;
     }
 
@@ -46,7 +44,7 @@ public class Categoria {
     }
 
     public void setNombre(String nombre) {
-        validarTextoObligatorio(nombre, "El nombre de la categoría es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre de la categoría es obligatorio.");
         this.nombre = nombre.trim();
     }
 
@@ -55,17 +53,11 @@ public class Categoria {
     }
 
     public void setDescripcion(String descripcion) {
-        validarTextoObligatorio(descripcion, "La descripción de la categoría es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(descripcion, "La descripción de la categoría es obligatoria.");
         this.descripcion = descripcion.trim();
     }
 
     public EstadoCategoria getEstado() {
         return estado;
-    }
-
-    private static void validarTextoObligatorio(String valor, String mensaje) {
-        if (valor == null || valor.trim().isEmpty()) {
-            throw new IllegalArgumentException(mensaje);
-        }
     }
 }

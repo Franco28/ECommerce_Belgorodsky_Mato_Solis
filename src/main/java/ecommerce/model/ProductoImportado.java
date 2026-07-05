@@ -1,6 +1,7 @@
 package ecommerce.model;
 
 import ecommerce.enums.EstadoProducto;
+import ecommerce.util.ValidadorDominio;
 
 public class ProductoImportado extends Producto {
 
@@ -23,9 +24,8 @@ public class ProductoImportado extends Producto {
     }
 
     public void setPorcentajeImpuestoImportacion(double porcentajeImpuestoImportacion) {
-        if (porcentajeImpuestoImportacion < 0) {
-            throw new IllegalArgumentException("El impuesto de importación no puede ser negativo.");
-        }
+        ValidadorDominio.validarDecimalNoNegativo(porcentajeImpuestoImportacion,
+                "El impuesto de importación no puede ser negativo.");
         this.porcentajeImpuestoImportacion = porcentajeImpuestoImportacion;
     }
 }

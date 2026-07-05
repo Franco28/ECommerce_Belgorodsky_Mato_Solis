@@ -2,9 +2,9 @@ package ecommerce.model;
 
 import ecommerce.enums.EstadoUsuario;
 import ecommerce.enums.RolUsuario;
+import ecommerce.util.ValidadorDominio;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Usuario {
 
@@ -24,9 +24,12 @@ public class Usuario {
         setApellido(apellido);
         setEmail(email);
         setContrasenia(contrasenia);
-        this.fechaAlta = Objects.requireNonNull(fechaAlta, "La fecha de alta es obligatoria.");
-        this.estado = Objects.requireNonNull(estado, "El estado del usuario es obligatorio.");
-        this.rol = Objects.requireNonNull(rol, "El rol del usuario es obligatorio.");
+        this.fechaAlta = ValidadorDominio.validarObjetoObligatorio(fechaAlta,
+                "La fecha de alta es obligatoria.");
+        this.estado = ValidadorDominio.validarObjetoObligatorio(estado,
+                "El estado del usuario es obligatorio.");
+        this.rol = ValidadorDominio.validarObjetoObligatorio(rol,
+                "El rol del usuario es obligatorio.");
     }
 
     public void activar() {
@@ -50,9 +53,7 @@ public class Usuario {
     }
 
     public void setId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("El ID no puede ser negativo.");
-        }
+        ValidadorDominio.validarIdNoNegativo(id, "El ID no puede ser negativo.");
         this.id = id;
     }
 
@@ -61,7 +62,7 @@ public class Usuario {
     }
 
     public void setNombre(String nombre) {
-        validarTextoObligatorio(nombre, "El nombre es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(nombre, "El nombre es obligatorio.");
         this.nombre = nombre.trim();
     }
 
@@ -70,7 +71,7 @@ public class Usuario {
     }
 
     public void setApellido(String apellido) {
-        validarTextoObligatorio(apellido, "El apellido es obligatorio.");
+        ValidadorDominio.validarTextoObligatorio(apellido, "El apellido es obligatorio.");
         this.apellido = apellido.trim();
     }
 
@@ -79,10 +80,7 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        validarTextoObligatorio(email, "El email es obligatorio.");
-        if (!email.contains("@")) {
-            throw new IllegalArgumentException("El email no tiene un formato válido.");
-        }
+        ValidadorDominio.validarEmail(email);
         this.email = email.trim().toLowerCase();
     }
 
@@ -91,7 +89,7 @@ public class Usuario {
     }
 
     public void setContrasenia(String contrasenia) {
-        validarTextoObligatorio(contrasenia, "La contraseña es obligatoria.");
+        ValidadorDominio.validarTextoObligatorio(contrasenia, "La contraseña es obligatoria.");
         this.contrasenia = contrasenia;
     }
 
@@ -108,12 +106,6 @@ public class Usuario {
     }
 
     public void setRol(RolUsuario rol) {
-        this.rol = Objects.requireNonNull(rol, "El rol es obligatorio.");
-    }
-
-    private static void validarTextoObligatorio(String valor, String mensaje) {
-        if (valor == null || valor.trim().isEmpty()) {
-            throw new IllegalArgumentException(mensaje);
-        }
+        this.rol = ValidadorDominio.validarObjetoObligatorio(rol, "El rol es obligatorio.");
     }
 }

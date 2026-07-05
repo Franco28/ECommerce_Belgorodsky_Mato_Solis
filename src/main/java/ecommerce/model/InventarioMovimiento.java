@@ -1,9 +1,9 @@
 package ecommerce.model;
 
 import ecommerce.enums.TipoMovimientoInventario;
+import ecommerce.util.ValidadorDominio;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class InventarioMovimiento {
 
@@ -18,10 +18,13 @@ public class InventarioMovimiento {
     public InventarioMovimiento(int id, Producto producto, int cantidad, TipoMovimientoInventario tipo,
             LocalDateTime fecha, String motivo, int stockResultante) {
         setId(id);
-        this.producto = Objects.requireNonNull(producto, "El producto es obligatorio.");
+        this.producto = ValidadorDominio.validarObjetoObligatorio(producto,
+                "El producto es obligatorio.");
         setCantidad(cantidad);
-        this.tipo = Objects.requireNonNull(tipo, "El tipo de movimiento es obligatorio.");
-        this.fecha = Objects.requireNonNull(fecha, "La fecha del movimiento es obligatoria.");
+        this.tipo = ValidadorDominio.validarObjetoObligatorio(tipo,
+                "El tipo de movimiento es obligatorio.");
+        this.fecha = ValidadorDominio.validarObjetoObligatorio(fecha,
+                "La fecha del movimiento es obligatoria.");
         setMotivo(motivo);
         setStockResultante(stockResultante);
     }
@@ -31,9 +34,7 @@ public class InventarioMovimiento {
     }
 
     public void setId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException("El ID no puede ser negativo.");
-        }
+        ValidadorDominio.validarIdNoNegativo(id, "El ID no puede ser negativo.");
         this.id = id;
     }
 
@@ -46,9 +47,8 @@ public class InventarioMovimiento {
     }
 
     public void setCantidad(int cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La cantidad del movimiento debe ser mayor a cero.");
-        }
+        ValidadorDominio.validarEnteroMayorACero(cantidad,
+                "La cantidad del movimiento debe ser mayor a cero.");
         this.cantidad = cantidad;
     }
 
@@ -65,9 +65,8 @@ public class InventarioMovimiento {
     }
 
     public void setMotivo(String motivo) {
-        if (motivo == null || motivo.trim().isEmpty()) {
-            throw new IllegalArgumentException("El motivo del movimiento es obligatorio.");
-        }
+        ValidadorDominio.validarTextoObligatorio(motivo,
+                "El motivo del movimiento es obligatorio.");
         this.motivo = motivo.trim();
     }
 
@@ -76,9 +75,8 @@ public class InventarioMovimiento {
     }
 
     public void setStockResultante(int stockResultante) {
-        if (stockResultante < 0) {
-            throw new IllegalArgumentException("El stock resultante no puede ser negativo.");
-        }
+        ValidadorDominio.validarEnteroNoNegativo(stockResultante,
+                "El stock resultante no puede ser negativo.");
         this.stockResultante = stockResultante;
     }
 }

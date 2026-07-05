@@ -1,6 +1,6 @@
 package ecommerce.model;
 
-import java.util.Objects;
+import ecommerce.util.ValidadorDominio;
 
 public class ItemOrden {
 
@@ -10,9 +10,14 @@ public class ItemOrden {
     private double subtotal;
 
     public ItemOrden(Producto producto, int cantidad, double precioUnitario) {
-        this.producto = Objects.requireNonNull(producto, "El producto es obligatorio.");
+        this.producto = ValidadorDominio.validarObjetoObligatorio(producto,
+                "El producto es obligatorio.");
         setCantidad(cantidad);
         setPrecioUnitario(precioUnitario);
+        recalcularSubtotal();
+    }
+
+    private void recalcularSubtotal() {
         this.subtotal = this.precioUnitario * this.cantidad;
     }
 
@@ -25,10 +30,10 @@ public class ItemOrden {
     }
 
     public void setCantidad(int cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La cantidad debe ser mayor a cero.");
-        }
+        ValidadorDominio.validarEnteroMayorACero(cantidad,
+                "La cantidad debe ser mayor a cero.");
         this.cantidad = cantidad;
+        recalcularSubtotal();
     }
 
     public double getPrecioUnitario() {
@@ -36,10 +41,10 @@ public class ItemOrden {
     }
 
     public void setPrecioUnitario(double precioUnitario) {
-        if (precioUnitario <= 0) {
-            throw new IllegalArgumentException("El precio unitario debe ser mayor a cero.");
-        }
+        ValidadorDominio.validarDecimalMayorACero(precioUnitario,
+                "El precio unitario debe ser mayor a cero.");
         this.precioUnitario = precioUnitario;
+        recalcularSubtotal();
     }
 
     public double getSubtotal() {
