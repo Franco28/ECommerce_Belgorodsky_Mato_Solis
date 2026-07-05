@@ -42,6 +42,14 @@ public class MenuPrincipal {
                 serviceFactory.ordenService(),
                 serviceFactory.usuarioService(),
                 serviceFactory.carritoSesionService(),
+                serviceFactory.carritoSesionService(),
+                entrada);
+        this.pagoMenu = new PagoMenu(serviceFactory.pagoService(), entrada);
+        this.ordenMenu = new OrdenMenu(
+                serviceFactory.checkoutFacade(),
+                serviceFactory.ordenService(),
+                serviceFactory.usuarioService(),
+                serviceFactory.carritoSesionService(),
                 entrada);
         this.envioMenu = new EnvioMenu(serviceFactory.envioService(), entrada);
         this.seguimientoMenu = new SeguimientoMenu(serviceFactory.seguimientoService(), entrada);
