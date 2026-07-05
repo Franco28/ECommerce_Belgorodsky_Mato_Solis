@@ -108,7 +108,7 @@ Las excepciones personalizadas extienden de `EcommerceException`, que a su vez e
 
 Esto permite mantener los modelos limpios y evita llenar constructores, setters y métodos simples con firmas `throws`.
 
-Para persistencia se utiliza SQLite porque el enunciado del examen lo menciona como implementación válida. En esta etapa se define la conexión, configuración y creación de tablas; en la siguiente etapa se implementará el patrón DAO completo.
+Para persistencia se utiliza SQLite, se define la conexión, configuración y creación de tablas.
 
 ## Compilar el proyecto
 
