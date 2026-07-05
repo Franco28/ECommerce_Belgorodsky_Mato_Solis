@@ -110,36 +110,6 @@ Esto permite mantener los modelos limpios y evita llenar constructores, setters 
 
 Para persistencia se utiliza SQLite. En esta etapa se define la conexión, configuración y creación de tablas.
 
-## Compilar el proyecto
-
-Con Java 17:
-
-```powershell
-$files = Get-ChildItem -Recurse -Filter *.java | ForEach-Object FullName
-javac -d out $files
-java -cp out ecommerce.Main
-```
-
-## Inicializar SQLite
-
-Para inicializar la base de datos se recomienda Maven, porque el driver SQLite se declara como dependencia en `pom.xml`.
-
-```bash
-mvn clean compile exec:java -Dexec.mainClass=ecommerce.database.DatabaseInitializerApp
-```
-
-Eso genera el archivo:
-
-```text
-database/ecommerce.db
-```
-
-## Ejecutar con Maven
-
-```bash
-mvn clean compile exec:java
-```
-
 ## Etapa 4 - DAO y Factory
 
 Paquetes principales:
@@ -189,7 +159,6 @@ Ejemplo de uso:
 DAOFactory factory = DAOFactory.obtenerFactory();
 ProductoDAO productoDAO = factory.crearProductoDAO();
 ```
-
 
 ## Etapa 5 - Servicios de negocio
 
@@ -266,4 +235,98 @@ Funcionalidades disponibles desde consola:
 - Listar roles del sistema.
 - Consultar permisos asociados a cada rol.
 
+## Etapa 7 - Productos, categorías e inventario por consola
 
+Se completó la integración de los módulos de productos, categorías e inventario dentro del menú principal.
+
+Clases agregadas en `src/main/java/ecommerce/ui`:
+
+```text
+CategoriaMenu
+ProductoMenu
+InventarioMenu
+CategoriaSelector
+EstadoProductoSelector
+```
+
+También se ampliaron:
+
+```text
+MenuPrincipal
+EntradaConsola
+ConsolaUtils
+```
+
+Funcionalidades disponibles desde consola para categorías:
+
+- Alta de categoría.
+- Modificación de categoría.
+- Eliminación de categoría.
+- Búsqueda por ID.
+- Búsqueda por nombre.
+- Listado general.
+- Activación.
+- Desactivación.
+
+Funcionalidades disponibles desde consola para productos:
+
+- Registro de productos físicos, digitales e importados.
+- Modificación de datos generales y datos específicos según el tipo de producto.
+- Eliminación de productos.
+- Búsqueda por ID.
+- Búsqueda por código.
+- Listado general.
+- Listado por categoría.
+- Listado de productos sin stock.
+- Activación.
+- Inactivación.
+- Suspensión.
+
+Funcionalidades disponibles desde consola para inventario:
+
+- Ingreso de stock.
+- Egreso de stock.
+- Ajuste de stock.
+- Consulta de stock.
+- Historial de movimientos por producto.
+- Listado general de movimientos.
+
+El menú principal ya permite acceder a:
+
+```text
+1. Gestión de Usuarios
+2. Gestión de Roles
+3. Gestión de Productos
+4. Gestión de Categorías
+5. Gestión de Inventario
+```
+
+## Compilar el proyecto
+
+Con Java 17:
+
+```powershell
+$files = Get-ChildItem -Recurse -Filter *.java | ForEach-Object FullName
+javac -d out $files
+java -cp out ecommerce.Main
+```
+
+## Inicializar SQLite
+
+Para inicializar la base de datos se recomienda Maven, porque el driver SQLite se declara como dependencia en `pom.xml`.
+
+```bash
+mvn clean compile exec:java -Dexec.mainClass=ecommerce.database.DatabaseInitializerApp
+```
+
+Eso genera el archivo:
+
+```text
+database/ecommerce.db
+```
+
+## Ejecutar con Maven
+
+```bash
+mvn clean compile exec:java
+```

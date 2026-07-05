@@ -8,11 +8,23 @@ public class MenuPrincipal {
     private final EntradaConsola entrada;
     private final UsuarioMenu usuarioMenu;
     private final RolMenu rolMenu;
+    private final ProductoMenu productoMenu;
+    private final CategoriaMenu categoriaMenu;
+    private final InventarioMenu inventarioMenu;
 
     public MenuPrincipal(ServiceFactory serviceFactory, EntradaConsola entrada) {
         this.entrada = entrada;
         this.usuarioMenu = new UsuarioMenu(serviceFactory.usuarioService(), entrada);
         this.rolMenu = new RolMenu(entrada);
+        this.productoMenu = new ProductoMenu(
+                serviceFactory.productoService(),
+                serviceFactory.categoriaService(),
+                entrada);
+        this.categoriaMenu = new CategoriaMenu(serviceFactory.categoriaService(), entrada);
+        this.inventarioMenu = new InventarioMenu(
+                serviceFactory.inventarioService(),
+                serviceFactory.productoService(),
+                entrada);
     }
 
     public void mostrar() {
@@ -47,7 +59,10 @@ public class MenuPrincipal {
             switch (opcion) {
                 case 1 -> usuarioMenu.mostrar();
                 case 2 -> rolMenu.mostrar();
-                case 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 -> moduloNoDisponible();
+                case 3 -> productoMenu.mostrar();
+                case 4 -> categoriaMenu.mostrar();
+                case 5 -> inventarioMenu.mostrar();
+                case 6, 7, 8, 9, 10, 11, 12 -> moduloNoDisponible();
                 case 13 -> System.out.println("Saliendo del sistema.");
                 default -> System.out.println("Opción incorrecta.");
             }

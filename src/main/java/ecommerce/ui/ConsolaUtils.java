@@ -1,6 +1,12 @@
 package ecommerce.ui;
 
 import ecommerce.enums.RolUsuario;
+import ecommerce.model.Categoria;
+import ecommerce.model.InventarioMovimiento;
+import ecommerce.model.Producto;
+import ecommerce.model.ProductoDigital;
+import ecommerce.model.ProductoFisico;
+import ecommerce.model.ProductoImportado;
 import ecommerce.model.Usuario;
 
 import java.util.List;
@@ -50,6 +56,119 @@ public final class ConsolaUtils {
                 usuario.getEstado());
     }
 
+    public static void imprimirCategorias(List<Categoria> categorias) {
+        if (categorias.isEmpty()) {
+            System.out.println("No hay categorías registradas.");
+            return;
+        }
+
+        System.out.printf("%-5s %-24s %-45s %-12s%n", "ID", "Nombre", "Descripción", "Estado");
+        System.out.println("--------------------------------------------------------------------------------------------");
+
+        for (Categoria categoria : categorias) {
+            imprimirCategoriaEnTabla(categoria);
+        }
+    }
+
+    public static void imprimirCategoria(Categoria categoria) {
+        System.out.println("ID: " + categoria.getId());
+        System.out.println("Nombre: " + categoria.getNombre());
+        System.out.println("Descripción: " + categoria.getDescripcion());
+        System.out.println("Estado: " + categoria.getEstado());
+    }
+
+    public static void imprimirCategoriaEnTabla(Categoria categoria) {
+        System.out.printf("%-5d %-24s %-45s %-12s%n",
+                categoria.getId(),
+                limitar(categoria.getNombre(), 24),
+                limitar(categoria.getDescripcion(), 45),
+                categoria.getEstado());
+    }
+
+    public static void imprimirProductos(List<Producto> productos) {
+        if (productos.isEmpty()) {
+            System.out.println("No hay productos registrados.");
+            return;
+        }
+
+        System.out.printf("%-5s %-14s %-25s %-13s %-22s %-10s %-12s %-12s%n",
+                "ID", "Código", "Nombre", "Tipo", "Categoría", "Stock", "Precio", "Estado");
+        System.out.println("----------------------------------------------------------------------------------------------------------------");
+
+        for (Producto producto : productos) {
+            imprimirProductoEnTabla(producto);
+        }
+    }
+
+    public static void imprimirProducto(Producto producto) {
+        System.out.println("ID: " + producto.getId());
+        System.out.println("Código: " + producto.getCodigo());
+        System.out.println("Nombre: " + producto.getNombre());
+        System.out.println("Descripción: " + producto.getDescripcion());
+        System.out.println("Tipo: " + obtenerTipoProducto(producto));
+        System.out.println("Categoría: " + producto.getCategoria().getNombre() + " (ID " + producto.getCategoria().getId() + ")");
+        System.out.printf("Precio base: %.2f%n", producto.getPrecio());
+        System.out.printf("Precio final: %.2f%n", producto.calcularPrecioFinal());
+        System.out.println("Stock: " + producto.getStock());
+        System.out.println("Peso: " + producto.getPeso());
+        System.out.println("Estado: " + producto.getEstado());
+
+        if (producto instanceof ProductoDigital productoDigital) {
+            System.out.println("URL de descarga: " + productoDigital.getUrlDescarga());
+        } else if (producto instanceof ProductoImportado productoImportado) {
+            System.out.println("Impuesto de importación: " + productoImportado.getPorcentajeImpuestoImportacion() + "%");
+        }
+    }
+
+    public static void imprimirProductoEnTabla(Producto producto) {
+        System.out.printf("%-5d %-14s %-25s %-13s %-22s %-10d %-12.2f %-12s%n",
+                producto.getId(),
+                limitar(producto.getCodigo(), 14),
+                limitar(producto.getNombre(), 25),
+                obtenerTipoProducto(producto),
+                limitar(producto.getCategoria().getNombre(), 22),
+                producto.getStock(),
+                producto.calcularPrecioFinal(),
+                producto.getEstado());
+    }
+
+    public static void imprimirMovimientosInventario(List<InventarioMovimiento> movimientos) {
+        if (movimientos.isEmpty()) {
+            System.out.println("No hay movimientos de inventario registrados.");
+            return;
+        }
+
+        System.out.printf("%-5s %-20s %-13s %-10s %-18s %-16s %-35s%n",
+                "ID", "Producto", "Tipo", "Cantidad", "Stock result.", "Fecha", "Motivo");
+        System.out.println("----------------------------------------------------------------------------------------------------------------------");
+
+        for (InventarioMovimiento movimiento : movimientos) {
+            imprimirMovimientoInventarioEnTabla(movimiento);
+        }
+    }
+
+    public static void imprimirMovimientoInventario(InventarioMovimiento movimiento) {
+        System.out.println("ID: " + movimiento.getId());
+        System.out.println("Producto: " + movimiento.getProducto().getNombre()
+                + " (" + movimiento.getProducto().getCodigo() + ")");
+        System.out.println("Tipo: " + movimiento.getTipo());
+        System.out.println("Cantidad: " + movimiento.getCantidad());
+        System.out.println("Stock resultante: " + movimiento.getStockResultante());
+        System.out.println("Fecha: " + movimiento.getFecha());
+        System.out.println("Motivo: " + movimiento.getMotivo());
+    }
+
+    public static void imprimirMovimientoInventarioEnTabla(InventarioMovimiento movimiento) {
+        System.out.printf("%-5d %-20s %-13s %-10d %-18d %-16s %-35s%n",
+                movimiento.getId(),
+                limitar(movimiento.getProducto().getCodigo(), 20),
+                movimiento.getTipo(),
+                movimiento.getCantidad(),
+                movimiento.getStockResultante(),
+                movimiento.getFecha().toLocalDate(),
+                limitar(movimiento.getMotivo(), 35));
+    }
+
     public static void imprimirRoles() {
         RolUsuario[] roles = RolUsuario.values();
 
@@ -66,6 +185,19 @@ public final class ConsolaUtils {
             case OPERADOR_VENTAS -> "administra órdenes, confirma pagos y gestiona estados de pedidos";
             case RESPONSABLE_LOGISTICA -> "gestiona envíos y actualiza estados de entrega";
         };
+    }
+
+    public static String obtenerTipoProducto(Producto producto) {
+        if (producto instanceof ProductoDigital) {
+            return "DIGITAL";
+        }
+        if (producto instanceof ProductoImportado) {
+            return "IMPORTADO";
+        }
+        if (producto instanceof ProductoFisico) {
+            return "FISICO";
+        }
+        return producto.getClass().getSimpleName().toUpperCase();
     }
 
     private static String limitar(String valor, int maximo) {
